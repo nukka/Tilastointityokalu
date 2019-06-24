@@ -2,11 +2,226 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Kirjaa yhteystieto</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<h3>Tähän juttuja</h3>
+<script src="jquery.js"></script>
+<script src="renderer.js"></script>
+<script src="style.css"></script>
+
+
+<div class="text-center pb-4">
+    <div class="pt-2 pb-1 bg-info">
+        <h3>Yhteydenottajan taustatiedot</h3>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row pb-4">
+        <div class="col"></div>
+        <div class="col">
+            <h5>Ikä</h5>
+            <form>
+                <div class="radio">
+                    <label><input type="radio"> Alle 18</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> 19-30</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> 31-40</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> 41-50</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> 51-60</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> Yli 60</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> Ei tietoa</label>
+                </div>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col"></div>
+        <div class="col">
+            <h5>Etsin apua</h5>
+            <form>
+                <div class="radio">
+                    <label><input type="radio"> Omalle perheelle</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> Ystävälle/tuttavalle</label>
+                </div>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col"></div>
+        <div class="col">
+            <h5>Sukupuoli</h5>
+            <form>
+                <div class="radio">
+                    <label><input type="radio"> Mies</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> Nainen</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> Muu</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> Ei tietoa</label>
+                </div>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col"></div>
+        <div class="col">
+            <h5>Sosioekonominen asema</h5>
+            <label>
+                <select class="form-control">
+                    <option>Työssäkäyvä</option>
+                    <option>Työtön</option>
+                    <option>Opiskelija</option>
+                    <option>Eläkeläinen</option>
+                    <option>Varusmies/siviilipalvelusmies</option>
+                    <option>Kotona lasten kanssa</option>
+                    <option>Sairaslomalla</option>
+                </select>
+            </label>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col"></div>
+        <div class="col">
+            <h5>Lasten lukumäärä</h5>
+            <form>
+                <div class="radio">
+                    <label><input type="radio"> Ei tietoa</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> Ei lapsia</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> 1 lapsi</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> 2-3 lasta</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> 4-7 lasta</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> 8 tai enemmän</label>
+                </div>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col"></div>
+        <div class="col">
+            <h5>Lasten iät</h5>
+            <div class="checkbox">
+                <label><input type="checkbox"> Ei vielä syntynyt/olen raskaana</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox"> 6kk tai alle</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox"> 1v tai alle</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox"> 2-4v </label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox"> 5-7v</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox"> 8-10v</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox"> 11-13v</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox"> 14-16v</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox"> 17 tai yli</label>
+            </div>
+
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col"></div>
+        <div class="col">
+            <h5>Yhteydenottotapa</h5>
+            <form>
+                <div class="radio">
+                    <label><input type="radio"> Puhelinsoitto</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio"> Sähköposti</label>
+                </div>
+
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col-4"></div>
+        <div class="col-8">
+            <h5>Kontaktia ei syntynyt (täytä vain tämä kysymys ja siirry lomakkeen loppuun lähettääksesi
+                vastauksen)</h5>
+            <form>
+                <div class="radio">
+                    <label><input type="radio"> Yhteydenottaja ei vastannut asiantuntijan yhteydenottoon</label>
+                </div>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="row pb-4">
+        <div class="col"></div>
+        <div class="col">
+            <h5></h5>
+        </div>
+        <div class="col"></div>
+    </div>
+
+
+    <div class="row pb-4">
+        <div class="col" align="left">
+            <button type="button" class="btn btn-light" id="btn-cancel">Peruuta</button>
+        </div>
+        <div class="col" align="right">
+            <button type="button" class="btn btn-light" id="btn-next">Seuraava</button>
+        </div>
+    </div>
+
+
+</div>
+
 </body>
 </html>

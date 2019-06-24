@@ -39,9 +39,8 @@ function createWindow() {
 
        mainWindow.webContents.openDevTools();*/
 
-
     mainWindow = new BrowserWindow({
-        width: 800,
+        width: 1000,
         height: 600,
         webPreferences: {
             nodeIntegration: true,
@@ -61,7 +60,7 @@ function createWindow() {
 
     childWindow = new BrowserWindow({
         parent: mainWindow,
-        width: 800,
+        width: 1000,
         height: 600,
         webPreferences: {
             nodeIntegration: true,
@@ -79,6 +78,7 @@ function createWindow() {
     childWindow.hide();
     mainWindow.webContents.openDevTools();
     childWindow.webContents.openDevTools();
+
 }
 
 
@@ -92,12 +92,22 @@ ipcMain.on('clicked_contact', (event, arg) => {
 
 });
 
-ipcMain.on('clicked_quit', (event, arg) => {
-  if (arg == 'ping'){
-    console.log('Lopeta-nappi');
-    app.quit();
-  }
 
+ipcMain.on('clicked_quit', (event, arg) => {
+    if (arg == 'ping') {
+        console.log('Lopeta-nappi');
+        app.quit();
+    }
+
+
+});
+
+ipcMain.on('clicked_cancel', (event, arg) => {
+    if (arg == 'ping') {
+        console.log('peruuta-nappi');
+        childWindow.hide();
+
+    }
 
 
 });

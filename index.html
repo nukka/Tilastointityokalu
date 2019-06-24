@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tilastointityökalu</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Tilastointityökalu</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-
+<script src="jquery.js"></script>
+<script src="renderer.js"></script>
 
 <div class="container">
-  <div class="row pt-4">
-    <div class="col">
+    <div class="row pt-4">
+        <div class="col">
+        </div>
+        <div class="col-6 text-center">
+            <h3>Tilastointityökalu</h3>
+        </div>
+        <div class="col">
+        </div>
     </div>
-    <div class="col-6 text-center">
-      <h3>Tilastointityökalu</h3>
-    </div>
-    <div class="col">
-    </div>
-  </div>
 
-  <div class="row pt-5">
-    <div class="col">
+    <div class="row pt-5">
+        <div class="col">
+        </div>
+        <div class="col-6 text-center">
+            <button type="button" class="btn btn-light" id="btn-contact">Kirjaa yhteydenotto</button>
+        </div>
+        <div class="col">
+        </div>
     </div>
-    <div class="col-6 text-center">
-      <button type="button" class="btn btn-light" id="btn-contact">Kirjaa yhteydenotto</button>
-    </div>
-    <div class="col">
-    </div>
-  </div>
 
-  <div class="row pt-2">
-    <div class="col">
+    <div class="row pt-2">
+        <div class="col">
+        </div>
+        <div class="col-6 text-center">
+            <button type="button" class="btn btn-light" id="btn-statistics">Tilastot</button>
+        </div>
+        <div class="col">
+        </div>
     </div>
-    <div class="col-6 text-center">
-      <button type="button" class="btn btn-light" id="btn-statistics">Tilastot</button>
-    </div>
-    <div class="col">
-    </div>
-  </div>
 
-  <div class="row pt-2">
-    <div class="col">
+    <div class="row pt-2">
+        <div class="col">
+        </div>
+        <div class="col-6 text-center">
+            <button type="button" class="btn btn-light" id="btn-quit">Lopeta</button>
+        </div>
+        <div class="col">
+        </div>
     </div>
-    <div class="col-6 text-center">
-      <button type="button" class="btn btn-light" id="btn-quit">Lopeta</button>
-    </div>
-    <div class="col">
-    </div>
-  </div>
 
 </div>
 
-<script src="jquery.js"></script>
-<script src="renderer.js"></script>
 </body>
 </html>
