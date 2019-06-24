@@ -14,9 +14,27 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('#btn-cancel').click(function () {
-        console.log("peruuta nappia painettiin");
+    $('#btn-cancel-bginfo').click(function () {
         ipcR.send('clicked_cancel', 'ping');
     });
 });
+
+$(document).ready(function () {
+    $('#btn-next-bginfo').click(function () {
+        ipcR.send('clicked_next', 'ping');
+    });
+});
+
+$(document).ready(function () {
+    $('#btn-previous-reason').click(function () {
+        ipcR.send('clicked_previous_r', 'ping');
+    })
+});
+
+$(document).ready(function () {
+    $('#btn-toMain').click(function () {
+        ipcR.send('clicked_toMain', 'ping');
+    })
+});
+
 

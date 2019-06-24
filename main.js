@@ -6,7 +6,8 @@ const url = require('url');
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-let childWindow;
+let bginfoWindow;
+let reasonWindow;
 
 
 function createWindow() {
@@ -58,7 +59,7 @@ function createWindow() {
     }));
 
 
-    childWindow = new BrowserWindow({
+    bginfoWindow = new BrowserWindow({
         parent: mainWindow,
         width: 1000,
         height: 600,
@@ -69,15 +70,34 @@ function createWindow() {
         }
 
     });
-    childWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'kirjauslomake.html'),
+    bginfoWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'taustatiedot.html'),
         protocol: 'file',
         slashes: true
     }));
 
-    childWindow.hide();
-    mainWindow.webContents.openDevTools();
-    childWindow.webContents.openDevTools();
+    reasonWindow = new BrowserWindow({
+        parent: mainWindow,
+        width: 1000,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
+
+        }
+
+    });
+    reasonWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'yhteydenottosyy.html'),
+        protocol: 'file',
+        slashes: true
+    }));
+
+    bginfoWindow.hide();
+    reasonWindow.hide();
+    //mainWindow.webContents.openDevTools();
+    bginfoWindow.webContents.openDevTools();
+    reasonWindow.webContents.openDevTools();
 
 }
 
@@ -85,7 +105,7 @@ function createWindow() {
 ipcMain.on('clicked_contact', (event, arg) => {
     if (arg == 'ping') {
         console.log("Kirjaa yhteystieto -nappi");
-        childWindow.show();
+        bginfoWindow.show();
 
     }
 
@@ -95,7 +115,7 @@ ipcMain.on('clicked_contact', (event, arg) => {
 
 ipcMain.on('clicked_quit', (event, arg) => {
     if (arg == 'ping') {
-        console.log('Lopeta-nappi');
+        console.log('Sulje-nappi');
         app.quit();
     }
 
@@ -104,15 +124,36 @@ ipcMain.on('clicked_quit', (event, arg) => {
 
 ipcMain.on('clicked_cancel', (event, arg) => {
     if (arg == 'ping') {
-        console.log('peruuta-nappi');
-        childWindow.hide();
-
+        console.log('Peruuta-nappi');
+        bginfoWindow.hide();
     }
+});
 
+ipcMain.on('clicked_next', (event, arg) => {
+    if (arg == 'ping') {
+        console.log('Seuraava-nappi');
+        reasonWindow.show();
+    }
 
 });
 
+ipcMain.on('clicked_previous_r', (event, arg) => {
+    if (arg == 'ping') {
+        console.log('Edellinen-nappi');
+        bginfoWindow.show();
+        reasonWindow.hide();
+    }
 
+});
+
+ipcMain.on('clicked_toMain', (event, arg) => {
+    if (arg == 'ping') {
+        console.log('Lopeta-nappi');
+        reasonWindow.hide();
+        bginfoWindow.hide();
+    }
+
+});
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
