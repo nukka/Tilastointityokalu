@@ -8,6 +8,9 @@ const url = require('url');
 let mainWindow;
 let bginfoWindow;
 let reasonWindow;
+let helpWindow;
+let evaluationWindow;
+let successWindow;
 
 
 function createWindow() {
@@ -93,66 +96,185 @@ function createWindow() {
         slashes: true
     }));
 
+    helpWindow = new BrowserWindow({
+        width: 1000,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
+
+        }
+
+
+    });
+
+    helpWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'tarjottuapu.html'),
+        protocol: 'file',
+        slashes: true
+    }));
+
+
+    evaluationWindow = new BrowserWindow({
+        width: 1000,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
+
+        }
+
+    });
+
+    evaluationWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'arvio.html'),
+        protocol: 'file',
+        slashes: true
+    }));
+
+
+    successWindow = new BrowserWindow({
+        width: 1000,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
+
+        }
+
+    });
+
+    successWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'tallennusonnistui.html'),
+        protocol: 'file',
+        slashes: true
+    }));
+
     bginfoWindow.hide();
     reasonWindow.hide();
+    helpWindow.hide();
+    evaluationWindow.hide();
+    successWindow.hide();
+
     //mainWindow.webContents.openDevTools();
-    bginfoWindow.webContents.openDevTools();
-    reasonWindow.webContents.openDevTools();
+    //bginfoWindow.webContents.openDevTools();
+    //reasonWindow.webContents.openDevTools();
 
 }
 
 
 ipcMain.on('clicked_contact', (event, arg) => {
-    if (arg == 'ping') {
+    if (arg === 'ping') {
         console.log("Kirjaa yhteystieto -nappi");
         bginfoWindow.show();
-
     }
-
-
 });
 
 
 ipcMain.on('clicked_quit', (event, arg) => {
-    if (arg == 'ping') {
+    if (arg === 'ping') {
         console.log('Sulje-nappi');
         app.quit();
     }
-
-
 });
 
 ipcMain.on('clicked_cancel', (event, arg) => {
-    if (arg == 'ping') {
+    if (arg === 'ping') {
         console.log('Peruuta-nappi');
         bginfoWindow.hide();
     }
 });
 
 ipcMain.on('clicked_next', (event, arg) => {
-    if (arg == 'ping') {
+    if (arg === 'ping') {
         console.log('Seuraava-nappi');
+        bginfoWindow.hide();
         reasonWindow.show();
     }
-
 });
 
 ipcMain.on('clicked_previous_r', (event, arg) => {
-    if (arg == 'ping') {
+    if (arg === 'ping') {
         console.log('Edellinen-nappi');
         bginfoWindow.show();
         reasonWindow.hide();
     }
-
 });
 
+ipcMain.on('clicked_next_r', (event, arg) => {
+    if (arg === 'ping') {
+        console.log('Seuraava-nappi');
+        bginfoWindow.hide();
+        reasonWindow.hide();
+        helpWindow.show();
+    }
+});
+
+
 ipcMain.on('clicked_toMain', (event, arg) => {
-    if (arg == 'ping') {
+    if (arg === 'ping') {
         console.log('Lopeta-nappi');
         reasonWindow.hide();
         bginfoWindow.hide();
+        helpWindow.hide();
+        evaluationWindow.hide();
+        successWindow.hide();
     }
+});
 
+ipcMain.on('clicked_previous_help', (event, arg) => {
+    if (arg === 'ping') {
+        helpWindow.hide();
+        reasonWindow.show();
+    }
+});
+
+ipcMain.on('clicked_next_help', (event, arg) => {
+    if (arg === 'ping') {
+        bginfoWindow.hide();
+        helpWindow.hide();
+        reasonWindow.hide();
+        evaluationWindow.show();
+    }
+});
+
+ipcMain.on('clicked_previous_evaluation', (event, arg) => {
+    if (arg === 'ping') {
+        bginfoWindow.hide();
+        reasonWindow.hide();
+        evaluationWindow.hide();
+        helpWindow.show();
+    }
+});
+
+ipcMain.on('clicked_save', (event, arg) => {
+    if (arg === 'ping') {
+        bginfoWindow.hide();
+        reasonWindow.hide();
+        evaluationWindow.hide();
+        helpWindow.hide();
+        successWindow.show();
+    }
+});
+
+ipcMain.on('clicked_previous_success', (event, arg) => {
+    if (arg === 'ping') {
+        bginfoWindow.hide();
+        reasonWindow.hide();
+        helpWindow.hide();
+        successWindow.hide();
+        evaluationWindow.show();
+    }
+});
+
+ipcMain.on('clicked_checkbox_noanswer' && 'clicked_next', (event, arg) => {
+    if (arg === 'ping') {
+        bginfoWindow.hide();
+        reasonWindow.hide();
+        helpWindow.hide();
+        successWindow.hide();
+        evaluationWindow.show();
+    }
 });
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

@@ -25,25 +25,25 @@
             <h5>Ikä</h5>
             <form>
                 <div class="radio">
-                    <label><input type="radio"> Alle 18</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Alle 18</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> 19-30</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> 19-30</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> 31-40</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> 31-40</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> 41-50</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> 41-50</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> 51-60</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> 51-60</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> Yli 60</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Yli 60</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> Ei tietoa</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Ei tietoa</label>
                 </div>
             </form>
         </div>
@@ -56,10 +56,10 @@
             <h5>Etsin apua</h5>
             <form>
                 <div class="radio">
-                    <label><input type="radio"> Omalle perheelle</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Omalle perheelle</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> Ystävälle/tuttavalle</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Ystävälle/tuttavalle</label>
                 </div>
             </form>
         </div>
@@ -72,16 +72,16 @@
             <h5>Sukupuoli</h5>
             <form>
                 <div class="radio">
-                    <label><input type="radio"> Mies</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Mies</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> Nainen</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Nainen</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> Muu</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Muu</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> Ei tietoa</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Ei tietoa</label>
                 </div>
             </form>
         </div>
@@ -113,22 +113,22 @@
             <h5>Lasten lukumäärä</h5>
             <form>
                 <div class="radio">
-                    <label><input type="radio"> Ei tietoa</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Ei tietoa</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> Ei lapsia</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> Ei lapsia</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> 1 lapsi</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> 1 lapsi</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> 2-3 lasta</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> 2-3 lasta</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> 4-7 lasta</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> 4-7 lasta</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio"> 8 tai enemmän</label>
+                    <label><input class="form-check-input" type="radio" name="optradio"> 8 tai enemmän</label>
                 </div>
             </form>
         </div>
@@ -171,19 +171,21 @@
         <div class="col"></div>
     </div>
 
+
     <div class="row pb-4">
         <div class="col"></div>
         <div class="col">
             <h5>Yhteydenottotapa</h5>
-            <form>
-                <div class="radio">
-                    <label><input type="radio"> Puhelinsoitto</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio"> Sähköposti</label>
-                </div>
-
-            </form>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio">Puhelinsoitto
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio">Sähköpostiviesti
+                </label>
+            </div>
         </div>
         <div class="col"></div>
     </div>
@@ -191,15 +193,14 @@
     <div class="row pb-4">
         <div class="col-4"></div>
         <div class="col-8">
-            <h5>Kontaktia ei syntynyt (täytä vain tämä kysymys ja siirry lomakkeen loppuun lähettääksesi
-                vastauksen)</h5>
+            <h5>Kontaktia ei syntynyt (täytä vain tämä kysymys ja sinut siirretään viimeiselle sivulle)</h5>
             <form>
-                <div class="radio">
-                    <label><input type="radio"> Yhteydenottaja ei vastannut asiantuntijan yhteydenottoon</label>
+                <div class="checkbox">
+                    <label><input type="checkbox" id="checkbox-no-answer"> Yhteydenottaja ei vastannut asiantuntijan yhteydenottoon</label>
                 </div>
             </form>
         </div>
-        <div class="col"></div>
+
     </div>
 
     <div class="row pb-4">
