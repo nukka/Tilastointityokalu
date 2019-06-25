@@ -157,8 +157,8 @@ function createWindow() {
     successWindow.hide();
 
     //mainWindow.webContents.openDevTools();
-    //bginfoWindow.webContents.openDevTools();
-    //reasonWindow.webContents.openDevTools();
+    bginfoWindow.webContents.openDevTools();
+    reasonWindow.webContents.openDevTools();
 
 }
 
@@ -267,7 +267,7 @@ ipcMain.on('clicked_previous_success', (event, arg) => {
     }
 });
 
-ipcMain.on('clicked_checkbox_noanswer' && 'clicked_next', (event, arg) => {
+ipcMain.on('clicked_checkbox_noanswer', (event, arg) => {
     if (arg === 'ping') {
         bginfoWindow.hide();
         reasonWindow.hide();

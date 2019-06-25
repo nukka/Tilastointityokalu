@@ -75,8 +75,21 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#checkbox-no-answer').click(function () {
-        ipcR.send("clicked_checkbox_noanswer", 'ping')
+
+
+
+
+
+
+        if(this.checked){
+            //ipcR.send("clicked_checkbox_noanswer", 'ping')
+        }
+
     });
+
+
+
 });
+
 
 
