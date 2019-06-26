@@ -159,6 +159,9 @@ function createWindow() {
     //mainWindow.webContents.openDevTools();
     bginfoWindow.webContents.openDevTools();
     reasonWindow.webContents.openDevTools();
+    helpWindow.webContents.openDevTools();
+    evaluationWindow.webContents.openDevTools();
+
 
 }
 
