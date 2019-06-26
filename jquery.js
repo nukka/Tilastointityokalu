@@ -22,8 +22,14 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#btn-next-bginfo').click(function () {
         ipcR.send('clicked_next', 'ping');
+
+        if($('#checkbox-no-answer').is(':checked')){
+            ipcR.send("clicked_checkbox_noanswer", 'ping')
+        }
+
     });
 });
+
 
 $(document).ready(function () {
     $('#btn-previous-reason').click(function () {
@@ -73,23 +79,6 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $('#checkbox-no-answer').click(function () {
-
-
-
-
-
-
-        if(this.checked){
-            //ipcR.send("clicked_checkbox_noanswer", 'ping')
-        }
-
-    });
-
-
-
-});
 
 
 
