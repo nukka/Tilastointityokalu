@@ -1,6 +1,10 @@
 let $ = require('jquery');
 const ipcR = require('electron').ipcRenderer;
 
+let fs = require('fs');
+let filename = 'testidata';
+
+
 
 $(document).ready(function () {
     $("#btn-contact").click(function () {
@@ -115,6 +119,12 @@ $(document).ready(function () {
 
         console.log('    ');
 
+
+        fs.appendFile(filename, age + ',' + help + ',' + sex + ',' + '\n', (err) => {
+            if (err) throw err;
+            console.log('Tiedot tallennettu tekstitiedostoon');
+        });
+
     })
 
 });
@@ -186,12 +196,20 @@ $(document).ready(function () {
 
 });
 
+
 $(document).ready(function () {
     $('textarea[name=text_area]').bind('input propertychange', function() {
         console.log(this.value);
     });
 
 });
+
+
+
+
+
+
+
 
 
 
