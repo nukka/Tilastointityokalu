@@ -178,9 +178,23 @@ $(document).ready(function () {
 
 });
 
-$('.dropdown').click(function () {
-    $('.dropdown-menu').toggleClass('show');
+$(document).ready(function () {
+    $('#drop').change(function () {
+        let value = $(this);
+        console.log(value.val());
+    })
+
 });
+
+$(document).ready(function () {
+    $('textarea[name=text_area]').bind('input propertychange', function() {
+        console.log(this.value);
+    });
+
+});
+
+
+
 
 
 

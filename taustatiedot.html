@@ -13,7 +13,6 @@
 <script src="style.css"></script>
 
 
-
 <div class="text-center pb-4">
     <div class="pt-2 pb-1 bg-info">
         <h3>Yhteydenottajan taustatiedot</h3>
@@ -26,16 +25,16 @@
         <div class="col">
             <h5>Ikä</h5>
 
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="optradio_age" value="Alle 18">Alle 18
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="optradio_age" value="19-30">19-30
-                    </label>
-                </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio_age" value="Alle 18">Alle 18
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradio_age" value="19-30">19-30
+                </label>
+            </div>
             <div class="form-check">
                 <label class="form-check-label">
                     <input type="radio" class="form-check-input" name="optradio_age" value="31-40">31-40
@@ -66,7 +65,8 @@
             <h5>Etsin apua</h5>
             <div class="form-check">
                 <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="optradio_help" value="Omalle perheelle">Omalle perheelle
+                    <input type="radio" class="form-check-input" name="optradio_help" value="Omalle perheelle">Omalle
+                    perheelle
                 </label>
             </div>
             <div class="form-check">
@@ -111,14 +111,15 @@
         <div class="col">
             <h5>Sosioekonominen asema</h5>
             <label>
-                <select class="form-control">
-                    <option>Työssäkäyvä</option>
-                    <option>Työtön</option>
-                    <option>Opiskelija</option>
-                    <option>Eläkeläinen</option>
-                    <option>Varusmies/siviilipalvelusmies</option>
-                    <option>Kotona lasten kanssa</option>
-                    <option>Sairaslomalla</option>
+                <select class="form-control" id="drop">
+                    <option value=" ">Valitse</option>
+                    <option value="Työssäkäyvä">Työssäkäyvä</option>
+                    <option value="Työtön">Työtön</option>
+                    <option value="Opiskelija">Opiskelija</option>
+                    <option value="Eläkeläinen">Eläkeläinen</option>
+                    <option value="Varusmies">Varusmies/siviilipalvelusmies</option>
+                    <option value="Kotona lasten kanssa">Kotona lasten kanssa</option>
+                    <option value="Sairaslomalla">Sairaslomalla</option>
                 </select>
             </label>
 
@@ -178,7 +179,7 @@
                 <label><input type="checkbox" value="1v tai alle" name="bgcheck"> 1v tai alle</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox"  value="2-4v" name="bgcheck"> 2-4v </label>
+                <label><input type="checkbox" value="2-4v" name="bgcheck"> 2-4v </label>
             </div>
             <div class="checkbox">
                 <label><input type="checkbox" value="5-7v" name="bgcheck"> 5-7v</label>
@@ -225,7 +226,8 @@
             <h5>Kontaktia ei syntynyt (täytä vain tämä kysymys ja sinut siirretään viimeiselle sivulle)</h5>
             <form>
                 <div class="checkbox">
-                    <label><input type="checkbox" id="checkbox-no-answer"> Yhteydenottaja ei vastannut asiantuntijan yhteydenottoon</label>
+                    <label><input type="checkbox" id="checkbox-no-answer"> Yhteydenottaja ei vastannut asiantuntijan
+                        yhteydenottoon</label>
                 </div>
             </form>
         </div>
