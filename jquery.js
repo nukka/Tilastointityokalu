@@ -5,7 +5,6 @@ let fs = require('fs');
 let filename = 'testidata';
 
 
-
 $(document).ready(function () {
     $("#btn-contact").click(function () {
         ipcR.send('clicked_contact', 'ping');
@@ -31,6 +30,75 @@ $(document).ready(function () {
         if ($('#checkbox-no-answer').is(':checked')) {
             ipcR.send("clicked_checkbox_noanswer", 'ping')
         }
+        let age = $("input[name='optradio_age']:checked").val();
+        let help = $("input[name='optradio_help']:checked").val();
+        let sex = $("input[name='optradio_sex']:checked").val();
+        let child = $("input[name='optradio_c']:checked").val();
+        let contact_type = $("input[name='optradio_co']:checked").val();
+        let status = $("option[name='status']:checked").val();
+        let bgValues = [];
+
+
+        $("input[name='bgcheck']:checked").each(function (index, value) {
+            bgValues.push($(value).val());
+            if (bgValues.length !== 0) {
+                console.log("haloo " + bgValues);
+            }
+        });
+
+        fs.appendFile(filename, '**********************' + '\n', (err) => {
+            if (err) throw err;
+
+        });
+
+        if (age !== undefined) {
+            fs.appendFile(filename, 'Ikä: ' + age + '\n', (err) => {
+                if (err) throw err;
+
+            });
+        }
+
+        if (help !== undefined) {
+            fs.appendFile(filename, 'Kenelle apua: ' + help + '\n', (err) => {
+                if (err) throw err;
+
+            });
+        }
+        if (sex !== undefined) {
+            fs.appendFile(filename, 'Sukupuoli: ' + sex + '\n', (err) => {
+                if (err) throw err;
+
+            });
+        }
+
+        if (status !== undefined) {
+            fs.appendFile(filename, 'Sosioekonominen asema: ' + status + '\n', (err) => {
+                if (err) throw err;
+
+            });
+        }
+
+
+        if (child !== undefined) {
+            fs.appendFile(filename, 'Lasten lkm: ' + child + '\n', (err) => {
+                if (err) throw err;
+
+            });
+        }
+
+        if (bgValues.length !== 0) {
+            fs.appendFile(filename, 'Lasten iät: ' + bgValues + '\n', (err) => {
+                if (err) throw err;
+            });
+        }
+
+        if (contact_type !== undefined) {
+            fs.appendFile(filename, 'Yhteydenottotapa: ' + contact_type + '\n', (err) => {
+                if (err) throw err;
+
+            });
+        }
+
 
     });
 });
@@ -74,9 +142,12 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('#btn-save').click(function () {
+
         ipcR.send('clicked_save', 'ping');
+
     });
 });
+
 
 $(document).ready(function () {
     $('#btn-back-success').click(function () {
@@ -84,7 +155,9 @@ $(document).ready(function () {
     });
 });
 
+
 $(document).ready(function () {
+
     $("input[type='radio']").click(function () {
         let age = $("input[name='optradio_age']:checked").val();
         let help = $("input[name='optradio_help']:checked").val();
@@ -120,14 +193,11 @@ $(document).ready(function () {
         console.log('    ');
 
 
-        fs.appendFile(filename, age + ',' + help + ',' + sex + ',' + '\n', (err) => {
-            if (err) throw err;
-            console.log('Tiedot tallennettu tekstitiedostoon');
-        });
-
     })
 
+
 });
+
 
 $(document).ready(function () {
     $("input[type='checkbox']").click(function () {
@@ -198,7 +268,7 @@ $(document).ready(function () {
 
 
 $(document).ready(function () {
-    $('textarea[name=text_area]').bind('input propertychange', function() {
+    $('textarea[name=text_area]').bind('input propertychange', function () {
         console.log(this.value);
     });
 

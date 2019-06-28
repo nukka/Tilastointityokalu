@@ -133,6 +133,7 @@ function createWindow() {
     reasonWindow.webContents.openDevTools();
     helpWindow.webContents.openDevTools();
     evaluationWindow.webContents.openDevTools();
+    successWindow.webContents.openDevTools();
 
 }
 
@@ -162,8 +163,9 @@ ipcMain.on('clicked_cancel', (event, arg) => {
 ipcMain.on('clicked_next', (event, arg) => {
     if (arg === 'ping') {
         console.log('Seuraava-nappi');
-        bginfoWindow.hide();
         reasonWindow.show();
+        bginfoWindow.hide();
+
     }
 });
 
@@ -178,9 +180,11 @@ ipcMain.on('clicked_previous_r', (event, arg) => {
 ipcMain.on('clicked_next_r', (event, arg) => {
     if (arg === 'ping') {
         console.log('Seuraava-nappi');
+
+        helpWindow.show();
         bginfoWindow.hide();
         reasonWindow.hide();
-        helpWindow.show();
+
     }
 });
 
@@ -198,56 +202,68 @@ ipcMain.on('clicked_toMain', (event, arg) => {
 
 ipcMain.on('clicked_previous_help', (event, arg) => {
     if (arg === 'ping') {
-        helpWindow.hide();
+
         reasonWindow.show();
+        helpWindow.hide();
+
     }
 });
 
 ipcMain.on('clicked_next_help', (event, arg) => {
     if (arg === 'ping') {
+        evaluationWindow.show();
         bginfoWindow.hide();
         helpWindow.hide();
         reasonWindow.hide();
-        evaluationWindow.show();
+
     }
 });
 
 ipcMain.on('clicked_previous_evaluation', (event, arg) => {
     if (arg === 'ping') {
+
+        helpWindow.show();
         bginfoWindow.hide();
         reasonWindow.hide();
         evaluationWindow.hide();
-        helpWindow.show();
+
     }
 });
 
 ipcMain.on('clicked_save', (event, arg) => {
     if (arg === 'ping') {
+
+        successWindow.show();
         bginfoWindow.hide();
         reasonWindow.hide();
         evaluationWindow.hide();
         helpWindow.hide();
-        successWindow.show();
+
     }
+
 });
 
 ipcMain.on('clicked_previous_success', (event, arg) => {
     if (arg === 'ping') {
+
+        evaluationWindow.show();
         bginfoWindow.hide();
         reasonWindow.hide();
         helpWindow.hide();
         successWindow.hide();
-        evaluationWindow.show();
+
     }
 });
 
 ipcMain.on('clicked_checkbox_noanswer', (event, arg) => {
     if (arg === 'ping') {
+
+        evaluationWindow.show();
         bginfoWindow.hide();
         reasonWindow.hide();
         helpWindow.hide();
         successWindow.hide();
-        evaluationWindow.show();
+
     }
 });
 // This method will be called when Electron has finished
