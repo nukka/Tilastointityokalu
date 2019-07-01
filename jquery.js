@@ -42,61 +42,63 @@ $(document).ready(function () {
         $("input[name='bgcheck']:checked").each(function (index, value) {
             bgValues.push($(value).val());
             if (bgValues.length !== 0) {
-                console.log("haloo " + bgValues);
             }
         });
 
-        fs.appendFile(filename, '**********************' + '\n', (err) => {
-            if (err) throw err;
 
-        });
+        if (age === undefined && help === undefined && sex === undefined && child === undefined && contact_type === undefined && status === undefined && bgValues.length === 0) {
+            console.log("Tietoja ei syötetty");
 
-        if (age !== undefined) {
-            fs.appendFile(filename, 'Ikä: ' + age + '\n', (err) => {
-                if (err) throw err;
+        } else {
 
-            });
-        }
+            if (age !== undefined) {
+                fs.appendFile(filename, 'Ikä: ' + age + '\n', (err) => {
+                    if (err) throw err;
 
-        if (help !== undefined) {
-            fs.appendFile(filename, 'Kenelle apua: ' + help + '\n', (err) => {
-                if (err) throw err;
+                });
+            }
 
-            });
-        }
-        if (sex !== undefined) {
-            fs.appendFile(filename, 'Sukupuoli: ' + sex + '\n', (err) => {
-                if (err) throw err;
+            if (help !== undefined) {
+                fs.appendFile(filename, 'Kenelle apua: ' + help + '\n', (err) => {
+                    if (err) throw err;
 
-            });
-        }
+                });
+            }
+            if (sex !== undefined) {
+                fs.appendFile(filename, 'Sukupuoli: ' + sex + '\n', (err) => {
+                    if (err) throw err;
 
-        if (status !== undefined) {
-            fs.appendFile(filename, 'Sosioekonominen asema: ' + status + '\n', (err) => {
-                if (err) throw err;
+                });
+            }
 
-            });
-        }
+            if (status !== undefined) {
+                fs.appendFile(filename, 'Sosioekonominen asema: ' + status + '\n', (err) => {
+                    if (err) throw err;
+
+                });
+            }
 
 
-        if (child !== undefined) {
-            fs.appendFile(filename, 'Lasten lkm: ' + child + '\n', (err) => {
-                if (err) throw err;
+            if (child !== undefined) {
+                fs.appendFile(filename, 'Lasten lkm: ' + child + '\n', (err) => {
+                    if (err) throw err;
 
-            });
-        }
+                });
+            }
 
-        if (bgValues.length !== 0) {
-            fs.appendFile(filename, 'Lasten iät: ' + bgValues + '\n', (err) => {
-                if (err) throw err;
-            });
-        }
+            if (bgValues.length !== 0) {
+                fs.appendFile(filename, 'Lasten iät: ' + bgValues + '\n', (err) => {
+                    if (err) throw err;
+                });
+            }
 
-        if (contact_type !== undefined) {
-            fs.appendFile(filename, 'Yhteydenottotapa: ' + contact_type + '\n', (err) => {
-                if (err) throw err;
+            if (contact_type !== undefined) {
+                fs.appendFile(filename, 'Yhteydenottotapa: ' + contact_type + '\n', (err) => {
+                    if (err) throw err;
 
-            });
+                });
+            }
+
         }
 
 
@@ -113,6 +115,65 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#btn-next-reason').click(function () {
         ipcR.send('clicked_next_r', 'ping');
+
+        let crisisValues = [];
+        let changeValues = [];
+        let concernValues = [];
+        let wellbeingValues = [];
+
+        $("input[name='check_crisis']:checked").each(function (index, value) {
+            crisisValues.push($(value).val());
+        });
+
+
+        $("input[name='check_change']:checked").each(function (index, value) {
+            changeValues.push($(value).val());
+        });
+
+        $("input[name='check_concern']:checked").each(function (index, value) {
+            concernValues.push($(value).val());
+        });
+
+        $("input[name='check_wellbeing']:checked").each(function (index, value) {
+            wellbeingValues.push($(value).val());
+        });
+
+        if (crisisValues.length === 0 && changeValues.length === 0 && concernValues.length === 0 && wellbeingValues.length === 0) {
+            console.log("Tietoja ei syötetty");
+        } else {
+
+
+            if (crisisValues.length !== 0) {
+                fs.appendFile(filename, 'Erokriisi: ' + crisisValues + '\n', (err) => {
+                    if (err) throw err;
+
+                });
+                console.log("huhuu" + crisisValues);
+            }
+
+            if (changeValues.length !== 0) {
+                fs.appendFile(filename, 'Perhetilanteen muutos: ' + changeValues + '\n', (err) => {
+                    if (err) throw err;
+
+                });
+            }
+
+            if (concernValues.length !== 0) {
+                fs.appendFile(filename, 'Huoli lapsesta: ' + concernValues + '\n', (err) => {
+                    if (err) throw err;
+
+                });
+            }
+
+            if (wellbeingValues.length !== 0) {
+                fs.appendFile(filename, 'Hyvinvointi: ' + wellbeingValues + '\n', (err) => {
+                    if (err) throw err;
+
+                });
+            }
+        }
+
+
     })
 });
 
@@ -131,6 +192,26 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#btn-next-help').click(function () {
         ipcR.send('clicked_next_help', 'ping');
+
+        let continueValues = [];
+
+        $("input[name='check_continue']:checked").each(function (index, value) {
+            continueValues.push($(value).val());
+            if (continueValues.length !== 0) {
+                console.log(continueValues);
+            }
+        });
+
+        if (continueValues.length === 0) {
+            console.log("Tietoja ei syötetty");
+        } else {
+
+            fs.appendFile(filename, 'Suositeltu jatko: ' + continueValues + '\n', (err) => {
+                if (err) throw err;
+            });
+        }
+
+
     });
 });
 
@@ -144,6 +225,43 @@ $(document).ready(function () {
     $('#btn-save').click(function () {
 
         ipcR.send('clicked_save', 'ping');
+
+        let evaluation_a = $("input[name='evaluation_a']:checked").val();
+        let evaluation_y = $("input[name='evaluation_y']:checked").val();
+        let text = $('textarea#textarea_e').val();
+
+        console.log(text.length);
+
+
+        if (evaluation_a === undefined && evaluation_y === undefined && text.length === 0) {
+            console.log("Tietoja ei tallennettu");
+        } else {
+            if (evaluation_a !== undefined) {
+                fs.appendFile(filename, 'Asiantuntijan arvio: ' + evaluation_a + '\n', (err) => {
+                    if (err) throw err;
+                });
+            }
+
+
+            if (evaluation_y !== undefined) {
+                fs.appendFile(filename, 'Yhteydenottajan arvio: ' + evaluation_y + '\n', (err) => {
+                    if (err) throw err;
+                });
+            }
+
+            if (text.length !== 0) {
+                fs.appendFile(filename, 'Muuta: ' + text + '\n', (err) => {
+                    if (err) throw err;
+                });
+            }
+
+            fs.appendFile(filename, '**********************' + '\n', (err) => {
+                if (err) throw err;
+
+            });
+
+        }
+
 
     });
 });
