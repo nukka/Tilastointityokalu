@@ -85,9 +85,9 @@ $(document).ready(function () {
             if (contact_type !== undefined) {
                 infoValues.push(contact_type);
             }
-
+            ipcR.send('update-from-bg', infoValues);
         }
-        ipcR.send('update-from-bg', infoValues);
+
 
     });
 });
@@ -150,9 +150,8 @@ $(document).ready(function () {
                 inputValues.push('[' + wellbeingValues + ']');
             }
 
-
+            ipcR.send('update-from-reason', inputValues);
         }
-        ipcR.send('update-from-reason', inputValues);
 
 
     })
@@ -186,10 +185,9 @@ $(document).ready(function () {
         if (continueValues.length === 0) {
             console.log("Tietoja ei syötetty");
         } else {
-
+            ipcR.send('update-from-help', continueValues);
 
         }
-        ipcR.send('update-from-help', continueValues);
 
 
     });
@@ -232,6 +230,7 @@ $(document).ready(function () {
 
         if (evaluation_a === undefined && evaluation_y === undefined && text.length === 0) {
             console.log("Tietoja ei tallennettu");
+
         } else {
             if (evaluation_a !== undefined) {
 
@@ -252,7 +251,24 @@ $(document).ready(function () {
 
         }
 
-        fs.appendFile(filename, inputDatabg + ',' + inputDatareason + ',' + inputDatahelp + ',' + inputValues + '\n', (err) => {
+        let writeFile = [];
+
+        if (inputDatabg !== undefined) {
+            writeFile.push(inputDatabg);
+        }
+
+        if (inputDatareason !== undefined) {
+            writeFile.push(inputDatareason);
+        }
+        if (inputDatahelp !== undefined) {
+            writeFile.push(inputDatahelp);
+        }
+        if (inputValues !== undefined) {
+            writeFile.push(inputValues);
+        }
+
+        console.log(writeFile);
+        fs.appendFile(filename, writeFile + '\n', (err) => {
             if (err) throw err;
         });
 
