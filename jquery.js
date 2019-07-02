@@ -27,6 +27,7 @@ $(document).ready(function () {
     $('#btn-next-bginfo').click(function () {
         ipcR.send('clicked_next', 'ping');
 
+
         if ($('#checkbox-no-answer').is(':checked')) {
             ipcR.send("clicked_checkbox_noanswer", 'ping')
         }
@@ -37,6 +38,8 @@ $(document).ready(function () {
         let contact_type = $("input[name='optradio_co']:checked").val();
         let status = $("option[name='status']:checked").val();
         let bgValues = [];
+
+        let infoValues = [];
 
 
         $("input[name='bgcheck']:checked").each(function (index, value) {
@@ -52,55 +55,39 @@ $(document).ready(function () {
         } else {
 
             if (age !== undefined) {
-                fs.appendFile(filename, 'Ikä: ' + age + '\n', (err) => {
-                    if (err) throw err;
 
-                });
+                infoValues.push(age);
             }
 
             if (help !== undefined) {
-                fs.appendFile(filename, 'Kenelle apua: ' + help + '\n', (err) => {
-                    if (err) throw err;
 
-                });
+                infoValues.push(help);
             }
             if (sex !== undefined) {
-                fs.appendFile(filename, 'Sukupuoli: ' + sex + '\n', (err) => {
-                    if (err) throw err;
 
-                });
+                infoValues.push(sex);
+
             }
 
             if (status !== undefined) {
-                fs.appendFile(filename, 'Sosioekonominen asema: ' + status + '\n', (err) => {
-                    if (err) throw err;
-
-                });
+                infoValues.push(status);
             }
 
 
             if (child !== undefined) {
-                fs.appendFile(filename, 'Lasten lkm: ' + child + '\n', (err) => {
-                    if (err) throw err;
-
-                });
+                infoValues.push(child);
             }
 
             if (bgValues.length !== 0) {
-                fs.appendFile(filename, 'Lasten iät: ' + bgValues + '\n', (err) => {
-                    if (err) throw err;
-                });
+                infoValues.push('[' + bgValues + ']');
             }
 
             if (contact_type !== undefined) {
-                fs.appendFile(filename, 'Yhteydenottotapa: ' + contact_type + '\n', (err) => {
-                    if (err) throw err;
-
-                });
+                infoValues.push(contact_type);
             }
 
         }
-
+        ipcR.send('update-from-bg', infoValues);
 
     });
 });
@@ -120,6 +107,9 @@ $(document).ready(function () {
         let changeValues = [];
         let concernValues = [];
         let wellbeingValues = [];
+
+        let inputValues = [];
+
 
         $("input[name='check_crisis']:checked").each(function (index, value) {
             crisisValues.push($(value).val());
@@ -144,34 +134,25 @@ $(document).ready(function () {
 
 
             if (crisisValues.length !== 0) {
-                fs.appendFile(filename, 'Erokriisi: ' + crisisValues + '\n', (err) => {
-                    if (err) throw err;
+                inputValues.push('[' + crisisValues + ']');
 
-                });
-                console.log("huhuu" + crisisValues);
             }
 
             if (changeValues.length !== 0) {
-                fs.appendFile(filename, 'Perhetilanteen muutos: ' + changeValues + '\n', (err) => {
-                    if (err) throw err;
-
-                });
+                inputValues.push('[' + changeValues + ']');
             }
 
             if (concernValues.length !== 0) {
-                fs.appendFile(filename, 'Huoli lapsesta: ' + concernValues + '\n', (err) => {
-                    if (err) throw err;
-
-                });
+                inputValues.push('[' + concernValues + ']');
             }
 
             if (wellbeingValues.length !== 0) {
-                fs.appendFile(filename, 'Hyvinvointi: ' + wellbeingValues + '\n', (err) => {
-                    if (err) throw err;
-
-                });
+                inputValues.push('[' + wellbeingValues + ']');
             }
+
+
         }
+        ipcR.send('update-from-reason', inputValues);
 
 
     })
@@ -206,10 +187,9 @@ $(document).ready(function () {
             console.log("Tietoja ei syötetty");
         } else {
 
-            fs.appendFile(filename, 'Suositeltu jatko: ' + continueValues + '\n', (err) => {
-                if (err) throw err;
-            });
+
         }
+        ipcR.send('update-from-help', continueValues);
 
 
     });
@@ -222,48 +202,64 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+
+    let inputDatabg;
+    let inputDatareason;
+    let inputDatahelp;
+
+
+    ipcR.on('action-update-bg', (event, arg) => {
+        inputDatabg = arg;
+    });
+
+    ipcR.on('action-update-reason', (event, arg) => {
+        inputDatareason = arg;
+    });
+
+    ipcR.on('action-update-help', (event, arg) => {
+        inputDatahelp = arg;
+    });
+
+
     $('#btn-save').click(function () {
 
+        let inputValues = [];
         ipcR.send('clicked_save', 'ping');
 
         let evaluation_a = $("input[name='evaluation_a']:checked").val();
         let evaluation_y = $("input[name='evaluation_y']:checked").val();
         let text = $('textarea#textarea_e').val();
 
-        console.log(text.length);
-
-
         if (evaluation_a === undefined && evaluation_y === undefined && text.length === 0) {
             console.log("Tietoja ei tallennettu");
         } else {
             if (evaluation_a !== undefined) {
-                fs.appendFile(filename, 'Asiantuntijan arvio: ' + evaluation_a + '\n', (err) => {
-                    if (err) throw err;
-                });
+
+                inputValues.push(evaluation_a);
             }
 
 
             if (evaluation_y !== undefined) {
-                fs.appendFile(filename, 'Yhteydenottajan arvio: ' + evaluation_y + '\n', (err) => {
-                    if (err) throw err;
-                });
+
+                inputValues.push(evaluation_y);
             }
 
             if (text.length !== 0) {
-                fs.appendFile(filename, 'Muuta: ' + text + '\n', (err) => {
-                    if (err) throw err;
-                });
+
+                inputValues.push(text);
             }
 
-            fs.appendFile(filename, '**********************' + '\n', (err) => {
-                if (err) throw err;
-
-            });
 
         }
 
+        fs.appendFile(filename, inputDatabg + ',' + inputDatareason + ',' + inputDatahelp + ',' + inputValues + '\n', (err) => {
+            if (err) throw err;
+        });
+
 
     });
+
+
 });
 
 
@@ -391,6 +387,7 @@ $(document).ready(function () {
     });
 
 });
+
 
 
 

@@ -266,6 +266,19 @@ ipcMain.on('clicked_checkbox_noanswer', (event, arg) => {
 
     }
 });
+
+ipcMain.on('update-from-bg', (event, arg) => {
+    evaluationWindow.webContents.send('action-update-bg', arg);
+});
+
+ipcMain.on('update-from-reason', (event, arg) => {
+    evaluationWindow.webContents.send('action-update-reason', arg);
+});
+
+ipcMain.on('update-from-help', (event, arg) => {
+    evaluationWindow.webContents.send('action-update-help', arg);
+});
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
