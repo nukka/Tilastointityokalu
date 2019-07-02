@@ -29,7 +29,8 @@ $(document).ready(function () {
 
 
         if ($('#checkbox-no-answer').is(':checked')) {
-            ipcR.send("clicked_checkbox_noanswer", 'ping')
+            ipcR.send("clicked_checkbox_noanswer", 'ping');
+            ipcR.send('update-from-bg', 'Kontaktia ei syntyny');
         }
         let age = $("input[name='optradio_age']:checked").val();
         let help = $("input[name='optradio_help']:checked").val();
@@ -56,16 +57,16 @@ $(document).ready(function () {
 
             if (age !== undefined) {
 
-                infoValues.push(age);
+                infoValues.push('Ika:' + age);
             }
 
             if (help !== undefined) {
 
-                infoValues.push(help);
+                infoValues.push('Apu:' + help);
             }
             if (sex !== undefined) {
 
-                infoValues.push(sex);
+                infoValues.push('Sukupuoli:' + sex);
 
             }
 
@@ -267,12 +268,30 @@ $(document).ready(function () {
             writeFile.push(inputValues);
         }
 
-        console.log(writeFile);
-        fs.appendFile(filename, writeFile + '\n', (err) => {
+        if (inputDatabg === undefined && inputDatareason === undefined && inputDatahelp === undefined) {
+            console.log("tyhjää");
+        } else {
+            fs.appendFile(filename, writeFile + '\n', (err) => {
+                if (err) {
+                    throw err;
+
+                }
+
+            });
+        }
+
+
+        /*fs.readFile(filename, 'utf-8', (err, data) => {
             if (err) throw err;
-        });
+            let array = [];
+            array.push(data);
+            var rows = data.split('\n');
 
 
+            console.log(rows.length);
+
+
+        });    */
     });
 
 
