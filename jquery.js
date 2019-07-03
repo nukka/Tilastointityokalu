@@ -264,12 +264,13 @@ $(document).ready(function () {
         if (inputDatahelp !== undefined) {
             writeFile.push(inputDatahelp);
         }
-        if (inputValues !== undefined) {
+        if (inputValues.length !== 0) {
             writeFile.push(inputValues);
         }
 
-        if (inputDatabg === undefined && inputDatareason === undefined && inputDatahelp === undefined) {
-            console.log("tyhjää");
+
+        if (inputDatabg === undefined && inputDatareason === undefined && inputDatahelp === undefined && inputValues.length === 0) {
+            // console.log("tyhjää");
         } else {
             fs.appendFile(filename, writeFile + '\n', (err) => {
                 if (err) {
@@ -281,17 +282,50 @@ $(document).ready(function () {
         }
 
 
-        /*fs.readFile(filename, 'utf-8', (err, data) => {
+        fs.readFile(filename, 'utf-8', (err, data) => {
             if (err) throw err;
-            let array = [];
-            array.push(data);
-            var rows = data.split('\n');
 
 
-            console.log(rows.length);
+            let array = data.split('\n');
+            console.log(array.length);
+
+            $.each(array, function (index) {
+                let row = array[index].split(',');
 
 
-        });    */
+                $.each(row, function (index) {
+                    let word = row[index].split(',');
+                    //console.log(word);
+
+
+                    let found = false;
+                    $.each(word, function (index, value) {
+                        if (value.indexOf(':') >= 0) {
+
+                            found = true;
+
+                            //console.log(found);
+
+                            if (found === true) {
+                                let string = word[index].split(':');
+                                console.log(string);
+                                if (string[0] === 'Ika') {
+
+                                }
+                            }
+
+                            // return false;
+                        }
+                    });
+
+
+                });
+
+
+            });
+
+
+        });
     });
 
 
