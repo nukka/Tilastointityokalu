@@ -77,20 +77,20 @@ $(document).ready(function () {
             }
 
             if (status !== undefined) {
-                infoValues.push(status);
+                infoValues.push('Status:' + status);
             }
 
 
             if (child !== undefined) {
-                infoValues.push(child);
+                infoValues.push('Lapsi_lkm:' + child);
             }
 
             if (bgValues.length !== 0) {
-                infoValues.push('[' + bgValues + ']');
+                infoValues.push('Lapsi_ikä:' + '[' + bgValues + ']');
             }
 
             if (contact_type !== undefined) {
-                infoValues.push(contact_type);
+                infoValues.push('Yht_otto:' + contact_type);
             }
             ipcR.send('update-from-bg', infoValues);
         }
@@ -295,15 +295,21 @@ $(document).ready(function () {
 
 
 $(document).ready(function () {
+
     fs.readFile(filename, 'utf-8', (err, data) => {
         if (err) throw err;
 
-
-        let array = data.split('\n');
-        console.log(array.length);
+        let age_count = 0;
+        let help_count = 0;
+        let sex_count = 0;
+        let status_count = 0;
+        let child_count = 0;
+        let childAge_count = 0;
+        let contact_count = 0;
 
         $.each(array, function (index) {
             let row = array[index].split(',');
+            //console.log(row);
 
 
             $.each(row, function (index) {
@@ -316,19 +322,46 @@ $(document).ready(function () {
                     if (value.indexOf(':') >= 0) {
 
                         found = true;
-
                         //console.log(found);
 
                         if (found === true) {
                             let string = word[index].split(':');
-                            console.log(string);
+                            //console.log(string);
+
                             if (string[0] === 'Ika') {
+                                age_count++;
 
                             }
-                        }
 
+
+                            if (string[0] === 'Apu') {
+                                help_count++;
+                            }
+
+                            if (string[0] === 'Sukupuoli') {
+                                sex_count++;
+                            }
+
+                            if (string[0] === 'Status') {
+                                status_count++;
+                            }
+
+                            if (string[0] === 'Lapsi_lkm') {
+                                child_count++;
+                            }
+
+                            if (string[0] === 'Lapsi_ikä') {
+                                childAge_count++;
+                            }
+
+                            if (string[0] === 'Yht_otto') {
+                                contact_count++;
+                            }
+
+                        }
                         // return false;
                     }
+
                 });
 
 
@@ -337,6 +370,13 @@ $(document).ready(function () {
 
         });
 
+        console.log("Ikä (kpl): " + age_count);
+        console.log("Kelle apua (kpl): " + help_count);
+        console.log("Sukupuoli (kpl): " + sex_count);
+        console.log('Sosioasema (kpl): ' + status_count);
+        console.log('Lapsten lukumäärä (kpl): ' + child_count);
+        console.log('Lasten iät (kpl): ' + childAge_count);
+        console.log('Yhtottotapa (kpl): ' + contact_count);
 
     });
 
