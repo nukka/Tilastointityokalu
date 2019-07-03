@@ -11,6 +11,7 @@ let reasonWindow;
 let helpWindow;
 let evaluationWindow;
 let successWindow;
+let statisticWindow;
 
 function createWindow() {
 
@@ -121,12 +122,30 @@ function createWindow() {
         slashes: true
     }));
 
+    statisticWindow = new BrowserWindow({
+        width: 1000,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
+
+        }
+
+    });
+
+    statisticWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'tilastot.html'),
+        protocol: 'file',
+        slashes: true
+    }));
+
 
     bginfoWindow.hide();
     reasonWindow.hide();
     helpWindow.hide();
     evaluationWindow.hide();
     successWindow.hide();
+    statisticWindow.hide();
 
     //mainWindow.webContents.openDevTools();
     bginfoWindow.webContents.openDevTools();
@@ -134,6 +153,7 @@ function createWindow() {
     helpWindow.webContents.openDevTools();
     evaluationWindow.webContents.openDevTools();
     successWindow.webContents.openDevTools();
+    statisticWindow.webContents.openDevTools();
 
 }
 
@@ -142,6 +162,12 @@ ipcMain.on('clicked_contact', (event, arg) => {
     if (arg === 'ping') {
         console.log("Kirjaa yhteystieto -nappi");
         bginfoWindow.show();
+    }
+});
+
+ipcMain.on('clicked_stat', (event, arg) => {
+    if (arg === 'ping') {
+        statisticWindow.show();
     }
 });
 
@@ -197,6 +223,7 @@ ipcMain.on('clicked_toMain', (event, arg) => {
         helpWindow.hide();
         evaluationWindow.hide();
         successWindow.hide();
+        statisticWindow.hide();
     }
 });
 

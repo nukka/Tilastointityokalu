@@ -12,6 +12,12 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    $("#btn-statistics").click(function () {
+        ipcR.send('clicked_stat', 'ping');
+    });
+});
+
+$(document).ready(function () {
     $("#btn-quit").click(function () {
         ipcR.send('clicked_quit', 'ping');
     });
@@ -282,43 +288,47 @@ $(document).ready(function () {
         }
 
 
-        fs.readFile(filename, 'utf-8', (err, data) => {
-            if (err) throw err;
+    });
 
 
-            let array = data.split('\n');
-            console.log(array.length);
-
-            $.each(array, function (index) {
-                let row = array[index].split(',');
+});
 
 
-                $.each(row, function (index) {
-                    let word = row[index].split(',');
-                    //console.log(word);
+$(document).ready(function () {
+    fs.readFile(filename, 'utf-8', (err, data) => {
+        if (err) throw err;
 
 
-                    let found = false;
-                    $.each(word, function (index, value) {
-                        if (value.indexOf(':') >= 0) {
+        let array = data.split('\n');
+        console.log(array.length);
 
-                            found = true;
+        $.each(array, function (index) {
+            let row = array[index].split(',');
 
-                            //console.log(found);
 
-                            if (found === true) {
-                                let string = word[index].split(':');
-                                console.log(string);
-                                if (string[0] === 'Ika') {
+            $.each(row, function (index) {
+                let word = row[index].split(',');
+                //console.log(word);
 
-                                }
+
+                let found = false;
+                $.each(word, function (index, value) {
+                    if (value.indexOf(':') >= 0) {
+
+                        found = true;
+
+                        //console.log(found);
+
+                        if (found === true) {
+                            let string = word[index].split(':');
+                            console.log(string);
+                            if (string[0] === 'Ika') {
+
                             }
-
-                            // return false;
                         }
-                    });
 
-
+                        // return false;
+                    }
                 });
 
 
@@ -326,11 +336,12 @@ $(document).ready(function () {
 
 
         });
+
+
     });
 
 
 });
-
 
 $(document).ready(function () {
     $('#btn-back-success').click(function () {
