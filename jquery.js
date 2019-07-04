@@ -299,6 +299,8 @@ $(document).ready(function () {
     fs.readFile(filename, 'utf-8', (err, data) => {
         if (err) throw err;
 
+        let array = data.split('\n');
+
         let age_count = 0;
         let help_count = 0;
         let sex_count = 0;
@@ -306,6 +308,14 @@ $(document).ready(function () {
         let child_count = 0;
         let childAge_count = 0;
         let contact_count = 0;
+
+        let ages = [];
+        let helps = [];
+        let sexs = [];
+        let statuses = [];
+        let child_ages = [];
+        let child_lkm = [];
+        let contacts = [];
 
         $.each(array, function (index) {
             let row = array[index].split(',');
@@ -330,32 +340,39 @@ $(document).ready(function () {
 
                             if (string[0] === 'Ika') {
                                 age_count++;
+                                ages.push(string[1]);
 
                             }
 
-
                             if (string[0] === 'Apu') {
                                 help_count++;
+                                helps.push(string[1]);
                             }
 
                             if (string[0] === 'Sukupuoli') {
                                 sex_count++;
+                                sexs.push(string[1]);
                             }
 
                             if (string[0] === 'Status') {
                                 status_count++;
+                                statuses.push(string[1]);
                             }
 
                             if (string[0] === 'Lapsi_lkm') {
                                 child_count++;
+                                child_lkm.push(string[1]);
+
                             }
 
                             if (string[0] === 'Lapsi_ikä') {
                                 childAge_count++;
+                                child_ages.push(string[1]);
                             }
 
                             if (string[0] === 'Yht_otto') {
                                 contact_count++;
+                                contacts.push(string[1]);
                             }
 
                         }
@@ -370,13 +387,60 @@ $(document).ready(function () {
 
         });
 
-        console.log("Ikä (kpl): " + age_count);
-        console.log("Kelle apua (kpl): " + help_count);
-        console.log("Sukupuoli (kpl): " + sex_count);
-        console.log('Sosioasema (kpl): ' + status_count);
-        console.log('Lapsten lukumäärä (kpl): ' + child_count);
-        console.log('Lasten iät (kpl): ' + childAge_count);
-        console.log('Yhtottotapa (kpl): ' + contact_count);
+        let counts_age = {};
+        let counts_help = {};
+        let counts_sex = {};
+        let counts_status = {};
+        let counts_cAge = {};
+        let counts_child_lkm = {};
+        let counts_contact = {};
+
+        for (let i = 0; i < ages.length; i++) {
+            let age = ages[i];
+            counts_age[age] = counts_age[age] ? counts_age[age] + 1 : 1;
+        }
+
+
+        for (let i = 0; i < helps.length; i++) {
+            let help = helps[i];
+            counts_help[help] = counts_help[help] ? counts_help[help] + 1 : 1;
+        }
+
+
+        for (let i = 0; i < sexs.length; i++) {
+            let sex = sexs[i];
+            counts_sex[sex] = counts_sex[sex] ? counts_sex[sex] + 1 : 1;
+        }
+
+        for (let i = 0; i < statuses.length; i++) {
+            let status = statuses[i];
+            counts_status[status] = counts_status[status] ? counts_status[status] + 1 : 1;
+        }
+
+        for (let i = 0; i < child_lkm.length; i++) {
+            let lkm = child_lkm[i];
+            counts_child_lkm[lkm] = counts_child_lkm[lkm] ? counts_child_lkm[lkm] + 1 : 1;
+        }
+
+
+        for (let i = 0; i < child_ages.length; i++) {
+            let age = child_ages[i];
+            counts_cAge[age] = counts_cAge[age] ? counts_cAge[age] + 1 : 1;
+        }
+
+        for (let i = 0; i < contacts.length; i++) {
+            let contact = contacts[i];
+            counts_contact[contact] = counts_contact[contact] ? counts_contact[contact] + 1 : 1;
+        }
+
+        //console.log(contacts);
+        console.log('Alle 18: ' + counts_age['Alle 18'] + '\n', '19-30: ' + counts_age['19-30'] + '\n', '31-40: ' + counts_age['31-40'] + '\n', '41-50: ' + counts_age['41-50'] + '\n', '51-60: ' + counts_age['51-60'] + '\n', 'Yli 60: ' + counts_age['Yli 60'] + '\n');
+        console.log('Oma perhe: ' + counts_help['Omalle perheelle'], 'Ystävä/tuttava: ' + counts_help['Ystävälle/tuttavalle']);
+        console.log('Mies: ' + counts_sex['Mies'], 'Nainen: ' + counts_sex['Nainen'], 'Muu: ' + counts_sex['Muu'], 'Ei tietoa: ' + counts_sex['Ei tietoa']);
+        console.log('Työssäkäyvä: ' + counts_status['Työssäkäyvä'], 'Työtön: ' + counts_status['Työtön'], 'Opiskelija: ' + counts_status['Opiskelija'], 'Eläkelainen: ' + counts_status['Eläkeläinen'], 'Varusmies: ' + counts_status['Varusmies'], 'Kotona: ' + counts_status['Kotona lasten kanssa'], 'Sairaslomalla: ' + counts_status['Sairaslomalla']);
+        //console.log('Ei vielä syntynyt: ' + counts_cAge[''], '6kk tai alle: ' + counts_cAge['']);
+        console.log('Ei lapsia: ' + counts_child_lkm['Ei lapsia'], '1 lapsi: ' + counts_child_lkm['1 lapsi'], '2 -3 lasta: ' + counts_child_lkm['2-3 lasta'], '4-7 lasta: ' + counts_child_lkm['4-7 lasta'], 'Yli 8 lasta: ' + counts_child_lkm['8 tai enemmän'], 'Ei tietoa: ' + counts_child_lkm['Ei tietoa']);
+        console.log('Puhelinsoitto: ' + counts_contact['Puhelinsoitto'], 'Sähköposti: ' + counts_contact['Sähköpostiviesti']);
 
     });
 
