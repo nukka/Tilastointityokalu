@@ -199,7 +199,7 @@ $(document).ready(function () {
         let continueValues = [];
 
         $("input[name='check_continue']:checked").each(function (index, value) {
-            continueValues.push($(value).val());
+            continueValues.push('Jatko:' + $(value).val());
             if (continueValues.length !== 0) {
                 console.log(continueValues);
             }
@@ -257,13 +257,14 @@ $(document).ready(function () {
         } else {
             if (evaluation_a !== undefined) {
 
-                inputValues.push(evaluation_a);
+                inputValues.push('Arvio_a:' + evaluation_a);
+                //console.log(inputValues);
             }
 
 
             if (evaluation_y !== undefined) {
 
-                inputValues.push(evaluation_y);
+                inputValues.push('Arvio_y:' + evaluation_y);
             }
 
             if (text.length !== 0) {
@@ -329,6 +330,11 @@ $(document).ready(function () {
         let changes = [];
         let concerns = [];
         let wells = [];
+
+        let continues = [];
+
+        let evas_y = [];
+        let evas_a = [];
 
         $.each(array, function (index) {
             let row = array[index].split(',');
@@ -398,6 +404,19 @@ $(document).ready(function () {
                             if (string[0] === 'Hyvinvointi') {
                                 wells.push(string[1]);
                             }
+
+                            if (string[0] === 'Jatko') {
+                                continues.push(string[1]);
+                            }
+
+                            if (string[0] === 'Arvio_y') {
+                                evas_y.push(string[1]);
+                            }
+
+                            if (string[0] === 'Arvio_a') {
+                                evas_a.push(string[1]);
+                            }
+
                         }
                         // return false;
                     }
@@ -421,6 +440,9 @@ $(document).ready(function () {
         let counts_change = {};
         let counts_corcern = {};
         let counts_well = {};
+        let counts_cont = {};
+        let counts_eva_y = {};
+        let counts_eva_a = {};
 
         for (let i = 0; i < ages.length; i++) {
             let age = ages[i];
@@ -481,7 +503,27 @@ $(document).ready(function () {
 
         }
 
-        //console.log(wells);
+        for (let i = 0; i < continues.length; i++) {
+            let cont = continues[i];
+            counts_cont[cont] = counts_cont[cont] ? counts_cont[cont] + 1 : 1;
+
+        }
+
+
+        for (let i = 0; i < evas_y.length; i++) {
+            let eva = evas_y[i];
+            counts_eva_y[eva] = counts_eva_y[eva] ? counts_eva_y[eva] + 1 : 1;
+
+        }
+
+        for (let i = 0; i < evas_a.length; i++) {
+            let eva = evas_a[i];
+            counts_eva_a[eva] = counts_eva_a[eva] ? counts_eva_a[eva] + 1 : 1;
+
+        }
+
+
+        //console.log(evas_a);
 
         console.log('Yhteydenottojen määrä: ' + array.length);
         console.log('Alle 18: ' + counts_age['Alle 18'] + '\n', '19-30: ' + counts_age['19-30'] + '\n', '31-40: ' + counts_age['31-40'] + '\n', '41-50: ' + counts_age['41-50'] + '\n', '51-60: ' + counts_age['51-60'] + '\n', 'Yli 60: ' + counts_age['Yli 60'] + '\n');
@@ -496,6 +538,11 @@ $(document).ready(function () {
         console.log('Raskaus: ' + counts_change['Raskaus'], 'Lapsen syntymä: ' + counts_change['Lapsen syntymä'], 'Sairastuminen: ' + counts_change['Sairastuminen'], 'Työttömäksi jääminen: ' + counts_change['Työttömäksi jääminen'], 'Elääkkeelle jääminen: ' + counts_change['Eläkkeelle jääminen'], 'Työelämän tai koulutuksen ulkopuolelle jääminen: ' + counts_change['Työelämän tai koulutuksen ulkopuolelle jääminen'], 'Läheisen kuolema: ' + counts_change['Läheisen kuolema'], 'Väkivallan kohteeksi joutuminen' + counts_change['Väkivallan kohteeksi joutuminen'], 'Äkillinen vammautuminen/sairastuminen' + counts_change['Äkillinen vammautuminen/sairastuminen'], 'Taloudelliset vaikeudet: ' + counts_change['Taloudelliset vaikeudet'], 'Muu: ' + counts_change['Muu']);
         console.log('Vauvaikäiseen liittyvä huoli: ' + counts_corcern['Vauvaikäiseen liittyvä huoli'], 'Leikki- tai kouluikäiseen liittyvä huoli: ' + counts_corcern['Leikki- tai kouluikäiseen liittyvä huoli'], 'Murrosikäiseen/teini-ikäiseen lapseen liittyvä huoli: ' + counts_corcern['Murrosikäiseen/teini-ikäiseen lapseen liittyvä huoli'], 'Muu: ' + counts_corcern['Muu']);
         console.log('Perustarpeisiin liittyvä haaste: ' + counts_well['Perustarpeisiin liittyvä haaste'], 'Päihde- tai riippuvuusongelma: ' + counts_well['Päihde- tai riippuvuusongelma'], 'Seksuaalisuuteen liittyvä ongelma: ' + counts_well['Seksuaalisuuteen liittyvä ongelma'], 'Stressi: ' + counts_well['Stressi'], 'Uupumus: ' + counts_well['Uupumus'], 'Yksinäisyys: ' + counts_well['Yksinäisyys'], 'Mielenterveysongelma: ' + counts_well['Mielenterveysongelma'], 'Itsetunto-ongelma: ' + counts_well['Itsetunto-ongelma'], 'Muu: ' + counts_well['Muu']);
+
+        console.log('Vanhemman neuvo -vertaistukiryhmä: ', counts_cont['Vanhemman neuvo -vertaistukiryhmä'], 'Eroneuvoilta/erokahvila: ' + counts_cont['Eroneuvoilta/erokahvila'], 'Eroseminaari: ' + counts_cont['Eroseminaari'], 'Miesten eroryhmä: ' + counts_cont['Miesten eroryhmä'], 'Sovittu tapaaminen: ' + counts_cont['Sovittu tapaaminen'], 'Chat-palvelu: ' + counts_cont['Chat-palvelu'], 'Erotukihenkilö: ' + counts_cont['Erotukihenkilö'] + 'Lastenvalvoja: ' + counts_cont['Lastenvalvoja'], 'Turvakotiin ohjaus: ' + counts_cont['Turvakotiin ohjaus'], 'Perheasioiden sovittelu: ' + counts_cont['Perheasioiden sovittelu'], 'Ei jatkotoimenpiteitä: ' + counts_cont['Ei jatkotoimenpiteitä'], 'Muu: ' + counts_cont['Muu']);
+        console.log('a1: ' + counts_eva_y['1'], 'a2: ' + counts_eva_y['2'], 'a3: ' + counts_eva_y['3'], 'a4: ' + counts_eva_y['4'], 'a5: ' + counts_eva_y['5']);
+        console.log('y1: ' + counts_eva_a['1'], 'y2: ' + counts_eva_a['2'], 'y3: ' + counts_eva_a['3'], 'y4: ' + counts_eva_a['4'], 'y5: ' + counts_eva_a['5']);
+
 
     });
 
