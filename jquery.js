@@ -181,8 +181,10 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+
     $('#btn-toMain').click(function () {
         ipcR.send('clicked_toMain', 'ping');
+
     })
 });
 
@@ -319,6 +321,7 @@ $(document).ready(function () {
         let array = data.split('\n');
 
         let ages = [];
+
         let helps = [];
         let sexs = [];
         let statuses = [];
@@ -429,6 +432,7 @@ $(document).ready(function () {
 
         });
 
+
         let counts_age = {};
         let counts_help = {};
         let counts_sex = {};
@@ -522,8 +526,29 @@ $(document).ready(function () {
 
         }
 
+        let age_count = [];
+        let age_label = ['Alle 18', '19-30', '31-40', '41-50', '51-60', 'Yli 60'];
+        age_count.push(counts_age['Alle 18'], counts_age['19-30'], counts_age['31-40'], counts_age['41-50'], counts_age['51-60'], counts_age['Yli 60']);
 
-        //console.log(evas_a);
+
+        if (isEmptyArray(ages.length) === false) {
+            $('.statistics').append('<span>Ikä: </span>');
+            $('.statistics').append(ages.length);
+            $('.statistics').append('<span> kirjausta </span>');
+            $('.statistics').append('<p></p>');
+
+            pieChart(age_count, age_label);
+
+        }
+
+        if (isEmptyArray(helps.length) === false) {
+            $('.statistics').append('<span>Etsin apua: </span>');
+            $('.statistics').append(helps.length);
+            $('.statistics').append('<span> kirjausta </span>');
+            $('.statistics').append('<p></p>');
+
+        }
+
 
         console.log('Yhteydenottojen määrä: ' + array.length);
         console.log('Alle 18: ' + counts_age['Alle 18'] + '\n', '19-30: ' + counts_age['19-30'] + '\n', '31-40: ' + counts_age['31-40'] + '\n', '41-50: ' + counts_age['41-50'] + '\n', '51-60: ' + counts_age['51-60'] + '\n', 'Yli 60: ' + counts_age['Yli 60'] + '\n');
@@ -674,8 +699,50 @@ $(document).ready(function () {
 
 });
 
+function isEmptyArray(length) {
+    if (length === 0) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
 
 
+function pieChart(count, labels) {
+    var ctx = $('#myChart');
+
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '# of Votes',
+                data: count,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {}
+    });
+
+
+}
 
 
 

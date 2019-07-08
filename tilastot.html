@@ -9,7 +9,8 @@
 <body>
 <script src="jquery.js"></script>
 <script src="renderer.js"></script>
-<script src="style.css"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
 
 <div class="text-center pb-4">
     <div class="pt-2 pb-1 bg-info">
@@ -18,10 +19,29 @@
 </div>
 
 <div class="container">
+    <div class="statistics">
+        <div class="row pb-4">
+            <div class="col" align="left">
+                <span class="text"></span>
+                <span class="amount"></span>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+
     <div class="row pb-4">
         <div class="col" align="left">
+            <p class="font-weight-normal"></p>
             <button type="button" class="btn btn-light" id="btn-toMain">Lopeta</button>
         </div>
+
+
     </div>
 </div>
 

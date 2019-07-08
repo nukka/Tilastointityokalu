@@ -147,7 +147,7 @@ function createWindow() {
     successWindow.hide();
     statisticWindow.hide();
 
-    //mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
     bginfoWindow.webContents.openDevTools();
     reasonWindow.webContents.openDevTools();
     helpWindow.webContents.openDevTools();
@@ -304,6 +304,10 @@ ipcMain.on('update-from-reason', (event, arg) => {
 
 ipcMain.on('update-from-help', (event, arg) => {
     evaluationWindow.webContents.send('action-update-help', arg);
+});
+
+ipcMain.on('update-from-main', (event, arg) => {
+    evaluationWindow.webContents.send('action-update-main', arg);
 });
 
 // This method will be called when Electron has finished
