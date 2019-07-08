@@ -532,20 +532,18 @@ $(document).ready(function () {
 
 
         if (isEmptyArray(ages.length) === false) {
-            $('.statistics').append('<span>Ikä: </span>');
-            $('.statistics').append(ages.length);
-            $('.statistics').append('<span> kirjausta </span>');
-            $('.statistics').append('<p></p>');
+
+            $('.age').append('<h3>Ikä</h3>');
+            $('.age').append(ages.length + '<h7> kpl kirjausta</h7>');
 
             pieChart(age_count, age_label);
 
         }
 
         if (isEmptyArray(helps.length) === false) {
-            $('.statistics').append('<span>Etsin apua: </span>');
-            $('.statistics').append(helps.length);
-            $('.statistics').append('<span> kirjausta </span>');
-            $('.statistics').append('<p></p>');
+            $('.help').append('<h3>Etsin apua</h3>');
+            $('.help').append(helps.length + '<h7> kpl kirjausta</h7>');
+
 
         }
 
