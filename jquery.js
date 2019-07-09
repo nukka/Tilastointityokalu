@@ -339,6 +339,10 @@ $(document).ready(function () {
         let evas_y = [];
         let evas_a = [];
 
+
+        let unique_cages = 0;
+        
+
         $.each(array, function (index) {
             let row = array[index].split(',');
             //console.log(row);
@@ -363,6 +367,7 @@ $(document).ready(function () {
                             if (string[0] === 'Ika') {
                                 ages.push(string[1]);
 
+
                             }
 
                             if (string[0] === 'Apu') {
@@ -379,11 +384,19 @@ $(document).ready(function () {
 
                             if (string[0] === 'Lapsi_lkm') {
                                 child_lkm.push(string[1]);
+                              
+                    
 
                             }
 
+
                             if (string[0] === 'Lapsi_ikä') {
                                 child_ages.push(string[1]);
+
+                                unique_cages = child_ages.filter(function (itm, i, child_ages) {
+                                    return i === child_ages.indexOf(itm);
+                                });
+
                             }
 
                             if (string[0] === 'Yht_otto') {
@@ -527,8 +540,24 @@ $(document).ready(function () {
         }
 
         let age_count = [];
+        let help_count = [];
+        let sex_count = [];
+        let status_count = [];
+        let child_count = [];
+
         let age_label = ['Alle 18', '19-30', '31-40', '41-50', '51-60', 'Yli 60'];
-        age_count.push(counts_age['Alle 18'], counts_age['19-30'], counts_age['31-40'], counts_age['41-50'], counts_age['51-60'], counts_age['Yli 60']);
+        let help_label = ['Omalle perheelle', 'Ystävälle/tuttavalle'];
+        let sex_label = ['Mies', 'Nainen', 'Muu', 'Ei tietoa'];
+        let status_label = ['Työssäkäyvä', 'Työtön', 'Opiskelija', 'Eläkeläinen', 'Varusmies', 'Kotona lasten kanssa', 'Sairaslomalla'];
+        //let child_label = ['Ei vielä syntynyt', '6kk tai alle', '1v tai alle', '2-4v', '5-7v', '8-10v', '11-13v', '14-16v', '17 tai yli'];
+
+        age_count.push(counts_age[age_label[0]], counts_age[age_label[1]], counts_age[age_label[2]], counts_age[age_label[3]], counts_age[age_label[4]], counts_age[age_label[5]]);
+        help_count.push(counts_help[help_label[0]], counts_help[help_label[1]]);
+        sex_count.push(counts_sex[sex_label[0]], counts_sex[sex_label[1]], counts_sex[sex_label[2]], counts_sex[sex_label[3]]);
+        status_count.push(counts_status[status_label[0]], counts_status[status_label[1]], counts_status[status_label[2]], counts_status[status_label[3]], counts_status[status_label[4]], counts_status[status_label[5]], counts_status[status_label[6]]);
+        child_count.push(counts_cAge[unique_cages[0]], counts_cAge[unique_cages[1]], counts_cAge[unique_cages[2]], counts_cAge[unique_cages[3]], counts_cAge[unique_cages[4]], counts_cAge[unique_cages[5]], counts_cAge[unique_cages[6]], counts_cAge[unique_cages[7]], counts_cAge[unique_cages[8]]);
+        //console.log(child_count);
+        console.log('uniikki: ' + unique_cages);
 
 
         if (isEmptyArray(ages.length) === false) {
@@ -536,7 +565,9 @@ $(document).ready(function () {
             $('.age').append('<h3>Ikä</h3>');
             $('.age').append(ages.length + '<h7> kpl kirjausta</h7>');
 
-            pieChart(age_count, age_label);
+            let ctx = $('#myChart');
+
+            pieChart(age_count, age_label, ctx);
 
         }
 
@@ -544,6 +575,37 @@ $(document).ready(function () {
             $('.help').append('<h3>Etsin apua</h3>');
             $('.help').append(helps.length + '<h7> kpl kirjausta</h7>');
 
+            let ctx = $('#myChartH');
+            pieChart(help_count, help_label, ctx);
+
+        }
+
+        if (isEmptyArray(sexs.length) === false) {
+            $('.sex').append('<h3>Sukupuoli</h3>');
+            $('.sex').append(sexs.length + '<h7> kpl kirjausta</h7>');
+
+            let ctx = $('#myChartS');
+            pieChart(sex_count, sex_label, ctx);
+
+        }
+
+        if (isEmptyArray(statuses.length) === false) {
+            $('.status').append('<h3>Sosioekonominen asema</h3>');
+            $('.status').append(statuses.length + '<h7> kpl kirjausta</h7>');
+
+
+            let ctx = $('#myChartSt');
+            pieChart(status_count, status_label, ctx);
+
+        }
+
+        if (isEmptyArray(child_ages.length) === false) {
+            $('.child_count').append('<h3>Lasten iät</h3>');
+            $('.child_count').append(child_ages.length + '<h7> kpl kirjausta</h7>');
+
+
+            let ctx = $('#myChartCC');
+            pieChart(child_count, unique_cages, ctx);
 
         }
 
@@ -553,7 +615,7 @@ $(document).ready(function () {
         console.log('Oma perhe: ' + counts_help['Omalle perheelle'], 'Ystävä/tuttava: ' + counts_help['Ystävälle/tuttavalle']);
         console.log('Mies: ' + counts_sex['Mies'], 'Nainen: ' + counts_sex['Nainen'], 'Muu: ' + counts_sex['Muu'], 'Ei tietoa: ' + counts_sex['Ei tietoa']);
         console.log('Työssäkäyvä: ' + counts_status['Työssäkäyvä'], 'Työtön: ' + counts_status['Työtön'], 'Opiskelija: ' + counts_status['Opiskelija'], 'Eläkelainen: ' + counts_status['Eläkeläinen'], 'Varusmies: ' + counts_status['Varusmies'], 'Kotona: ' + counts_status['Kotona lasten kanssa'], 'Sairaslomalla: ' + counts_status['Sairaslomalla']);
-        console.log('Ei vielä syntynyt: ' + counts_cAge['[Ei vielä syntynyt]'], '6kk tai alle: ' + counts_cAge['6kk tai alle'], '1v tai alle: ' + counts_cAge['1v tai alle'], '2-4v: ' + counts_cAge['2-4v'], '5-7v: ' + counts_cAge['5-7v'], '8-10v: ' + counts_cAge['8-10v'], '11-13v: ' + counts_cAge['11-13v'], '14-16v: ' + counts_cAge['14-16v'], '17 tai yli: ' + counts_cAge['17 tai yli']);
+        console.log('Ei vielä syntynyt: ' + counts_cAge['Ei vielä syntynyt'], '6kk tai alle: ' + counts_cAge['6kk tai alle'], '1v tai alle: ' + counts_cAge['1v tai alle'], '2-4v: ' + counts_cAge['2-4v'], '5-7v: ' + counts_cAge['5-7v'], '8-10v: ' + counts_cAge['8-10v'], '11-13v: ' + counts_cAge['11-13v'], '14-16v: ' + counts_cAge['14-16v'], '17 tai yli: ' + counts_cAge['17 tai yli']);
         console.log('Ei lapsia: ' + counts_child_lkm['Ei lapsia'], '1 lapsi: ' + counts_child_lkm['1 lapsi'], '2 -3 lasta: ' + counts_child_lkm['2-3 lasta'], '4-7 lasta: ' + counts_child_lkm['4-7 lasta'], 'Yli 8 lasta: ' + counts_child_lkm['8 tai enemmän'], 'Ei tietoa: ' + counts_child_lkm['Ei tietoa']);
         console.log('Puhelinsoitto: ' + counts_contact['Puhelinsoitto'], 'Sähköposti: ' + counts_contact['Sähköpostiviesti']);
 
@@ -707,15 +769,14 @@ function isEmptyArray(length) {
 }
 
 
-function pieChart(count, labels) {
-    var ctx = $('#myChart');
+function pieChart(count, labels, ctx) {
 
-    var myChart = new Chart(ctx, {
+    new Chart(ctx, {
         type: 'pie',
         data: {
             labels: labels,
             datasets: [{
-                label: '# of Votes',
+                label: '',
                 data: count,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
