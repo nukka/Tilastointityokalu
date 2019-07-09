@@ -321,7 +321,6 @@ $(document).ready(function () {
         let array = data.split('\n');
 
         let ages = [];
-
         let helps = [];
         let sexs = [];
         let statuses = [];
@@ -340,8 +339,14 @@ $(document).ready(function () {
         let evas_a = [];
 
 
+        let unique_ages = 0;
+        let unique_helps = 0;
+        let unique_sexs = 0;
+        let unique_statuses = 0;
+        let unique_childs = 0;
         let unique_cages = 0;
-        
+        let unique_contacts = 0;
+
 
         $.each(array, function (index) {
             let row = array[index].split(',');
@@ -366,26 +371,44 @@ $(document).ready(function () {
 
                             if (string[0] === 'Ika') {
                                 ages.push(string[1]);
+                                unique_ages = ages.filter(function (itm, i, ages) {
+                                    return i === ages.indexOf(itm);
+                                });
 
 
                             }
 
                             if (string[0] === 'Apu') {
                                 helps.push(string[1]);
+
+                                unique_helps = helps.filter(function (itm, i, helps) {
+                                    return i === helps.indexOf(itm);
+                                });
                             }
 
                             if (string[0] === 'Sukupuoli') {
                                 sexs.push(string[1]);
+
+                                unique_sexs = sexs.filter(function (itm, i, sexs) {
+                                    return i === sexs.indexOf(itm);
+                                });
                             }
 
                             if (string[0] === 'Status') {
                                 statuses.push(string[1]);
+
+                                unique_statuses = statuses.filter(function (itm, i, statuses) {
+                                    return i === statuses.indexOf(itm);
+                                });
                             }
 
                             if (string[0] === 'Lapsi_lkm') {
                                 child_lkm.push(string[1]);
-                              
-                    
+
+                                unique_childs = child_lkm.filter(function (itm, i, child_lkm) {
+                                    return i === child_lkm.indexOf(itm);
+                                });
+
 
                             }
 
@@ -401,6 +424,10 @@ $(document).ready(function () {
 
                             if (string[0] === 'Yht_otto') {
                                 contacts.push(string[1]);
+
+                                unique_contacts = contacts.filter(function (itm, i, contacts) {
+                                    return i === contacts.indexOf(itm);
+                                });
                             }
 
                             if (string[0] === 'Kriisi') {
@@ -543,21 +570,18 @@ $(document).ready(function () {
         let help_count = [];
         let sex_count = [];
         let status_count = [];
+        let childage_count = [];
         let child_count = [];
+        let contact_count = [];
 
-        let age_label = ['Alle 18', '19-30', '31-40', '41-50', '51-60', 'Yli 60'];
-        let help_label = ['Omalle perheelle', 'Ystävälle/tuttavalle'];
-        let sex_label = ['Mies', 'Nainen', 'Muu', 'Ei tietoa'];
-        let status_label = ['Työssäkäyvä', 'Työtön', 'Opiskelija', 'Eläkeläinen', 'Varusmies', 'Kotona lasten kanssa', 'Sairaslomalla'];
-        //let child_label = ['Ei vielä syntynyt', '6kk tai alle', '1v tai alle', '2-4v', '5-7v', '8-10v', '11-13v', '14-16v', '17 tai yli'];
-
-        age_count.push(counts_age[age_label[0]], counts_age[age_label[1]], counts_age[age_label[2]], counts_age[age_label[3]], counts_age[age_label[4]], counts_age[age_label[5]]);
-        help_count.push(counts_help[help_label[0]], counts_help[help_label[1]]);
-        sex_count.push(counts_sex[sex_label[0]], counts_sex[sex_label[1]], counts_sex[sex_label[2]], counts_sex[sex_label[3]]);
-        status_count.push(counts_status[status_label[0]], counts_status[status_label[1]], counts_status[status_label[2]], counts_status[status_label[3]], counts_status[status_label[4]], counts_status[status_label[5]], counts_status[status_label[6]]);
-        child_count.push(counts_cAge[unique_cages[0]], counts_cAge[unique_cages[1]], counts_cAge[unique_cages[2]], counts_cAge[unique_cages[3]], counts_cAge[unique_cages[4]], counts_cAge[unique_cages[5]], counts_cAge[unique_cages[6]], counts_cAge[unique_cages[7]], counts_cAge[unique_cages[8]]);
-        //console.log(child_count);
-        console.log('uniikki: ' + unique_cages);
+        age_count.push(counts_age[unique_ages[0]], counts_age[unique_ages[1]], counts_age[unique_ages[2]], counts_age[unique_ages[3]], counts_age[unique_ages[4]], counts_age[unique_ages[5]]);
+        help_count.push(counts_help[unique_helps[0]], counts_help[unique_helps[0]]);
+        sex_count.push(counts_sex[unique_sexs[0]], counts_sex[unique_sexs[1]], counts_sex[unique_sexs[2]], counts_sex[unique_sexs[3]]);
+        status_count.push(counts_status[unique_statuses[0]], counts_status[unique_statuses[1]], counts_status[unique_statuses[2]], counts_status[unique_statuses[3]], counts_status[unique_statuses[4]], counts_status[unique_statuses[5]], counts_status[unique_statuses[6]]);
+        childage_count.push(counts_cAge[unique_cages[0]], counts_cAge[unique_cages[1]], counts_cAge[unique_cages[2]], counts_cAge[unique_cages[3]], counts_cAge[unique_cages[4]], counts_cAge[unique_cages[5]], counts_cAge[unique_cages[6]], counts_cAge[unique_cages[7]], counts_cAge[unique_cages[8]]);
+        child_count.push(counts_child_lkm[unique_childs[0]], counts_child_lkm[unique_childs[1]], counts_child_lkm[unique_childs[2]], counts_child_lkm[unique_childs[3]], counts_child_lkm[unique_childs[4]], counts_child_lkm[unique_childs[5]]);
+        contact_count.push(counts_contact[unique_contacts[0]], counts_contact[unique_contacts[1]]);
+        console.log(unique_statuses);
 
 
         if (isEmptyArray(ages.length) === false) {
@@ -567,7 +591,7 @@ $(document).ready(function () {
 
             let ctx = $('#myChart');
 
-            pieChart(age_count, age_label, ctx);
+            pieChart(age_count, unique_ages, ctx);
 
         }
 
@@ -576,7 +600,7 @@ $(document).ready(function () {
             $('.help').append(helps.length + '<h7> kpl kirjausta</h7>');
 
             let ctx = $('#myChartH');
-            pieChart(help_count, help_label, ctx);
+            pieChart(help_count, unique_helps, ctx);
 
         }
 
@@ -585,7 +609,7 @@ $(document).ready(function () {
             $('.sex').append(sexs.length + '<h7> kpl kirjausta</h7>');
 
             let ctx = $('#myChartS');
-            pieChart(sex_count, sex_label, ctx);
+            pieChart(sex_count, unique_sexs, ctx);
 
         }
 
@@ -595,17 +619,37 @@ $(document).ready(function () {
 
 
             let ctx = $('#myChartSt');
-            pieChart(status_count, status_label, ctx);
+            pieChart(status_count, unique_statuses, ctx);
 
         }
 
         if (isEmptyArray(child_ages.length) === false) {
-            $('.child_count').append('<h3>Lasten iät</h3>');
-            $('.child_count').append(child_ages.length + '<h7> kpl kirjausta</h7>');
+            $('.child_age').append('<h3>Lasten iät</h3>');
+            $('.child_age').append(child_ages.length + '<h7> kpl kirjausta</h7>');
+
+
+            let ctx = $('#myChartCA');
+            pieChart(childage_count, unique_cages, ctx);
+
+        }
+
+        if (isEmptyArray(child_lkm.length) === false) {
+            $('.child_count').append('<h3>Lasten lukumäärä</h3>');
+            $('.child_count').append(child_lkm.length + '<h7> kpl kirjausta</h7>');
 
 
             let ctx = $('#myChartCC');
-            pieChart(child_count, unique_cages, ctx);
+            pieChart(child_count, unique_childs, ctx);
+
+        }
+
+        if (isEmptyArray(contacts.length) === false) {
+            $('.contact').append('<h3>Yhteydenottotapa</h3>');
+            $('.contact').append(contacts.length + '<h7> kpl kirjausta</h7>');
+
+
+            let ctx = $('#myChartCO');
+            pieChart(contact_count, unique_contacts, ctx);
 
         }
 
