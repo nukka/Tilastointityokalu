@@ -5,3 +5,12 @@
     width: 70vw;
 
 }
+
+.stat_col{
+    background-color: rgb(155, 213, 232);
+    font-size: larger;
+}
+
+.stat_col2{
+    background-color: rgb(200, 219, 250);
+}

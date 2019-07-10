@@ -12,11 +12,24 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
 
-<div class="text-center pb-4">
+<div class="text-center">
     <div class="pt-2 pb-1 bg-info">
         <h3>Yhteenveto kirjatuista yhteydenotoista</h3>
     </div>
 </div>
+<div class="text-center">
+    <div class="pt-2 pb-2 stat_col">
+        <div class="in_total">
+        </div>
+    </div>
+</div>
+<div class="text-center pb-4 bar">
+    <div class="pt-2 pb-2 stat_col2">
+        <div class="stat_title">
+        </div>
+    </div>
+</div>
+
 
 <div class="container">
     <div class="statistics">
@@ -111,17 +124,46 @@
             <canvas id="myChartCO"></canvas>
         </div>
 
-
     </div>
 
 
+</div>
+
+<div class="text-center pb-4 bar_r">
+    <div class="pt-2 pb-2 stat_col2">
+        <div class="stat_title_r">
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="statistics">
+
+        <div class="row pb-4">
+            <div class="col">
+                <div class="text-center">
+                    <div class="crisis">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="myChartCR"></canvas>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="container">
     <div class="row pb-4">
         <div class="col" align="left">
             <p class="font-weight-normal"></p>
             <button type="button" class="btn btn-light" id="btn-toMain">Lopeta</button>
         </div>
-
-
     </div>
 </div>
 

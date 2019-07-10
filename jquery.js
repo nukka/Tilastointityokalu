@@ -346,6 +346,7 @@ $(document).ready(function () {
         let unique_childs = 0;
         let unique_cages = 0;
         let unique_contacts = 0;
+        let unique_crisis = 0;
 
 
         $.each(array, function (index) {
@@ -432,6 +433,10 @@ $(document).ready(function () {
 
                             if (string[0] === 'Kriisi') {
                                 crisises.push(string[1]);
+
+                                unique_crisis = crisises.filter(function (itm, i, crisises) {
+                                    return i === crisises.indexOf(itm);
+                                });
 
                             }
 
@@ -573,15 +578,35 @@ $(document).ready(function () {
         let childage_count = [];
         let child_count = [];
         let contact_count = [];
+        let crisis_count = [];
 
         age_count.push(counts_age[unique_ages[0]], counts_age[unique_ages[1]], counts_age[unique_ages[2]], counts_age[unique_ages[3]], counts_age[unique_ages[4]], counts_age[unique_ages[5]]);
         help_count.push(counts_help[unique_helps[0]], counts_help[unique_helps[0]]);
         sex_count.push(counts_sex[unique_sexs[0]], counts_sex[unique_sexs[1]], counts_sex[unique_sexs[2]], counts_sex[unique_sexs[3]]);
         status_count.push(counts_status[unique_statuses[0]], counts_status[unique_statuses[1]], counts_status[unique_statuses[2]], counts_status[unique_statuses[3]], counts_status[unique_statuses[4]], counts_status[unique_statuses[5]], counts_status[unique_statuses[6]]);
-        childage_count.push(counts_cAge[unique_cages[0]], counts_cAge[unique_cages[1]], counts_cAge[unique_cages[2]], counts_cAge[unique_cages[3]], counts_cAge[unique_cages[4]], counts_cAge[unique_cages[5]], counts_cAge[unique_cages[6]], counts_cAge[unique_cages[7]], counts_cAge[unique_cages[8]]);
+        childage_count.push(counts_cAge[unique_cages[0]], counts_cAge[unique_cages[1]], counts_cAge[unique_cages[2]], counts_cAge[unique_cages[3]], counts_cAge[unique_cages[4]], counts_cAge[unique_cages[5]], counts_cAge[unique_cages[6]], counts_cAge[unique_cages[7]]);
         child_count.push(counts_child_lkm[unique_childs[0]], counts_child_lkm[unique_childs[1]], counts_child_lkm[unique_childs[2]], counts_child_lkm[unique_childs[3]], counts_child_lkm[unique_childs[4]], counts_child_lkm[unique_childs[5]]);
         contact_count.push(counts_contact[unique_contacts[0]], counts_contact[unique_contacts[1]]);
-        console.log(unique_statuses);
+        crisis_count.push(counts_crisis[unique_crisis[0]], counts_crisis[unique_crisis[1]], counts_crisis[unique_crisis[2]], counts_crisis[unique_crisis[3]], counts_crisis[unique_crisis[4]], counts_crisis[unique_crisis[5]], counts_crisis[unique_crisis[6]], counts_crisis[unique_crisis[7]], counts_crisis[unique_crisis[8]], counts_crisis[unique_crisis[9]]);
+        console.log(unique_crisis);
+
+        if (isEmptyArray(ages.length) === true && isEmptyArray(helps.length) === true && isEmptyArray(sexs.length) === true && isEmptyArray(statuses.length) === true && isEmptyArray(child_ages.length) === true && isEmptyArray(child_lkm.length) === true && isEmptyArray(contacts.length) === true) {
+            $('.bar').hide();
+        } else {
+            $('.stat_title').append('<span>Yhteydenottajan taustatiedot</span>');
+        }
+
+        if (isEmptyArray(crisises.length) === true) {
+            $('.bar_r').hide();
+
+        } else {
+            $('.stat_title_r').append('<span>Yhteydenoton syy</span>');
+        }
+
+
+        if (isEmptyArray(array.length) === false) {
+            $('.in_total').append('<span>Kirjauksia yhteensä: </span>' + (array.length - 1) + '<span> kpl</span>');
+        }
 
 
         if (isEmptyArray(ages.length) === false) {
@@ -653,6 +678,16 @@ $(document).ready(function () {
 
         }
 
+        if (isEmptyArray(crisises.length) === false) {
+            $('.crisis').append('<h3>Erokriisi</h3>');
+            $('.crisis').append(crisises.length + '<h7> kpl kirjausta</h7>');
+
+
+            let ctx = $('#myChartCR');
+            horBarChart(crisis_count, unique_crisis, ctx);
+
+        }
+
 
         console.log('Yhteydenottojen määrä: ' + array.length);
         console.log('Alle 18: ' + counts_age['Alle 18'] + '\n', '19-30: ' + counts_age['19-30'] + '\n', '31-40: ' + counts_age['31-40'] + '\n', '41-50: ' + counts_age['41-50'] + '\n', '51-60: ' + counts_age['51-60'] + '\n', 'Yli 60: ' + counts_age['Yli 60'] + '\n');
@@ -663,7 +698,7 @@ $(document).ready(function () {
         console.log('Ei lapsia: ' + counts_child_lkm['Ei lapsia'], '1 lapsi: ' + counts_child_lkm['1 lapsi'], '2 -3 lasta: ' + counts_child_lkm['2-3 lasta'], '4-7 lasta: ' + counts_child_lkm['4-7 lasta'], 'Yli 8 lasta: ' + counts_child_lkm['8 tai enemmän'], 'Ei tietoa: ' + counts_child_lkm['Ei tietoa']);
         console.log('Puhelinsoitto: ' + counts_contact['Puhelinsoitto'], 'Sähköposti: ' + counts_contact['Sähköpostiviesti']);
 
-        console.log('Avo-/avioero tai parisuhteen päättyminen: ' + counts_crisis['Avo-/avioero tai parisuhteen päättyminen'], 'Harkitsemassa eroa: ' + counts_crisis['Harkitsemassa eroa'], 'Avioeron/avoeron hakemisen käytännöt: ' + counts_crisis['Avioeron/avoeron hakemisen käytännöt'], 'Vanhemmuus eron jälkeen: ' + counts_crisis['Vanhemmuus eron jälkeen'], 'Lasten huoltajuuteen liittyvä haaste: ' + counts_crisis['Lasten huoltajuuteen liittyvä haaste'], 'Ex-puolisoon liittyvä haaste: ' + counts_crisis['Ex-puolisoon liittyvä haaste'], 'Uusperheeseen liittyvä haaste: ' + counts_crisis['Uusperheeseen liittyvä haaste'], 'Ystävyys- ja perhesuhteisiin liittyvä haaste: ' + counts_crisis['Ystävyys- ja perhesuhteisiin liittyvä haaste'], 'Muu: ' + counts_crisis['Muu']);
+        console.log('Avo-/avioero tai parisuhteen päättyminen: ' + counts_crisis['Avo-/avioero tai parisuhteen päättyminen'], 'Harkitsemassa eroa: ' + counts_crisis['Harkitsemassa eroa'], 'Avioeron/avoeron hakemisen käytännöt: ' + counts_crisis['Avioeron/avoeron hakemisen käytännöt'], 'Vanhemmuus eron jälkeen: ' + counts_crisis['Vanhemmuus eron jälkeen'], 'Lasten huoltajuuteen liittyvä haaste: ' + counts_crisis['Lasten huoltajuuteen liittyvä haaste'], 'Ex-puolisoon liittyvä haaste: ' + counts_crisis['Ex-puolisoon liittyvä haaste'], 'Uusperheeseen liittyvä haaste: ' + counts_crisis['Uusperheeseen liittyvä haaste'], 'Ystävyys- ja perhesuhteisiin liittyvä haaste: ' + counts_crisis['Ystävyys- ja perhesuhteisiin liittyvä haaste'], 'Parisuhteeseen liittyvä haaste: ' + counts_crisis['Parisuhteeseen liittyvä haaste'], 'Muu: ' + counts_crisis['Muu']);
         console.log('Raskaus: ' + counts_change['Raskaus'], 'Lapsen syntymä: ' + counts_change['Lapsen syntymä'], 'Sairastuminen: ' + counts_change['Sairastuminen'], 'Työttömäksi jääminen: ' + counts_change['Työttömäksi jääminen'], 'Elääkkeelle jääminen: ' + counts_change['Eläkkeelle jääminen'], 'Työelämän tai koulutuksen ulkopuolelle jääminen: ' + counts_change['Työelämän tai koulutuksen ulkopuolelle jääminen'], 'Läheisen kuolema: ' + counts_change['Läheisen kuolema'], 'Väkivallan kohteeksi joutuminen' + counts_change['Väkivallan kohteeksi joutuminen'], 'Äkillinen vammautuminen/sairastuminen' + counts_change['Äkillinen vammautuminen/sairastuminen'], 'Taloudelliset vaikeudet: ' + counts_change['Taloudelliset vaikeudet'], 'Muu: ' + counts_change['Muu']);
         console.log('Vauvaikäiseen liittyvä huoli: ' + counts_corcern['Vauvaikäiseen liittyvä huoli'], 'Leikki- tai kouluikäiseen liittyvä huoli: ' + counts_corcern['Leikki- tai kouluikäiseen liittyvä huoli'], 'Murrosikäiseen/teini-ikäiseen lapseen liittyvä huoli: ' + counts_corcern['Murrosikäiseen/teini-ikäiseen lapseen liittyvä huoli'], 'Muu: ' + counts_corcern['Muu']);
         console.log('Perustarpeisiin liittyvä haaste: ' + counts_well['Perustarpeisiin liittyvä haaste'], 'Päihde- tai riippuvuusongelma: ' + counts_well['Päihde- tai riippuvuusongelma'], 'Seksuaalisuuteen liittyvä ongelma: ' + counts_well['Seksuaalisuuteen liittyvä ongelma'], 'Stressi: ' + counts_well['Stressi'], 'Uupumus: ' + counts_well['Uupumus'], 'Yksinäisyys: ' + counts_well['Yksinäisyys'], 'Mielenterveysongelma: ' + counts_well['Mielenterveysongelma'], 'Itsetunto-ongelma: ' + counts_well['Itsetunto-ongelma'], 'Muu: ' + counts_well['Muu']);
@@ -854,11 +889,59 @@ function pieChart(count, labels, ctx) {
 }
 
 
+function horBarChart(count, labels, ctx) {
+
+    new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '',
+                data: count,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(66, 245, 126, 0.2)',
+                    'rgba(194, 41, 171, 0.2)',
+                    'rgba(176, 82, 48, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(45, 173, 87, 1)',
+                    'rgba(214, 47, 188, 1)',
+                    'rgb(143, 68, 40, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
 
 
-
-
-
+}
 
 
 
