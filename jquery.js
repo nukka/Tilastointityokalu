@@ -613,12 +613,14 @@ $(document).ready(function () {
         console.log(change_count);
 
         if (isEmptyArray(ages.length) === true && isEmptyArray(helps.length) === true && isEmptyArray(sexs.length) === true && isEmptyArray(statuses.length) === true && isEmptyArray(child_ages.length) === true && isEmptyArray(child_lkm.length) === true && isEmptyArray(contacts.length) === true) {
+            $('.stat').hide();
             $('.bar').hide();
         } else {
             $('.stat_title').append('<span>Yhteydenottajan taustatiedot</span>');
         }
 
-        if (isEmptyArray(crisises.length) === true) {
+        if (isEmptyArray(crisises.length) === true && isEmptyArray(changes.length) === true && isEmptyArray(concerns.length) === true && isEmptyArray(wells.length) === true) {
+            $('.stat').hide();
             $('.bar_r').hide();
 
         } else {
@@ -739,8 +741,6 @@ $(document).ready(function () {
             horBarChart(well_count, unique_well, ctx);
 
         }
-
-
 
 
         console.log('Yhteydenottojen määrä: ' + array.length);
