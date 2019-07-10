@@ -347,6 +347,9 @@ $(document).ready(function () {
         let unique_cages = 0;
         let unique_contacts = 0;
         let unique_crisis = 0;
+        let unique_change = 0;
+        let unique_concern = 0;
+        let unique_well = 0;
 
 
         $.each(array, function (index) {
@@ -443,14 +446,25 @@ $(document).ready(function () {
                             if (string[0] === 'Muutos') {
                                 changes.push(string[1]);
 
+                                unique_change = changes.filter(function (itm, i, changes) {
+                                    return i === changes.indexOf(itm);
+                                });
+
                             }
 
                             if (string[0] === 'Huoli') {
                                 concerns.push(string[1]);
+                                unique_concern = concerns.filter(function (itm, i, concerns) {
+                                    return i === concerns.indexOf(itm);
+                                });
                             }
 
                             if (string[0] === 'Hyvinvointi') {
                                 wells.push(string[1]);
+
+                                unique_well = wells.filter(function (itm, i, wells) {
+                                    return i === wells.indexOf(itm);
+                                });
                             }
 
                             if (string[0] === 'Jatko') {
@@ -579,6 +593,9 @@ $(document).ready(function () {
         let child_count = [];
         let contact_count = [];
         let crisis_count = [];
+        let change_count = [];
+        let concern_count = [];
+        let well_count = [];
 
         age_count.push(counts_age[unique_ages[0]], counts_age[unique_ages[1]], counts_age[unique_ages[2]], counts_age[unique_ages[3]], counts_age[unique_ages[4]], counts_age[unique_ages[5]]);
         help_count.push(counts_help[unique_helps[0]], counts_help[unique_helps[0]]);
@@ -588,7 +605,12 @@ $(document).ready(function () {
         child_count.push(counts_child_lkm[unique_childs[0]], counts_child_lkm[unique_childs[1]], counts_child_lkm[unique_childs[2]], counts_child_lkm[unique_childs[3]], counts_child_lkm[unique_childs[4]], counts_child_lkm[unique_childs[5]]);
         contact_count.push(counts_contact[unique_contacts[0]], counts_contact[unique_contacts[1]]);
         crisis_count.push(counts_crisis[unique_crisis[0]], counts_crisis[unique_crisis[1]], counts_crisis[unique_crisis[2]], counts_crisis[unique_crisis[3]], counts_crisis[unique_crisis[4]], counts_crisis[unique_crisis[5]], counts_crisis[unique_crisis[6]], counts_crisis[unique_crisis[7]], counts_crisis[unique_crisis[8]], counts_crisis[unique_crisis[9]]);
-        console.log(unique_crisis);
+        change_count.push(counts_change[unique_change[0]], counts_change[unique_change[2]], counts_change[unique_change[3]], counts_change[unique_change[4]], counts_change[unique_change[5]], counts_change[unique_change[6]], counts_change[unique_change[7]]);
+        concern_count.push(counts_corcern[unique_concern[0]], counts_corcern[unique_concern[1]], counts_corcern[unique_concern[2]], counts_corcern[unique_concern[3]], counts_corcern[unique_concern[4]]);
+        well_count.push(counts_well[unique_well[0]], counts_well[unique_well[1]], counts_well[unique_well[2]], counts_well[unique_well[3]], counts_well[unique_well[4]], counts_well[unique_well[5]], counts_well[unique_well[6]], counts_well[unique_well[7]], counts_well[unique_well[8]]);
+
+        console.log(unique_change);
+        console.log(change_count);
 
         if (isEmptyArray(ages.length) === true && isEmptyArray(helps.length) === true && isEmptyArray(sexs.length) === true && isEmptyArray(statuses.length) === true && isEmptyArray(child_ages.length) === true && isEmptyArray(child_lkm.length) === true && isEmptyArray(contacts.length) === true) {
             $('.bar').hide();
@@ -687,6 +709,38 @@ $(document).ready(function () {
             horBarChart(crisis_count, unique_crisis, ctx);
 
         }
+
+        if (isEmptyArray(changes.length) === false) {
+            $('.change').append('<h3>Perhetilanteen muutos</h3>');
+            $('.change').append(changes.length + '<h7> kpl kirjausta</h7>');
+
+
+            let ctx = $('#myChartCH');
+            horBarChart(change_count, unique_change, ctx);
+
+        }
+
+        if (isEmptyArray(concerns.length) === false) {
+            $('.concern').append('<h3>Huoli lapsesta</h3>');
+            $('.concern').append(concerns.length + '<h7> kpl kirjausta</h7>');
+
+
+            let ctx = $('#myChartCON');
+            horBarChart(concern_count, unique_concern, ctx);
+
+        }
+
+        if (isEmptyArray(wells.length) === false) {
+            $('.well').append('<h3>Hyvinvointi</h3>');
+            $('.well').append(wells.length + '<h7> kpl kirjausta</h7>');
+
+
+            let ctx = $('#myChartWE');
+            horBarChart(well_count, unique_well, ctx);
+
+        }
+
+
 
 
         console.log('Yhteydenottojen määrä: ' + array.length);
@@ -933,7 +987,8 @@ function horBarChart(count, labels, ctx) {
                     display: true,
                     ticks: {
                         beginAtZero: true,
-                        min: 0
+                        min: 0,
+                        precision: 0
                     }
                 }]
             }
