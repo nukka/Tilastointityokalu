@@ -350,6 +350,7 @@ $(document).ready(function () {
         let unique_change = 0;
         let unique_concern = 0;
         let unique_well = 0;
+        let unique_cont = 0;
 
 
         $.each(array, function (index) {
@@ -469,6 +470,10 @@ $(document).ready(function () {
 
                             if (string[0] === 'Jatko') {
                                 continues.push(string[1]);
+
+                                unique_cont= continues.filter(function (itm, i, continues) {
+                                    return i === continues.indexOf(itm);
+                                });
                             }
 
                             if (string[0] === 'Arvio_y') {
@@ -596,6 +601,7 @@ $(document).ready(function () {
         let change_count = [];
         let concern_count = [];
         let well_count = [];
+        let cont_count = [];
 
         age_count.push(counts_age[unique_ages[0]], counts_age[unique_ages[1]], counts_age[unique_ages[2]], counts_age[unique_ages[3]], counts_age[unique_ages[4]], counts_age[unique_ages[5]]);
         help_count.push(counts_help[unique_helps[0]], counts_help[unique_helps[0]]);
@@ -608,9 +614,10 @@ $(document).ready(function () {
         change_count.push(counts_change[unique_change[0]], counts_change[unique_change[2]], counts_change[unique_change[3]], counts_change[unique_change[4]], counts_change[unique_change[5]], counts_change[unique_change[6]], counts_change[unique_change[7]]);
         concern_count.push(counts_corcern[unique_concern[0]], counts_corcern[unique_concern[1]], counts_corcern[unique_concern[2]], counts_corcern[unique_concern[3]], counts_corcern[unique_concern[4]]);
         well_count.push(counts_well[unique_well[0]], counts_well[unique_well[1]], counts_well[unique_well[2]], counts_well[unique_well[3]], counts_well[unique_well[4]], counts_well[unique_well[5]], counts_well[unique_well[6]], counts_well[unique_well[7]], counts_well[unique_well[8]]);
+        cont_count.push(counts_cont[unique_cont[0]], counts_cont[unique_cont[1]], counts_cont[unique_cont[2]], counts_cont[unique_cont[3]], counts_cont[unique_cont[4]], counts_cont[unique_cont[5]], counts_cont[unique_cont[6]], counts_cont[unique_cont[7]], counts_cont[unique_cont[8]], counts_cont[unique_cont[9]], counts_cont[unique_cont[10]], counts_cont[unique_cont[11]]);
 
-        console.log(unique_change);
-        console.log(change_count);
+        //console.log(unique_change);
+        console.log(cont_count);
 
         if (isEmptyArray(ages.length) === true && isEmptyArray(helps.length) === true && isEmptyArray(sexs.length) === true && isEmptyArray(statuses.length) === true && isEmptyArray(child_ages.length) === true && isEmptyArray(child_lkm.length) === true && isEmptyArray(contacts.length) === true) {
             $('.stat').hide();
@@ -626,6 +633,9 @@ $(document).ready(function () {
         } else {
             $('.stat_title_r').append('<span>Yhteydenoton syy</span>');
         }
+
+        $('.stat_title_c').append('<span>Suositeltu jatko</span>');
+        //if else tähän
 
 
         if (isEmptyArray(array.length) === false) {
@@ -739,6 +749,16 @@ $(document).ready(function () {
 
             let ctx = $('#myChartWE');
             horBarChart(well_count, unique_well, ctx);
+
+        }
+
+        if (isEmptyArray(continues.length) === false) {
+            $('.conti').append('<h3>Suositeltu jatko</h3>');
+            $('.conti').append(continues.length + '<h7> kpl kirjausta</h7>');
+
+
+            let ctx = $('#myChartCONT');
+            horBarChart(cont_count, unique_cont, ctx);
 
         }
 
