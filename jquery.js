@@ -630,8 +630,24 @@ $(document).ready(function () {
         eva_y_count.push(counts_eva_y[unique_est_y[0]], counts_eva_y[unique_est_y[1]], counts_eva_y[unique_est_y[2]], counts_eva_y[unique_est_y[3]], counts_eva_y[unique_est_y[4]]);
         eva_a_count.push(counts_eva_a[unique_est_a[0]], counts_eva_a[unique_est_a[1]], counts_eva_a[unique_est_a[2]], counts_eva_a[unique_est_a[3]], counts_eva_a[unique_est_a[4]]);
 
-        console.log(unique_well);
-        console.log(well_count);
+        //console.log(unique_ages);
+        //console.log(child_ages);
+
+        parseArr(age_count);
+        parseArr(help_count);
+        parseArr(sex_count);
+        parseArr(status_count);
+        parseArr(childage_count);
+        parseArr(child_count);
+        parseArr(contact_count);
+        parseArr(crisis_count);
+        parseArr(change_count);
+        parseArr(concern_count);
+        parseArr(well_count);
+        parseArr(cont_count);
+        parseArr(eva_y_count);
+        parseArr(eva_a_count);
+
 
         if (isEmptyArray(ages.length) === true && isEmptyArray(helps.length) === true && isEmptyArray(sexs.length) === true && isEmptyArray(statuses.length) === true && isEmptyArray(child_ages.length) === true && isEmptyArray(child_lkm.length) === true && isEmptyArray(contacts.length) === true) {
             $('.stat').hide();
@@ -1001,6 +1017,14 @@ function isEmptyArray(length) {
         return false;
     }
 
+}
+
+function parseArr(arr) {
+    for (let i = arr.length - 1; i >= 0; i--) {
+        if (arr[i] === undefined) {
+            arr.splice(i, 1);
+        }
+    }
 }
 
 
