@@ -351,6 +351,8 @@ $(document).ready(function () {
         let unique_concern = 0;
         let unique_well = 0;
         let unique_cont = 0;
+        let unique_est_y = 0;
+        let unique_est_a = 0;
 
 
         $.each(array, function (index) {
@@ -471,17 +473,25 @@ $(document).ready(function () {
                             if (string[0] === 'Jatko') {
                                 continues.push(string[1]);
 
-                                unique_cont= continues.filter(function (itm, i, continues) {
+                                unique_cont = continues.filter(function (itm, i, continues) {
                                     return i === continues.indexOf(itm);
                                 });
                             }
 
                             if (string[0] === 'Arvio_y') {
                                 evas_y.push(string[1]);
+
+                                unique_est_y = evas_y.filter(function (itm, i, evas_y) {
+                                    return i === evas_y.indexOf(itm);
+                                });
                             }
 
                             if (string[0] === 'Arvio_a') {
                                 evas_a.push(string[1]);
+
+                                unique_est_a = evas_a.filter(function (itm, i, evas_a) {
+                                    return i === evas_a.indexOf(itm);
+                                });
                             }
 
                         }
@@ -602,6 +612,8 @@ $(document).ready(function () {
         let concern_count = [];
         let well_count = [];
         let cont_count = [];
+        let eva_y_count = [];
+        let eva_a_count = [];
 
         age_count.push(counts_age[unique_ages[0]], counts_age[unique_ages[1]], counts_age[unique_ages[2]], counts_age[unique_ages[3]], counts_age[unique_ages[4]], counts_age[unique_ages[5]]);
         help_count.push(counts_help[unique_helps[0]], counts_help[unique_helps[0]]);
@@ -615,9 +627,11 @@ $(document).ready(function () {
         concern_count.push(counts_corcern[unique_concern[0]], counts_corcern[unique_concern[1]], counts_corcern[unique_concern[2]], counts_corcern[unique_concern[3]], counts_corcern[unique_concern[4]]);
         well_count.push(counts_well[unique_well[0]], counts_well[unique_well[1]], counts_well[unique_well[2]], counts_well[unique_well[3]], counts_well[unique_well[4]], counts_well[unique_well[5]], counts_well[unique_well[6]], counts_well[unique_well[7]], counts_well[unique_well[8]]);
         cont_count.push(counts_cont[unique_cont[0]], counts_cont[unique_cont[1]], counts_cont[unique_cont[2]], counts_cont[unique_cont[3]], counts_cont[unique_cont[4]], counts_cont[unique_cont[5]], counts_cont[unique_cont[6]], counts_cont[unique_cont[7]], counts_cont[unique_cont[8]], counts_cont[unique_cont[9]], counts_cont[unique_cont[10]], counts_cont[unique_cont[11]]);
+        eva_y_count.push(counts_eva_y[unique_est_y[0]], counts_eva_y[unique_est_y[1]], counts_eva_y[unique_est_y[2]], counts_eva_y[unique_est_y[3]], counts_eva_y[unique_est_y[4]]);
+        eva_a_count.push(counts_eva_a[unique_est_a[0]], counts_eva_a[unique_est_a[1]], counts_eva_a[unique_est_a[2]], counts_eva_a[unique_est_a[3]], counts_eva_a[unique_est_a[4]]);
 
-        //console.log(unique_change);
-        console.log(cont_count);
+        console.log(unique_est_y);
+        console.log(eva_y_count);
 
         if (isEmptyArray(ages.length) === true && isEmptyArray(helps.length) === true && isEmptyArray(sexs.length) === true && isEmptyArray(statuses.length) === true && isEmptyArray(child_ages.length) === true && isEmptyArray(child_lkm.length) === true && isEmptyArray(contacts.length) === true) {
             $('.stat').hide();
@@ -633,9 +647,14 @@ $(document).ready(function () {
         } else {
             $('.stat_title_r').append('<span>Yhteydenoton syy</span>');
         }
+        if (isEmptyArray(continues.length)) {
+            $('.stat').hide();
+            $('.bar_c').hide();
+        } else {
+            $('.stat_title_c').append('<span>Mitä apua tarjottiin?</span>');
+        }
 
-        $('.stat_title_c').append('<span>Suositeltu jatko</span>');
-        //if else tähän
+        $('.stat_title_e').append('<span>Arvio palvelun hyödyllisyydestä</span>');
 
 
         if (isEmptyArray(array.length) === false) {
@@ -762,6 +781,64 @@ $(document).ready(function () {
 
         }
 
+        if (isEmptyArray(evas_y.length) === false) {
+            $('.estimate').append('<h3>Yhteydenottajan arvio palvelun hyödyllisyydestä</h3>');
+            $('.estimate').append(evas_y.length + '<h7> kpl kirjausta</h7>');
+
+
+            let sortedList = [];
+
+            for (let j = 0; j < unique_est_y.length; j++) {
+                sortedList.push({'label': unique_est_y[j], 'arvio': eva_y_count[j]});
+            }
+
+
+            sortedList.sort(function (a, b) {
+                return ((a.label < b.label) ? -1 : ((a.label === b.label) ? 0 : 1));
+            });
+
+            for (let k = 0; k < sortedList.length; k++) {
+                unique_est_y[k] = sortedList[k].label;
+                eva_y_count[k] = sortedList[k].arvio;
+            }
+
+            console.log(eva_y_count);
+            console.log(unique_est_y);
+
+
+            let ctx = $('#myChartES');
+            let type = 'bar';
+            horBarChart(eva_y_count, unique_est_y, ctx, type);
+
+        }
+
+        if (isEmptyArray(evas_a.length) === false) {
+            $('.estimate_a').append('<h3>Asiantuntijan arvio palvelun hyödyllisyydestä</h3>');
+            $('.estimate_a').append(evas_a.length + '<h7> kpl kirjausta</h7>');
+
+            let sortedList = [];
+
+            for (let j = 0; j < unique_est_a.length; j++) {
+                sortedList.push({'label': unique_est_a[j], 'arvio': eva_a_count[j]});
+            }
+
+
+            sortedList.sort(function (a, b) {
+                return ((a.label < b.label) ? -1 : ((a.label === b.label) ? 0 : 1));
+            });
+
+            for (let k = 0; k < sortedList.length; k++) {
+                unique_est_a[k] = sortedList[k].label;
+                eva_a_count[k] = sortedList[k].arvio;
+            }
+
+
+            type = 'bar';
+            let ctx = $('#myChartES_A');
+            horBarChart(eva_a_count, unique_est_a, ctx, type);
+
+        }
+
 
         console.log('Yhteydenottojen määrä: ' + array.length);
         console.log('Alle 18: ' + counts_age['Alle 18'] + '\n', '19-30: ' + counts_age['19-30'] + '\n', '31-40: ' + counts_age['31-40'] + '\n', '41-50: ' + counts_age['41-50'] + '\n', '51-60: ' + counts_age['51-60'] + '\n', 'Yli 60: ' + counts_age['Yli 60'] + '\n');
@@ -778,8 +855,8 @@ $(document).ready(function () {
         console.log('Perustarpeisiin liittyvä haaste: ' + counts_well['Perustarpeisiin liittyvä haaste'], 'Päihde- tai riippuvuusongelma: ' + counts_well['Päihde- tai riippuvuusongelma'], 'Seksuaalisuuteen liittyvä ongelma: ' + counts_well['Seksuaalisuuteen liittyvä ongelma'], 'Stressi: ' + counts_well['Stressi'], 'Uupumus: ' + counts_well['Uupumus'], 'Yksinäisyys: ' + counts_well['Yksinäisyys'], 'Mielenterveysongelma: ' + counts_well['Mielenterveysongelma'], 'Itsetunto-ongelma: ' + counts_well['Itsetunto-ongelma'], 'Muu: ' + counts_well['Muu']);
 
         console.log('Vanhemman neuvo -vertaistukiryhmä: ', counts_cont['Vanhemman neuvo -vertaistukiryhmä'], 'Eroneuvoilta/erokahvila: ' + counts_cont['Eroneuvoilta/erokahvila'], 'Eroseminaari: ' + counts_cont['Eroseminaari'], 'Miesten eroryhmä: ' + counts_cont['Miesten eroryhmä'], 'Sovittu tapaaminen: ' + counts_cont['Sovittu tapaaminen'], 'Chat-palvelu: ' + counts_cont['Chat-palvelu'], 'Erotukihenkilö: ' + counts_cont['Erotukihenkilö'] + 'Lastenvalvoja: ' + counts_cont['Lastenvalvoja'], 'Turvakotiin ohjaus: ' + counts_cont['Turvakotiin ohjaus'], 'Perheasioiden sovittelu: ' + counts_cont['Perheasioiden sovittelu'], 'Ei jatkotoimenpiteitä: ' + counts_cont['Ei jatkotoimenpiteitä'], 'Muu: ' + counts_cont['Muu']);
-        console.log('a1: ' + counts_eva_y['1'], 'a2: ' + counts_eva_y['2'], 'a3: ' + counts_eva_y['3'], 'a4: ' + counts_eva_y['4'], 'a5: ' + counts_eva_y['5']);
-        console.log('y1: ' + counts_eva_a['1'], 'y2: ' + counts_eva_a['2'], 'y3: ' + counts_eva_a['3'], 'y4: ' + counts_eva_a['4'], 'y5: ' + counts_eva_a['5']);
+        console.log('y1: ' + counts_eva_y['1'], 'y2: ' + counts_eva_y['2'], 'y3: ' + counts_eva_y['3'], 'y4: ' + counts_eva_y['4'], 'y5: ' + counts_eva_y['5']);
+        console.log('a1: ' + counts_eva_a['1'], 'a2: ' + counts_eva_a['2'], 'a3: ' + counts_eva_a['3'], 'a4: ' + counts_eva_a['4'], 'a5: ' + counts_eva_a['5']);
 
 
     });
@@ -963,10 +1040,10 @@ function pieChart(count, labels, ctx) {
 }
 
 
-function horBarChart(count, labels, ctx) {
+function horBarChart(count, labels, ctx, type = 'horizontalBar') {
 
     new Chart(ctx, {
-        type: 'horizontalBar',
+        type: type,
         data: {
             labels: labels,
             datasets: [{
@@ -1010,6 +1087,14 @@ function horBarChart(count, labels, ctx) {
                         min: 0,
                         precision: 0
                     }
+                }],
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        precision: 0
+                    }
                 }]
             }
         }
@@ -1017,6 +1102,8 @@ function horBarChart(count, labels, ctx) {
 
 
 }
+
+
 
 
 
