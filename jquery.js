@@ -625,13 +625,13 @@ $(document).ready(function () {
         crisis_count.push(counts_crisis[unique_crisis[0]], counts_crisis[unique_crisis[1]], counts_crisis[unique_crisis[2]], counts_crisis[unique_crisis[3]], counts_crisis[unique_crisis[4]], counts_crisis[unique_crisis[5]], counts_crisis[unique_crisis[6]], counts_crisis[unique_crisis[7]], counts_crisis[unique_crisis[8]], counts_crisis[unique_crisis[9]]);
         change_count.push(counts_change[unique_change[0]], counts_change[unique_change[2]], counts_change[unique_change[3]], counts_change[unique_change[4]], counts_change[unique_change[5]], counts_change[unique_change[6]], counts_change[unique_change[7]]);
         concern_count.push(counts_corcern[unique_concern[0]], counts_corcern[unique_concern[1]], counts_corcern[unique_concern[2]], counts_corcern[unique_concern[3]], counts_corcern[unique_concern[4]]);
-        well_count.push(counts_well[unique_well[0]], counts_well[unique_well[1]], counts_well[unique_well[2]], counts_well[unique_well[3]], counts_well[unique_well[4]], counts_well[unique_well[5]], counts_well[unique_well[6]], counts_well[unique_well[7]], counts_well[unique_well[8]]);
+        well_count.push(counts_well[unique_well[0]], counts_well[unique_well[1]], counts_well[unique_well[2]], counts_well[unique_well[3]], counts_well[unique_well[4]], counts_well[unique_well[5]], counts_well[unique_well[6]], counts_well[unique_well[7]], counts_well[unique_well[8]], counts_well[unique_well[9]]);
         cont_count.push(counts_cont[unique_cont[0]], counts_cont[unique_cont[1]], counts_cont[unique_cont[2]], counts_cont[unique_cont[3]], counts_cont[unique_cont[4]], counts_cont[unique_cont[5]], counts_cont[unique_cont[6]], counts_cont[unique_cont[7]], counts_cont[unique_cont[8]], counts_cont[unique_cont[9]], counts_cont[unique_cont[10]], counts_cont[unique_cont[11]]);
         eva_y_count.push(counts_eva_y[unique_est_y[0]], counts_eva_y[unique_est_y[1]], counts_eva_y[unique_est_y[2]], counts_eva_y[unique_est_y[3]], counts_eva_y[unique_est_y[4]]);
         eva_a_count.push(counts_eva_a[unique_est_a[0]], counts_eva_a[unique_est_a[1]], counts_eva_a[unique_est_a[2]], counts_eva_a[unique_est_a[3]], counts_eva_a[unique_est_a[4]]);
 
-        console.log(unique_est_y);
-        console.log(eva_y_count);
+        console.log(unique_well);
+        console.log(well_count);
 
         if (isEmptyArray(ages.length) === true && isEmptyArray(helps.length) === true && isEmptyArray(sexs.length) === true && isEmptyArray(statuses.length) === true && isEmptyArray(child_ages.length) === true && isEmptyArray(child_lkm.length) === true && isEmptyArray(contacts.length) === true) {
             $('.stat').hide();
@@ -654,7 +654,12 @@ $(document).ready(function () {
             $('.stat_title_c').append('<span>Mitä apua tarjottiin?</span>');
         }
 
-        $('.stat_title_e').append('<span>Arvio palvelun hyödyllisyydestä</span>');
+        if (isEmptyArray(evas_a.length) === true && isEmptyArray(evas_y.length) === true) {
+            $('.stat').hide();
+            $('.bar_e').hide();
+        } else {
+            $('.stat_title_e').append('<span>Arvio palvelun hyödyllisyydestä</span>');
+        }
 
 
         if (isEmptyArray(array.length) === false) {
@@ -1058,7 +1063,10 @@ function horBarChart(count, labels, ctx, type = 'horizontalBar') {
                     'rgba(255, 159, 64, 0.2)',
                     'rgba(66, 245, 126, 0.2)',
                     'rgba(194, 41, 171, 0.2)',
-                    'rgba(176, 82, 48, 0.2)'
+                    'rgba(176, 82, 48, 0.2)',
+                    'rgba(0, 78, 204, 0.2)',
+                    'rgba(30, 74, 51, 0.2)',
+                    'rgba(156, 156, 156, 0.2)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -1069,7 +1077,10 @@ function horBarChart(count, labels, ctx, type = 'horizontalBar') {
                     'rgba(255, 159, 64, 1)',
                     'rgba(45, 173, 87, 1)',
                     'rgba(214, 47, 188, 1)',
-                    'rgb(143, 68, 40, 1)'
+                    'rgb(143, 68, 40, 1)',
+                    'rgba(0, 94, 247, 1)',
+                    'rgba(34, 89, 59, 1)',
+                    'rgba(156, 156, 156, 1)'
                 ],
                 borderWidth: 1
             }]
