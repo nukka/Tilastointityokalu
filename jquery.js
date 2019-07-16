@@ -14,6 +14,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#btn-statistics").click(function () {
         ipcR.send('clicked_stat', 'ping');
+
     });
 });
 
@@ -30,6 +31,8 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+
+
     $('#btn-next-bginfo').click(function () {
         ipcR.send('clicked_next', 'ping');
 
@@ -58,6 +61,7 @@ $(document).ready(function () {
 
         if (age === undefined && help === undefined && sex === undefined && child === undefined && contact_type === undefined && status === undefined && bgValues.length === 0) {
             console.log("Tietoja ei syötetty");
+            ipcR.send('update-from-bg', 'empty');
 
         } else {
 
@@ -96,6 +100,8 @@ $(document).ready(function () {
                 infoValues.push('Yht_otto:' + contact_type);
             }
             ipcR.send('update-from-bg', infoValues);
+
+
         }
 
 
@@ -142,7 +148,6 @@ $(document).ready(function () {
             console.log("Tietoja ei syötetty");
         } else {
 
-
             if (crisisValues.length !== 0) {
 
                 for (let i = 0; i < crisisValues.length; i++) {
@@ -174,6 +179,7 @@ $(document).ready(function () {
             }
 
             ipcR.send('update-from-reason', inputValues);
+
         }
 
 
@@ -183,7 +189,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 
     $('#btn-toMain').click(function () {
-        ipcR.send('clicked_toMain', 'ping');
+        ipcR.send('clicked_toMain', 'ping')
 
     })
 });
@@ -232,7 +238,10 @@ $(document).ready(function () {
 
 
     ipcR.on('action-update-bg', (event, arg) => {
-        inputDatabg = arg;
+        if (arg !== 'empty') {
+            inputDatabg = arg;
+        }
+
     });
 
     ipcR.on('action-update-reason', (event, arg) => {
@@ -263,7 +272,6 @@ $(document).ready(function () {
                 //console.log(inputValues);
             }
 
-
             if (evaluation_y !== undefined) {
 
                 inputValues.push('Arvio_y:' + evaluation_y);
@@ -273,8 +281,6 @@ $(document).ready(function () {
 
                 inputValues.push(text);
             }
-
-
         }
 
         let writeFile = [];

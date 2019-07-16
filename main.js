@@ -157,17 +157,29 @@ function createWindow() {
 
 }
 
+let isEmpty = true;
 
 ipcMain.on('clicked_contact', (event, arg) => {
     if (arg === 'ping') {
         console.log("Kirjaa yhteystieto -nappi");
+
+        console.log(isEmpty);
+        if (isEmpty === false) {
+            bginfoWindow.reload();
+        }
+        reasonWindow.reload();
+        helpWindow.reload();
+        evaluationWindow.reload();
         bginfoWindow.show();
     }
 });
 
 ipcMain.on('clicked_stat', (event, arg) => {
     if (arg === 'ping') {
+        statisticWindow.reload();
         statisticWindow.show();
+        console.log('Tilastot-nappi');
+
     }
 });
 
@@ -296,6 +308,10 @@ ipcMain.on('clicked_checkbox_noanswer', (event, arg) => {
 
 ipcMain.on('update-from-bg', (event, arg) => {
     evaluationWindow.webContents.send('action-update-bg', arg);
+
+    if (arg !== 'empty') {
+        isEmpty = false;
+    }
 });
 
 ipcMain.on('update-from-reason', (event, arg) => {
@@ -309,6 +325,7 @@ ipcMain.on('update-from-help', (event, arg) => {
 ipcMain.on('update-from-main', (event, arg) => {
     evaluationWindow.webContents.send('action-update-main', arg);
 });
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
