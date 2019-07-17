@@ -12,6 +12,7 @@ let helpWindow;
 let evaluationWindow;
 let successWindow;
 let statisticWindow;
+let recordWindow;
 
 function createWindow() {
 
@@ -139,6 +140,23 @@ function createWindow() {
         slashes: true
     }));
 
+    recordWindow = new BrowserWindow({
+        width: 1000,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
+
+        }
+
+    });
+
+    recordWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'yksittaiset.html'),
+        protocol: 'file',
+        slashes: true
+    }));
+
 
     bginfoWindow.hide();
     reasonWindow.hide();
@@ -146,6 +164,7 @@ function createWindow() {
     evaluationWindow.hide();
     successWindow.hide();
     statisticWindow.hide();
+    recordWindow.hide();
 
     mainWindow.webContents.openDevTools();
     bginfoWindow.webContents.openDevTools();
@@ -154,6 +173,7 @@ function createWindow() {
     evaluationWindow.webContents.openDevTools();
     successWindow.webContents.openDevTools();
     statisticWindow.webContents.openDevTools();
+    recordWindow.webContents.openDevTools();
 
 }
 
@@ -163,10 +183,6 @@ ipcMain.on('clicked_contact', (event, arg) => {
     if (arg === 'ping') {
         console.log("Kirjaa yhteystieto -nappi");
 
-        console.log(isEmpty);
-        if (isEmpty === false) {
-            bginfoWindow.reload();
-        }
         reasonWindow.reload();
         helpWindow.reload();
         evaluationWindow.reload();
@@ -176,10 +192,15 @@ ipcMain.on('clicked_contact', (event, arg) => {
 
 ipcMain.on('clicked_stat', (event, arg) => {
     if (arg === 'ping') {
-        statisticWindow.reload();
         statisticWindow.show();
         console.log('Tilastot-nappi');
+    }
+});
 
+ipcMain.on('clicked_rec', (event, arg) => {
+    if (arg === 'ping') {
+        recordWindow.show();
+        console.log('Tilastot-nappi');
     }
 });
 
@@ -236,6 +257,7 @@ ipcMain.on('clicked_toMain', (event, arg) => {
         evaluationWindow.hide();
         successWindow.hide();
         statisticWindow.hide();
+        recordWindow.hide();
     }
 });
 
@@ -277,6 +299,12 @@ ipcMain.on('clicked_save', (event, arg) => {
         reasonWindow.hide();
         evaluationWindow.hide();
         helpWindow.hide();
+
+        statisticWindow.reload();
+        recordWindow.reload();
+        if (isEmpty === false) {
+            bginfoWindow.reload();
+        }
 
     }
 

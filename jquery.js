@@ -19,6 +19,13 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+    $("#btn-record").click(function () {
+        ipcR.send('clicked_rec', 'ping');
+
+    });
+});
+
+$(document).ready(function () {
     $("#btn-quit").click(function () {
         ipcR.send('clicked_quit', 'ping');
     });
@@ -279,7 +286,7 @@ $(document).ready(function () {
 
             if (text.length !== 0) {
 
-                inputValues.push(text);
+                inputValues.push('Teksti:' + text);
             }
         }
 
@@ -343,6 +350,9 @@ $(document).ready(function () {
 
         let evas_y = [];
         let evas_a = [];
+        let text = [];
+
+        let record = [];
 
 
         let unique_ages = 0;
@@ -364,12 +374,12 @@ $(document).ready(function () {
         $.each(array, function (index) {
             let row = array[index].split(',');
             //console.log(row);
+            record.push(row);
 
 
             $.each(row, function (index) {
                 let word = row[index].split(',');
                 //console.log(word);
-
 
                 let found = false;
                 $.each(word, function (index, value) {
@@ -498,6 +508,10 @@ $(document).ready(function () {
                                 unique_est_a = evas_a.filter(function (itm, i, evas_a) {
                                     return i === evas_a.indexOf(itm);
                                 });
+                            }
+
+                            if (string[0] === 'Teksti') {
+                                text.push(string[1]);
                             }
 
                         }
@@ -696,7 +710,10 @@ $(document).ready(function () {
 
             let ctx = $('#myChart');
 
-            pieChart(age_count, unique_ages, ctx);
+            if ($('.statistics').length > 0) {
+                pieChart(age_count, unique_ages, ctx);
+            }
+
 
         }
 
@@ -705,7 +722,10 @@ $(document).ready(function () {
             $('.help').append(helps.length + '<h7> kpl kirjausta</h7>');
 
             let ctx = $('#myChartH');
-            pieChart(help_count, unique_helps, ctx);
+            if ($('.statistics').length > 0) {
+                pieChart(help_count, unique_helps, ctx);
+            }
+
 
         }
 
@@ -714,7 +734,11 @@ $(document).ready(function () {
             $('.sex').append(sexs.length + '<h7> kpl kirjausta</h7>');
 
             let ctx = $('#myChartS');
-            pieChart(sex_count, unique_sexs, ctx);
+
+            if ($('.statistics').length > 0) {
+                pieChart(sex_count, unique_sexs, ctx);
+            }
+
 
         }
 
@@ -724,7 +748,11 @@ $(document).ready(function () {
 
 
             let ctx = $('#myChartSt');
-            pieChart(status_count, unique_statuses, ctx);
+
+            if ($('.statistics').length > 0) {
+                pieChart(status_count, unique_statuses, ctx);
+            }
+
 
         }
 
@@ -734,7 +762,10 @@ $(document).ready(function () {
 
 
             let ctx = $('#myChartCA');
-            pieChart(childage_count, unique_cages, ctx);
+            if ($('.statistics').length > 0) {
+                pieChart(childage_count, unique_cages, ctx);
+            }
+
 
         }
 
@@ -744,7 +775,10 @@ $(document).ready(function () {
 
 
             let ctx = $('#myChartCC');
-            pieChart(child_count, unique_childs, ctx);
+            if ($('.statistics').length > 0) {
+                pieChart(child_count, unique_childs, ctx);
+            }
+
 
         }
 
@@ -754,7 +788,10 @@ $(document).ready(function () {
 
 
             let ctx = $('#myChartCO');
-            pieChart(contact_count, unique_contacts, ctx);
+            if ($('.statistics').length > 0) {
+                pieChart(contact_count, unique_contacts, ctx);
+            }
+
 
         }
 
@@ -764,7 +801,10 @@ $(document).ready(function () {
 
 
             let ctx = $('#myChartCR');
-            horBarChart(crisis_count, unique_crisis, ctx);
+            if ($('.statistics').length > 0) {
+                horBarChart(crisis_count, unique_crisis, ctx);
+            }
+
 
         }
 
@@ -774,7 +814,10 @@ $(document).ready(function () {
 
 
             let ctx = $('#myChartCH');
-            horBarChart(change_count, unique_change, ctx);
+            if ($('.statistics').length > 0) {
+                horBarChart(change_count, unique_change, ctx);
+            }
+
 
         }
 
@@ -784,7 +827,10 @@ $(document).ready(function () {
 
 
             let ctx = $('#myChartCON');
-            horBarChart(concern_count, unique_concern, ctx);
+            if ($('.statistics').length > 0) {
+                horBarChart(concern_count, unique_concern, ctx);
+            }
+
 
         }
 
@@ -794,7 +840,10 @@ $(document).ready(function () {
 
 
             let ctx = $('#myChartWE');
-            horBarChart(well_count, unique_well, ctx);
+            if ($('.statistics').length > 0) {
+                horBarChart(well_count, unique_well, ctx);
+            }
+
 
         }
 
@@ -804,7 +853,11 @@ $(document).ready(function () {
 
 
             let ctx = $('#myChartCONT');
-            horBarChart(cont_count, unique_cont, ctx);
+
+            if ($('.statistics').length > 0) {
+                horBarChart(cont_count, unique_cont, ctx);
+            }
+
 
         }
 
@@ -829,13 +882,14 @@ $(document).ready(function () {
                 eva_y_count[k] = sortedList[k].arvio;
             }
 
-            console.log(eva_y_count);
-            console.log(unique_est_y);
-
 
             let ctx = $('#myChartES');
             let type = 'bar';
-            horBarChart(eva_y_count, unique_est_y, ctx, type);
+
+            if ($('.statistics').length > 0) {
+                horBarChart(eva_y_count, unique_est_y, ctx, type);
+            }
+
 
         }
 
@@ -859,12 +913,24 @@ $(document).ready(function () {
                 eva_a_count[k] = sortedList[k].arvio;
             }
 
-
             type = 'bar';
             let ctx = $('#myChartES_A');
-            horBarChart(eva_a_count, unique_est_a, ctx, type);
+            if ($('.statistics').length > 0) {
+                horBarChart(eva_a_count, unique_est_a, ctx, type);
+            }
+
 
         }
+
+
+
+
+
+        //console.log(record[i].indexOf('Ika')!== -1);
+
+
+        $('.record').append('<h5>Ikä</h5>');
+        $('.record').append('<h5>Sukupuoli</h5>');
 
 
         console.log('Yhteydenottojen määrä: ' + array.length);
