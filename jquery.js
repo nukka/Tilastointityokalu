@@ -352,9 +352,6 @@ $(document).ready(function () {
         let evas_a = [];
         let text = [];
 
-        let record = [];
-
-
         let unique_ages = 0;
         let unique_helps = 0;
         let unique_sexs = 0;
@@ -373,8 +370,6 @@ $(document).ready(function () {
 
         $.each(array, function (index) {
             let row = array[index].split(',');
-            //console.log(row);
-            record.push(row);
 
 
             $.each(row, function (index) {
@@ -388,6 +383,7 @@ $(document).ready(function () {
                         found = true;
                         //console.log(found);
 
+
                         if (found === true) {
                             let string = word[index].split(':');
                             //console.log(string);
@@ -398,6 +394,8 @@ $(document).ready(function () {
                                     return i === ages.indexOf(itm);
                                 });
 
+                                $('.record').append('<span>Ikä: </span>' + string[1] + '<br/>');
+
 
                             }
 
@@ -407,6 +405,8 @@ $(document).ready(function () {
                                 unique_helps = helps.filter(function (itm, i, helps) {
                                     return i === helps.indexOf(itm);
                                 });
+
+                                $('.record').append('<span>Etsin apua: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Sukupuoli') {
@@ -415,6 +415,8 @@ $(document).ready(function () {
                                 unique_sexs = sexs.filter(function (itm, i, sexs) {
                                     return i === sexs.indexOf(itm);
                                 });
+
+                                $('.record').append('<span>Sukupuoli: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Status') {
@@ -423,6 +425,8 @@ $(document).ready(function () {
                                 unique_statuses = statuses.filter(function (itm, i, statuses) {
                                     return i === statuses.indexOf(itm);
                                 });
+
+                                $('.record').append('<span>Sosioekonominen asema: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Lapsi_lkm') {
@@ -431,6 +435,8 @@ $(document).ready(function () {
                                 unique_childs = child_lkm.filter(function (itm, i, child_lkm) {
                                     return i === child_lkm.indexOf(itm);
                                 });
+
+                                $('.record').append('<span>Lasten lukumäärä: </span>' + string[1] + '<br/>');
 
 
                             }
@@ -443,6 +449,8 @@ $(document).ready(function () {
                                     return i === child_ages.indexOf(itm);
                                 });
 
+                                $('.record').append('<span>Lasten iät: </span>' + string[1] + '<br/>');
+
                             }
 
                             if (string[0] === 'Yht_otto') {
@@ -451,6 +459,8 @@ $(document).ready(function () {
                                 unique_contacts = contacts.filter(function (itm, i, contacts) {
                                     return i === contacts.indexOf(itm);
                                 });
+
+                                $('.record').append('<span>Yhteydenottotapa: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Kriisi') {
@@ -460,14 +470,19 @@ $(document).ready(function () {
                                     return i === crisises.indexOf(itm);
                                 });
 
+                                $('.record').append('<span>Erokriisi: </span>' + string[1] + '<br/>');
+
                             }
 
                             if (string[0] === 'Muutos') {
+
                                 changes.push(string[1]);
 
                                 unique_change = changes.filter(function (itm, i, changes) {
                                     return i === changes.indexOf(itm);
                                 });
+
+                                $('.record').append(string[1] + '<br/>');
 
                             }
 
@@ -476,6 +491,8 @@ $(document).ready(function () {
                                 unique_concern = concerns.filter(function (itm, i, concerns) {
                                     return i === concerns.indexOf(itm);
                                 });
+
+                                $('.record').append('<span>Huoli lapsesta: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Hyvinvointi') {
@@ -484,6 +501,8 @@ $(document).ready(function () {
                                 unique_well = wells.filter(function (itm, i, wells) {
                                     return i === wells.indexOf(itm);
                                 });
+
+                                $('.record').append('<span>Hyvinvointi: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Jatko') {
@@ -492,6 +511,8 @@ $(document).ready(function () {
                                 unique_cont = continues.filter(function (itm, i, continues) {
                                     return i === continues.indexOf(itm);
                                 });
+
+                                $('.record').append('<span>Suositeltu jatko: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Arvio_y') {
@@ -500,6 +521,7 @@ $(document).ready(function () {
                                 unique_est_y = evas_y.filter(function (itm, i, evas_y) {
                                     return i === evas_y.indexOf(itm);
                                 });
+                                $('.record').append('<span>Yhteydenottajan arvio palvelun hyödyllisyydestä: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Arvio_a') {
@@ -508,21 +530,31 @@ $(document).ready(function () {
                                 unique_est_a = evas_a.filter(function (itm, i, evas_a) {
                                     return i === evas_a.indexOf(itm);
                                 });
+
+                                $('.record').append('<span>Asiantuntijan arvio palvelun hyödyllisyydestä: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Teksti') {
                                 text.push(string[1]);
+                                $('.record').append('<span>Muuta huomioitavaa: </span>' + string[1] + '<br/>');
                             }
+
+
+
 
                         }
                         // return false;
+
                     }
+
 
                 });
 
 
             });
 
+
+            $('.record').append('<br/>');
 
         });
 
@@ -921,16 +953,6 @@ $(document).ready(function () {
 
 
         }
-
-
-
-
-
-        //console.log(record[i].indexOf('Ika')!== -1);
-
-
-        $('.record').append('<h5>Ikä</h5>');
-        $('.record').append('<h5>Sukupuoli</h5>');
 
 
         console.log('Yhteydenottojen määrä: ' + array.length);
