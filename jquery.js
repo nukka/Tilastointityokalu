@@ -370,11 +370,13 @@ $(document).ready(function () {
         let muutos = 'Muutos';
         let huoli = 'Huoli';
 
+        let tempRow = [];
+
 
         $.each(array, function (index) {
             let row = array[index].split(',');
-            displayTitle(muutos);
-            displayTitle(huoli);
+            //displayTitle(muutos);
+            //displayTitle(huoli);
 
 
             $.each(row, function (index) {
@@ -454,7 +456,15 @@ $(document).ready(function () {
                                     return i === child_ages.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Lasten iät: </span>' + string[1] + '<br/>');
+                                tempRow.push(string[1]);
+                                console.log(tempRow.length);
+
+                                if(tempRow.length===1){
+                                    $('.record').append('<span>Lasten iät: </span>');
+
+                                }
+                                
+                                $('.record').append(string[1] + '<br/>');
 
                             }
 
@@ -485,9 +495,17 @@ $(document).ready(function () {
 
                                 unique_change = changes.filter(function (itm, i, changes) {
                                     return i === changes.indexOf(itm);
+
+
                                 });
 
+                                tempRow.push(string[1]);
+                                console.log(tempRow.length);
 
+                                if(tempRow.length===1){
+                                    $('.record').append('<span>Perhetilanteen muutos: </span>');
+
+                                }
 
                                 $('.record').append(string[1] + '<br/>');
 
@@ -509,7 +527,14 @@ $(document).ready(function () {
                                     return i === wells.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Hyvinvointi: </span>' + string[1] + '<br/>');
+                                tempRow.push(string[1]);
+
+                                if(tempRow.length===1){
+                                    $('.record').append('<span>Hyvinvointi: </span>');
+
+                                }
+
+                                $('.record').append(string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Jatko') {
@@ -560,7 +585,7 @@ $(document).ready(function () {
 
 
             $('.record').append('<br/>');
-            console.log(row);
+            tempRow.length = 0;
 
 
 
@@ -576,11 +601,11 @@ $(document).ready(function () {
                 }
 
                 if (count > 1) {
-                    console.log('Monta');
+                    //console.log('Monta');
                     $('.record').append('<span>' + title +': ' +'</span>' );
 
                 }
-                console.log(count);
+                //console.log(count);
 
             };
 
