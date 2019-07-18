@@ -367,9 +367,14 @@ $(document).ready(function () {
         let unique_est_y = 0;
         let unique_est_a = 0;
 
+        let muutos = 'Muutos';
+        let huoli = 'Huoli';
+
 
         $.each(array, function (index) {
             let row = array[index].split(',');
+            displayTitle(muutos);
+            displayTitle(huoli);
 
 
             $.each(row, function (index) {
@@ -482,6 +487,8 @@ $(document).ready(function () {
                                     return i === changes.indexOf(itm);
                                 });
 
+
+
                                 $('.record').append(string[1] + '<br/>');
 
                             }
@@ -492,7 +499,7 @@ $(document).ready(function () {
                                     return i === concerns.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Huoli lapsesta: </span>' + string[1] + '<br/>');
+                                $('.record').append(string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Hyvinvointi') {
@@ -540,8 +547,6 @@ $(document).ready(function () {
                             }
 
 
-
-
                         }
                         // return false;
 
@@ -555,6 +560,33 @@ $(document).ready(function () {
 
 
             $('.record').append('<br/>');
+            console.log(row);
+
+
+
+            function displayTitle(title){
+                let res;
+                let count = 0;
+                for (let i = 0; i < row.length; i++) {
+                    res = row[i].match(title);
+
+                    if (res !== null) {
+                        count++;
+                    }
+                }
+
+                if (count > 1) {
+                    console.log('Monta');
+                    $('.record').append('<span>' + title +': ' +'</span>' );
+
+                }
+                console.log(count);
+
+            };
+
+
+
+
 
         });
 
