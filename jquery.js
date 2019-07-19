@@ -367,10 +367,24 @@ $(document).ready(function () {
         let unique_est_y = 0;
         let unique_est_a = 0;
 
-        let muutos = 'Muutos';
-        let huoli = 'Huoli';
 
         let tempRow = [];
+        let tempRow2 = [];
+        let tempAge = [];
+        let tempHelp = [];
+        let tempSex = [];
+        let tempStatus = [];
+        let tempChilds = [];
+        let tempChildAge = [];
+        let tempContact = [];
+        let tempCrisis = [];
+        //let tempChange=[];
+        let tempConcern = [];
+        //let tempWell=[];
+        let tempCont = [];
+        let tempEy = [];
+        let tempEa = [];
+        let tempText = [];
 
 
         $.each(array, function (index) {
@@ -401,7 +415,9 @@ $(document).ready(function () {
                                     return i === ages.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Ikä: </span>' + string[1] + '<br/>');
+                                tempAge.push(string[1]);
+
+                                //$('.record').append('<span>Ikä: </span>' + string[1] + '<br/>');
 
 
                             }
@@ -413,7 +429,9 @@ $(document).ready(function () {
                                     return i === helps.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Etsin apua: </span>' + string[1] + '<br/>');
+                                tempHelp.push(string[1]);
+
+                                //$('.record').append('<span>Etsin apua: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Sukupuoli') {
@@ -423,7 +441,9 @@ $(document).ready(function () {
                                     return i === sexs.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Sukupuoli: </span>' + string[1] + '<br/>');
+                                tempSex.push(string[1]);
+
+                                // $('.record').append('<span>Sukupuoli: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Status') {
@@ -433,7 +453,9 @@ $(document).ready(function () {
                                     return i === statuses.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Sosioekonominen asema: </span>' + string[1] + '<br/>');
+                                tempStatus.push(string[1]);
+
+                                //$('.record').append('<span>Sosioekonominen asema: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Lapsi_lkm') {
@@ -443,7 +465,9 @@ $(document).ready(function () {
                                     return i === child_lkm.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Lasten lukumäärä: </span>' + string[1] + '<br/>');
+                                tempChilds.push(string[1]);
+
+                                //$('.record').append('<span>Lasten lukumäärä: </span>' + string[1] + '<br/>');
 
 
                             }
@@ -455,16 +479,9 @@ $(document).ready(function () {
                                 unique_cages = child_ages.filter(function (itm, i, child_ages) {
                                     return i === child_ages.indexOf(itm);
                                 });
+                                tempChildAge.push(string[1]);
 
-                                tempRow.push(string[1]);
-                                console.log(tempRow.length);
-
-                                if(tempRow.length===1){
-                                    $('.record').append('<span>Lasten iät: </span>');
-
-                                }
-                                
-                                $('.record').append(string[1] + '<br/>');
+                                //$('.record').append('<span>Lasten iät: </span>' + string[1] + '<br/>');
 
                             }
 
@@ -475,7 +492,8 @@ $(document).ready(function () {
                                     return i === contacts.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Yhteydenottotapa: </span>' + string[1] + '<br/>');
+                                //$('.record').append('<span>Yhteydenottotapa: </span>' + string[1] + '<br/>');
+                                tempContact.push(string[1]);
                             }
 
                             if (string[0] === 'Kriisi') {
@@ -485,11 +503,13 @@ $(document).ready(function () {
                                     return i === crisises.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Erokriisi: </span>' + string[1] + '<br/>');
+                                // $('.record').append('<span>Erokriisi: </span>' + string[1] + '<br/>');
+                                tempCrisis.push(string[1]);
 
                             }
 
                             if (string[0] === 'Muutos') {
+
 
                                 changes.push(string[1]);
 
@@ -500,24 +520,29 @@ $(document).ready(function () {
                                 });
 
                                 tempRow.push(string[1]);
-                                console.log(tempRow.length);
+                                //console.log(tempRow.length);
 
-                                if(tempRow.length===1){
-                                    $('.record').append('<span>Perhetilanteen muutos: </span>');
 
-                                }
+                                /*  if(tempRow.length===1){
+                                      $('.record').append('<span style="color:red">Perhetilanteen muutos: </span>');
 
-                                $('.record').append(string[1] + '<br/>');
+                                  }*/
+
+                                // $('.record').append('<span>'+string[1]+'</span>');
+                                //$('.record').append('</br>');
 
                             }
 
+
                             if (string[0] === 'Huoli') {
+
                                 concerns.push(string[1]);
                                 unique_concern = concerns.filter(function (itm, i, concerns) {
                                     return i === concerns.indexOf(itm);
                                 });
 
-                                $('.record').append(string[1] + '<br/>');
+                                //$('.record').append('<span>Huoli: </span>' + string[1] + '<br/>');
+                                tempConcern.push(string[1]);
                             }
 
                             if (string[0] === 'Hyvinvointi') {
@@ -527,14 +552,14 @@ $(document).ready(function () {
                                     return i === wells.indexOf(itm);
                                 });
 
-                                tempRow.push(string[1]);
+                                tempRow2.push(string[1]);
 
-                                if(tempRow.length===1){
-                                    $('.record').append('<span>Hyvinvointi: </span>');
+                                /* if(tempRow2.length===1){
+                                     $('.record').append('<span style="color:blue">Hyvinvointi: </span>');
 
-                                }
+                                 }
 
-                                $('.record').append(string[1] + '<br/>');
+                                 $('.record').append(string[1] + '<br/>');*/
                             }
 
                             if (string[0] === 'Jatko') {
@@ -544,7 +569,8 @@ $(document).ready(function () {
                                     return i === continues.indexOf(itm);
                                 });
 
-                                $('.record').append('<span>Suositeltu jatko: </span>' + string[1] + '<br/>');
+                                //$('.record').append('<span>Suositeltu jatko: </span>' + string[1] + '<br/>');
+                                tempCont.push(string[1]);
                             }
 
                             if (string[0] === 'Arvio_y') {
@@ -553,8 +579,11 @@ $(document).ready(function () {
                                 unique_est_y = evas_y.filter(function (itm, i, evas_y) {
                                     return i === evas_y.indexOf(itm);
                                 });
-                                $('.record').append('<span>Yhteydenottajan arvio palvelun hyödyllisyydestä: </span>' + string[1] + '<br/>');
+
+                                // $('.record').append('<span>Yhteydenottajan arvio palvelun hyödyllisyydestä: </span>' + string[1] + '<br/>');
+                                tempEy.push(string[1]);
                             }
+
 
                             if (string[0] === 'Arvio_a') {
                                 evas_a.push(string[1]);
@@ -562,13 +591,15 @@ $(document).ready(function () {
                                 unique_est_a = evas_a.filter(function (itm, i, evas_a) {
                                     return i === evas_a.indexOf(itm);
                                 });
+                                tempEa.push(string[1]);
 
-                                $('.record').append('<span>Asiantuntijan arvio palvelun hyödyllisyydestä: </span>' + string[1] + '<br/>');
+                                // $('.record').append('<span>Asiantuntijan arvio palvelun hyödyllisyydestä: </span>' + string[1] + '<br/>');
                             }
 
                             if (string[0] === 'Teksti') {
                                 text.push(string[1]);
-                                $('.record').append('<span>Muuta huomioitavaa: </span>' + string[1] + '<br/>');
+                                // $('.record').append('<span>Muuta huomioitavaa: </span>' + string[1] + '<br/>');
+                                tempText.push(string[1]);
                             }
 
 
@@ -585,32 +616,51 @@ $(document).ready(function () {
 
 
             $('.record').append('<br/>');
+            console.log(tempRow);
+
+            function title(rivi, otsikko) {
+
+                if (rivi.length > 0) {
+                    console.log(rivi.length);
+                    $('.record').append('<span>' + otsikko + '</span>');
+                    $('.record').append('<span>' + rivi + '</span>');
+                    $('.record').append('</br>');
+                }
+
+            }
+
+            title(tempRow, 'Perhetilanteen muutos: ');
+            title(tempRow2, 'Hyvinvointi: ');
+            title(tempAge, 'Ikä: ');
+            title(tempHelp, 'Tarvitsen apua: ');
+            title(tempSex, 'Sukupuoli: ');
+            title(tempStatus, 'Sosioekonominen asema: ');
+            title(tempChilds, 'Lasten lukumäärä: ');
+            title(tempChildAge, 'Lasten iät: ');
+            title(tempContact, 'Yhteydenottotapa: ');
+            title(tempCrisis, 'Kriisi: ');
+            title(tempConcern, 'Huoli lapsesta: ');
+            title(tempCont, 'Suositeltu jatko: ');
+            title(tempEy, 'Yhteydenottajan arvio ');
+            title(tempEa, 'Asiantuntijan arvio ');
+            title(tempText, 'Muuta huomioitavaa: ');
+
+
             tempRow.length = 0;
-
-
-
-            function displayTitle(title){
-                let res;
-                let count = 0;
-                for (let i = 0; i < row.length; i++) {
-                    res = row[i].match(title);
-
-                    if (res !== null) {
-                        count++;
-                    }
-                }
-
-                if (count > 1) {
-                    //console.log('Monta');
-                    $('.record').append('<span>' + title +': ' +'</span>' );
-
-                }
-                //console.log(count);
-
-            };
-
-
-
+            tempRow2.length = 0;
+            tempAge.length = 0;
+            tempHelp.length = 0;
+            tempSex.length = 0;
+            tempStatus.length = 0;
+            tempChilds.length = 0;
+            tempChildAge.length = 0;
+            tempContact.length = 0;
+            tempCrisis.length = 0;
+            tempConcern.length = 0;
+            tempCont.length = 0;
+            tempEy.length = 0;
+            tempEa.length = 0;
+            tempText.length = 0;
 
 
         });
