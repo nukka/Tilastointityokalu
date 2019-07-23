@@ -202,6 +202,14 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
+
+    $('#arrow-btn').click(function () {
+        ipcR.send('clicked_toMain', 'ping')
+
+    })
+});
+
+$(document).ready(function () {
     $('#btn-previous-help').click(function () {
         ipcR.send('clicked_previous_help', 'ping');
     });
@@ -576,11 +584,12 @@ $(document).ready(function () {
             });
 
             if ((array.length - 1) > index) {
-                $('.record').append('<br/>');
-                $('.record').append((index + 1) + '<span>' + '. kirjaus');
-                $('.record').append('<br/>');
-            }
 
+                $('.record').append('<br/>');
+                $('.record').append('<span class="registration">' + (index + 1) + '</span>' + '<span class="registration">' + '. kirjaus' + '</span>');
+                $('.record').append('<br/>');
+
+            }
 
             showInfo(tempRow, 'Perhetilanteen muutos: ');
             showInfo(tempRow2, 'Hyvinvointi: ');
@@ -597,6 +606,11 @@ $(document).ready(function () {
             showInfo(tempEy, 'Yhteydenottajan arvio ');
             showInfo(tempEa, 'Asiantuntijan arvio ');
             showInfo(tempText, 'Muuta huomioitavaa: ');
+
+            if ((array.length - 2) > index) {
+                $('.record').append('<div class="line-padding">');
+                $('.record').append('<div class="line">');
+            }
 
 
             tempRow.length = 0;
@@ -1185,10 +1199,9 @@ function showInfo(rivi, otsikko) {
     if (rivi.length > 0) {
         //console.log(rivi.length);
 
-        $('.record').append('<span>' + otsikko + '</span>');
-        $('.record').append('<span>' + rivi + '</span>');
-        $('.record').append('</br>');
-
+        $('.record').append('<div class="data">'+'<span>' + otsikko + '</span>'+ '<span>' + rivi + '</span>'+'</br>' +'</div>');
+        //$('.record').append('<span>' + rivi + '</span>');
+        //$('.record').append('</br>');
     }
 
 }

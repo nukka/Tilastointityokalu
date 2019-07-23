@@ -6,11 +6,36 @@
 
 }
 
-.stat_col{
+.stat_col {
     background-color: rgb(155, 213, 232);
     font-size: larger;
 }
 
-.stat_col2{
+.stat_col2 {
     background-color: rgb(200, 219, 250);
+}
+
+.registration {
+    font-size: 22px;
+}
+
+.line {
+    border: 1px solid rgb(155, 213, 232);
+    width: 100%;
+    position: absolute;
+    right: 0%;
+}
+
+.line-padding {
+    padding-top: 5%;
+}
+
+
+.btn-cont{
+    float: left;
+    padding-left: 2%;
+}
+
+.btn-style{
+    width: 60%;
 }

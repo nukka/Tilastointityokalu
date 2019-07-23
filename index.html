@@ -5,10 +5,12 @@
     <title>Tilastointityökalu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
 <script src="jquery.js"></script>
 <script src="renderer.js"></script>
+<script src="https://kit.fontawesome.com/dce58db5f5.js"></script>
 
 <div class="container">
     <div class="row pt-4">
@@ -25,7 +27,19 @@
         <div class="col">
         </div>
         <div class="col-6 text-center">
-            <button type="button" class="btn btn-light" id="btn-contact">Kirjaa yhteydenotto</button>
+            <button type="button" class="btn btn-light btn-lg" style="width: 60%" id="btn-contact"> <i class="fas fa-pencil-alt fa-lg"></i> Kirjaa yhteydenotto</button>
+        </div>
+
+
+        <div class="col">
+        </div>
+    </div>
+
+    <div class="row pt-2">
+        <div class="col">
+        </div>
+        <div class="col-6 text-center">
+            <button type="button" class="btn btn-light btn-lg" style="width: 60%" id="btn-statistics"> <i class="fas fa-chart-pie fa-lg"></i> Tilastot</button>
         </div>
         <div class="col">
         </div>
@@ -35,7 +49,7 @@
         <div class="col">
         </div>
         <div class="col-6 text-center">
-            <button type="button" class="btn btn-light" id="btn-statistics">Tilastot</button>
+            <button type="button" class="btn btn-light btn-lg" style="width: 60%" id="btn-record"> <i class="fas fa-list-ol fa-lg"></i> Yksittäiset kirjaukset</button>
         </div>
         <div class="col">
         </div>
@@ -45,17 +59,7 @@
         <div class="col">
         </div>
         <div class="col-6 text-center">
-            <button type="button" class="btn btn-light" id="btn-record">Yksittäiset kirjaukset</button>
-        </div>
-        <div class="col">
-        </div>
-    </div>
-
-    <div class="row pt-2">
-        <div class="col">
-        </div>
-        <div class="col-6 text-center">
-            <button type="button" class="btn btn-light" id="btn-quit">Lopeta</button>
+            <button type="button" class="btn btn-light btn-lg" style="width: 60%" id="btn-quit"> <i class="fas fa-window-close fa-lg"></i>  Lopeta</button>
         </div>
         <div class="col">
         </div>
