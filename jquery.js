@@ -393,6 +393,7 @@ $(document).ready(function () {
         let tempEy = [];
         let tempEa = [];
         let tempText = [];
+        let tempNoContact = [];
 
 
         $.each(array, function (index) {
@@ -406,6 +407,9 @@ $(document).ready(function () {
 
                 let found = false;
                 $.each(word, function (index, value) {
+
+
+
                     if (value.indexOf(':') >= 0) {
 
                         found = true;
@@ -572,8 +576,13 @@ $(document).ready(function () {
                             }
 
 
+
                         }
 
+                    }
+
+                    if(word[index] === 'Kontaktia ei syntyny'){
+                        tempNoContact.push(' ');
                     }
 
 
@@ -610,9 +619,11 @@ $(document).ready(function () {
             showInfo(tempConcern, 'Huoli lapsesta: ');
             showInfo(tempRow2, 'Hyvinvointi: ');
             showInfo(tempCont, 'Suositeltu jatko: ');
+            showInfo(tempNoContact, 'Kontaktia ei syntynyt');
             showInfo(tempEy, 'Yhteydenottajan arvio: ');
             showInfo(tempEa, 'Asiantuntijan arvio: ');
             showInfo(tempText, 'Muuta huomioitavaa: ');
+
 
 
             if ((array.length - 2) > index) {
@@ -636,6 +647,7 @@ $(document).ready(function () {
             tempEy.length = 0;
             tempEa.length = 0;
             tempText.length = 0;
+            tempNoContact.length = 0;
 
 
         });
@@ -756,15 +768,15 @@ $(document).ready(function () {
         child_count.push(counts_child_lkm[unique_childs[0]], counts_child_lkm[unique_childs[1]], counts_child_lkm[unique_childs[2]], counts_child_lkm[unique_childs[3]], counts_child_lkm[unique_childs[4]], counts_child_lkm[unique_childs[5]]);
         contact_count.push(counts_contact[unique_contacts[0]], counts_contact[unique_contacts[1]]);
         crisis_count.push(counts_crisis[unique_crisis[0]], counts_crisis[unique_crisis[1]], counts_crisis[unique_crisis[2]], counts_crisis[unique_crisis[3]], counts_crisis[unique_crisis[4]], counts_crisis[unique_crisis[5]], counts_crisis[unique_crisis[6]], counts_crisis[unique_crisis[7]], counts_crisis[unique_crisis[8]], counts_crisis[unique_crisis[9]]);
-        change_count.push(counts_change[unique_change[0]], counts_change[unique_change[2]], counts_change[unique_change[3]], counts_change[unique_change[4]], counts_change[unique_change[5]], counts_change[unique_change[6]], counts_change[unique_change[7]]);
+        change_count.push(counts_change[unique_change[0]], counts_change[unique_change[1]], counts_change[unique_change[2]], counts_change[unique_change[3]], counts_change[unique_change[4]], counts_change[unique_change[5]], counts_change[unique_change[6]], counts_change[unique_change[7]], counts_change[unique_change[8]], counts_change[unique_change[9]], counts_change[unique_change[10]]);
         concern_count.push(counts_corcern[unique_concern[0]], counts_corcern[unique_concern[1]], counts_corcern[unique_concern[2]], counts_corcern[unique_concern[3]], counts_corcern[unique_concern[4]]);
         well_count.push(counts_well[unique_well[0]], counts_well[unique_well[1]], counts_well[unique_well[2]], counts_well[unique_well[3]], counts_well[unique_well[4]], counts_well[unique_well[5]], counts_well[unique_well[6]], counts_well[unique_well[7]], counts_well[unique_well[8]], counts_well[unique_well[9]]);
         cont_count.push(counts_cont[unique_cont[0]], counts_cont[unique_cont[1]], counts_cont[unique_cont[2]], counts_cont[unique_cont[3]], counts_cont[unique_cont[4]], counts_cont[unique_cont[5]], counts_cont[unique_cont[6]], counts_cont[unique_cont[7]], counts_cont[unique_cont[8]], counts_cont[unique_cont[9]], counts_cont[unique_cont[10]], counts_cont[unique_cont[11]]);
         eva_y_count.push(counts_eva_y[unique_est_y[0]], counts_eva_y[unique_est_y[1]], counts_eva_y[unique_est_y[2]], counts_eva_y[unique_est_y[3]], counts_eva_y[unique_est_y[4]]);
         eva_a_count.push(counts_eva_a[unique_est_a[0]], counts_eva_a[unique_est_a[1]], counts_eva_a[unique_est_a[2]], counts_eva_a[unique_est_a[3]], counts_eva_a[unique_est_a[4]]);
 
-        //console.log(unique_ages);
-        //console.log(child_ages);
+        console.log(unique_change);
+        console.log(counts_change);
 
         parseArr(age_count);
         parseArr(help_count);
@@ -1036,7 +1048,7 @@ $(document).ready(function () {
         }
 
 
-        /*  console.log('Yhteydenottojen määrä: ' + array.length);
+         console.log('Yhteydenottojen määrä: ' + array.length);
           console.log('Alle 18: ' + counts_age['Alle 18'] + '\n', '19-30: ' + counts_age['19-30'] + '\n', '31-40: ' + counts_age['31-40'] + '\n', '41-50: ' + counts_age['41-50'] + '\n', '51-60: ' + counts_age['51-60'] + '\n', 'Yli 60: ' + counts_age['Yli 60'] + '\n');
           console.log('Oma perhe: ' + counts_help['Omalle perheelle'], 'Ystävä/tuttava: ' + counts_help['Ystävälle/tuttavalle']);
           console.log('Mies: ' + counts_sex['Mies'], 'Nainen: ' + counts_sex['Nainen'], 'Muu: ' + counts_sex['Muu'], 'Ei tietoa: ' + counts_sex['Ei tietoa']);
@@ -1052,7 +1064,7 @@ $(document).ready(function () {
 
           console.log('Vanhemman neuvo -vertaistukiryhmä: ', counts_cont['Vanhemman neuvo -vertaistukiryhmä'], 'Eroneuvoilta/erokahvila: ' + counts_cont['Eroneuvoilta/erokahvila'], 'Eroseminaari: ' + counts_cont['Eroseminaari'], 'Miesten eroryhmä: ' + counts_cont['Miesten eroryhmä'], 'Sovittu tapaaminen: ' + counts_cont['Sovittu tapaaminen'], 'Chat-palvelu: ' + counts_cont['Chat-palvelu'], 'Erotukihenkilö: ' + counts_cont['Erotukihenkilö'] + 'Lastenvalvoja: ' + counts_cont['Lastenvalvoja'], 'Turvakotiin ohjaus: ' + counts_cont['Turvakotiin ohjaus'], 'Perheasioiden sovittelu: ' + counts_cont['Perheasioiden sovittelu'], 'Ei jatkotoimenpiteitä: ' + counts_cont['Ei jatkotoimenpiteitä'], 'Muu: ' + counts_cont['Muu']);
           console.log('y1: ' + counts_eva_y['1'], 'y2: ' + counts_eva_y['2'], 'y3: ' + counts_eva_y['3'], 'y4: ' + counts_eva_y['4'], 'y5: ' + counts_eva_y['5']);
-          console.log('a1: ' + counts_eva_a['1'], 'a2: ' + counts_eva_a['2'], 'a3: ' + counts_eva_a['3'], 'a4: ' + counts_eva_a['4'], 'a5: ' + counts_eva_a['5']);*/
+          console.log('a1: ' + counts_eva_a['1'], 'a2: ' + counts_eva_a['2'], 'a3: ' + counts_eva_a['3'], 'a4: ' + counts_eva_a['4'], 'a5: ' + counts_eva_a['5']);
 
 
     });
@@ -1205,8 +1217,9 @@ function parseArr(arr) {
 function showInfo(rivi, otsikko) {
 
     if (rivi.length > 0) {
-        $('.record').append('<div class="data">' + '<span>' + otsikko + '</span>' + '<span>' + rivi + '</span>' + '</br>' + '</div>');
+        $('.record').append('<div class="data">' + '<span class="record-title">' + otsikko + '</span>' + '<span class="record-data">' + rivi + '</span>' + '</br>' + '</div>');
     }
+
 
 }
 
