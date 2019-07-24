@@ -397,8 +397,6 @@ $(document).ready(function () {
 
         $.each(array, function (index) {
             let row = array[index].split(',');
-            //displayTitle(muutos);
-            //displayTitle(huoli);
 
 
             $.each(row, function (index) {
@@ -424,7 +422,7 @@ $(document).ready(function () {
                                     return i === ages.indexOf(itm);
                                 });
 
-                                tempAge.push(string[1]);
+                                tempAge.push(' '+string[1]);
 
                             }
 
@@ -435,7 +433,7 @@ $(document).ready(function () {
                                     return i === helps.indexOf(itm);
                                 });
 
-                                tempHelp.push(string[1]);
+                                tempHelp.push(' '+string[1]);
                             }
 
                             if (string[0] === 'Sukupuoli') {
@@ -445,7 +443,7 @@ $(document).ready(function () {
                                     return i === sexs.indexOf(itm);
                                 });
 
-                                tempSex.push(string[1]);
+                                tempSex.push(' '+string[1]);
                             }
 
                             if (string[0] === 'Status') {
@@ -455,7 +453,7 @@ $(document).ready(function () {
                                     return i === statuses.indexOf(itm);
                                 });
 
-                                tempStatus.push(string[1]);
+                                tempStatus.push(' '+string[1]);
 
                             }
 
@@ -466,7 +464,7 @@ $(document).ready(function () {
                                     return i === child_lkm.indexOf(itm);
                                 });
 
-                                tempChilds.push(string[1]);
+                                tempChilds.push(' '+string[1]);
 
 
                             }
@@ -478,7 +476,7 @@ $(document).ready(function () {
                                 unique_cages = child_ages.filter(function (itm, i, child_ages) {
                                     return i === child_ages.indexOf(itm);
                                 });
-                                tempChildAge.push(string[1]);
+                                tempChildAge.push(' '+string[1]);
 
                             }
 
@@ -489,7 +487,7 @@ $(document).ready(function () {
                                     return i === contacts.indexOf(itm);
                                 });
 
-                                tempContact.push(string[1]);
+                                tempContact.push(' '+string[1]);
                             }
 
                             if (string[0] === 'Kriisi') {
@@ -499,7 +497,7 @@ $(document).ready(function () {
                                     return i === crisises.indexOf(itm);
                                 });
 
-                                tempCrisis.push(string[1]);
+                                tempCrisis.push(' '+string[1]);
 
                             }
 
@@ -514,7 +512,7 @@ $(document).ready(function () {
 
                                 });
 
-                                tempRow.push(string[1]);
+                                tempRow.push(' ' + string[1]);
                             }
 
 
@@ -525,7 +523,7 @@ $(document).ready(function () {
                                     return i === concerns.indexOf(itm);
                                 });
 
-                                tempConcern.push(string[1]);
+                                tempConcern.push(' ' + string[1]);
                             }
 
                             if (string[0] === 'Hyvinvointi') {
@@ -535,7 +533,7 @@ $(document).ready(function () {
                                     return i === wells.indexOf(itm);
                                 });
 
-                                tempRow2.push(string[1]);
+                                tempRow2.push(' '+string[1]);
 
                             }
 
@@ -546,7 +544,7 @@ $(document).ready(function () {
                                     return i === continues.indexOf(itm);
                                 });
 
-                                tempCont.push(string[1]);
+                                tempCont.push(' '+string[1]);
                             }
 
                             if (string[0] === 'Arvio_y') {
@@ -555,7 +553,7 @@ $(document).ready(function () {
                                 unique_est_y = evas_y.filter(function (itm, i, evas_y) {
                                     return i === evas_y.indexOf(itm);
                                 });
-                                tempEy.push(string[1]);
+                                tempEy.push(' '+string[1]);
                             }
 
 
@@ -565,12 +563,12 @@ $(document).ready(function () {
                                 unique_est_a = evas_a.filter(function (itm, i, evas_a) {
                                     return i === evas_a.indexOf(itm);
                                 });
-                                tempEa.push(string[1]);
+                                tempEa.push(' '+string[1]);
                             }
 
                             if (string[0] === 'Teksti') {
                                 text.push(string[1]);
-                                tempText.push(string[1]);
+                                tempText.push(' '+string[1]);
                             }
 
 
@@ -591,8 +589,15 @@ $(document).ready(function () {
 
             }
 
-            showInfo(tempRow, 'Perhetilanteen muutos: ');
-            showInfo(tempRow2, 'Hyvinvointi: ');
+
+            arrayToLowerCase(tempChildAge);
+            arrayToLowerCase(tempCrisis);
+            arrayToLowerCase(tempRow);
+            arrayToLowerCase(tempConcern);
+            arrayToLowerCase(tempRow2);
+            arrayToLowerCase(tempCont);
+
+
             showInfo(tempAge, 'Ikä: ');
             showInfo(tempHelp, 'Tarvitsen apua: ');
             showInfo(tempSex, 'Sukupuoli: ');
@@ -601,11 +606,14 @@ $(document).ready(function () {
             showInfo(tempChildAge, 'Lasten iät: ');
             showInfo(tempContact, 'Yhteydenottotapa: ');
             showInfo(tempCrisis, 'Kriisi: ');
+            showInfo(tempRow, 'Perhetilanteen muutos: ');
             showInfo(tempConcern, 'Huoli lapsesta: ');
+            showInfo(tempRow2, 'Hyvinvointi: ');
             showInfo(tempCont, 'Suositeltu jatko: ');
-            showInfo(tempEy, 'Yhteydenottajan arvio ');
-            showInfo(tempEa, 'Asiantuntijan arvio ');
+            showInfo(tempEy, 'Yhteydenottajan arvio: ');
+            showInfo(tempEa, 'Asiantuntijan arvio: ');
             showInfo(tempText, 'Muuta huomioitavaa: ');
+
 
             if ((array.length - 2) > index) {
                 $('.record').append('<div class="line-padding">');
@@ -1028,23 +1036,23 @@ $(document).ready(function () {
         }
 
 
-        console.log('Yhteydenottojen määrä: ' + array.length);
-        console.log('Alle 18: ' + counts_age['Alle 18'] + '\n', '19-30: ' + counts_age['19-30'] + '\n', '31-40: ' + counts_age['31-40'] + '\n', '41-50: ' + counts_age['41-50'] + '\n', '51-60: ' + counts_age['51-60'] + '\n', 'Yli 60: ' + counts_age['Yli 60'] + '\n');
-        console.log('Oma perhe: ' + counts_help['Omalle perheelle'], 'Ystävä/tuttava: ' + counts_help['Ystävälle/tuttavalle']);
-        console.log('Mies: ' + counts_sex['Mies'], 'Nainen: ' + counts_sex['Nainen'], 'Muu: ' + counts_sex['Muu'], 'Ei tietoa: ' + counts_sex['Ei tietoa']);
-        console.log('Työssäkäyvä: ' + counts_status['Työssäkäyvä'], 'Työtön: ' + counts_status['Työtön'], 'Opiskelija: ' + counts_status['Opiskelija'], 'Eläkelainen: ' + counts_status['Eläkeläinen'], 'Varusmies: ' + counts_status['Varusmies'], 'Kotona: ' + counts_status['Kotona lasten kanssa'], 'Sairaslomalla: ' + counts_status['Sairaslomalla']);
-        console.log('Ei vielä syntynyt: ' + counts_cAge['Ei vielä syntynyt'], '6kk tai alle: ' + counts_cAge['6kk tai alle'], '1v tai alle: ' + counts_cAge['1v tai alle'], '2-4v: ' + counts_cAge['2-4v'], '5-7v: ' + counts_cAge['5-7v'], '8-10v: ' + counts_cAge['8-10v'], '11-13v: ' + counts_cAge['11-13v'], '14-16v: ' + counts_cAge['14-16v'], '17 tai yli: ' + counts_cAge['17 tai yli']);
-        console.log('Ei lapsia: ' + counts_child_lkm['Ei lapsia'], '1 lapsi: ' + counts_child_lkm['1 lapsi'], '2 -3 lasta: ' + counts_child_lkm['2-3 lasta'], '4-7 lasta: ' + counts_child_lkm['4-7 lasta'], 'Yli 8 lasta: ' + counts_child_lkm['8 tai enemmän'], 'Ei tietoa: ' + counts_child_lkm['Ei tietoa']);
-        console.log('Puhelinsoitto: ' + counts_contact['Puhelinsoitto'], 'Sähköposti: ' + counts_contact['Sähköpostiviesti']);
+        /*  console.log('Yhteydenottojen määrä: ' + array.length);
+          console.log('Alle 18: ' + counts_age['Alle 18'] + '\n', '19-30: ' + counts_age['19-30'] + '\n', '31-40: ' + counts_age['31-40'] + '\n', '41-50: ' + counts_age['41-50'] + '\n', '51-60: ' + counts_age['51-60'] + '\n', 'Yli 60: ' + counts_age['Yli 60'] + '\n');
+          console.log('Oma perhe: ' + counts_help['Omalle perheelle'], 'Ystävä/tuttava: ' + counts_help['Ystävälle/tuttavalle']);
+          console.log('Mies: ' + counts_sex['Mies'], 'Nainen: ' + counts_sex['Nainen'], 'Muu: ' + counts_sex['Muu'], 'Ei tietoa: ' + counts_sex['Ei tietoa']);
+          console.log('Työssäkäyvä: ' + counts_status['Työssäkäyvä'], 'Työtön: ' + counts_status['Työtön'], 'Opiskelija: ' + counts_status['Opiskelija'], 'Eläkelainen: ' + counts_status['Eläkeläinen'], 'Varusmies: ' + counts_status['Varusmies'], 'Kotona: ' + counts_status['Kotona lasten kanssa'], 'Sairaslomalla: ' + counts_status['Sairaslomalla']);
+          console.log('Ei vielä syntynyt: ' + counts_cAge['Ei vielä syntynyt'], '6kk tai alle: ' + counts_cAge['6kk tai alle'], '1v tai alle: ' + counts_cAge['1v tai alle'], '2-4v: ' + counts_cAge['2-4v'], '5-7v: ' + counts_cAge['5-7v'], '8-10v: ' + counts_cAge['8-10v'], '11-13v: ' + counts_cAge['11-13v'], '14-16v: ' + counts_cAge['14-16v'], '17 tai yli: ' + counts_cAge['17 tai yli']);
+          console.log('Ei lapsia: ' + counts_child_lkm['Ei lapsia'], '1 lapsi: ' + counts_child_lkm['1 lapsi'], '2 -3 lasta: ' + counts_child_lkm['2-3 lasta'], '4-7 lasta: ' + counts_child_lkm['4-7 lasta'], 'Yli 8 lasta: ' + counts_child_lkm['8 tai enemmän'], 'Ei tietoa: ' + counts_child_lkm['Ei tietoa']);
+          console.log('Puhelinsoitto: ' + counts_contact['Puhelinsoitto'], 'Sähköposti: ' + counts_contact['Sähköpostiviesti']);
 
-        console.log('Avo-/avioero tai parisuhteen päättyminen: ' + counts_crisis['Avo-/avioero tai parisuhteen päättyminen'], 'Harkitsemassa eroa: ' + counts_crisis['Harkitsemassa eroa'], 'Avioeron/avoeron hakemisen käytännöt: ' + counts_crisis['Avioeron/avoeron hakemisen käytännöt'], 'Vanhemmuus eron jälkeen: ' + counts_crisis['Vanhemmuus eron jälkeen'], 'Lasten huoltajuuteen liittyvä haaste: ' + counts_crisis['Lasten huoltajuuteen liittyvä haaste'], 'Ex-puolisoon liittyvä haaste: ' + counts_crisis['Ex-puolisoon liittyvä haaste'], 'Uusperheeseen liittyvä haaste: ' + counts_crisis['Uusperheeseen liittyvä haaste'], 'Ystävyys- ja perhesuhteisiin liittyvä haaste: ' + counts_crisis['Ystävyys- ja perhesuhteisiin liittyvä haaste'], 'Parisuhteeseen liittyvä haaste: ' + counts_crisis['Parisuhteeseen liittyvä haaste'], 'Muu: ' + counts_crisis['Muu']);
-        console.log('Raskaus: ' + counts_change['Raskaus'], 'Lapsen syntymä: ' + counts_change['Lapsen syntymä'], 'Sairastuminen: ' + counts_change['Sairastuminen'], 'Työttömäksi jääminen: ' + counts_change['Työttömäksi jääminen'], 'Elääkkeelle jääminen: ' + counts_change['Eläkkeelle jääminen'], 'Työelämän tai koulutuksen ulkopuolelle jääminen: ' + counts_change['Työelämän tai koulutuksen ulkopuolelle jääminen'], 'Läheisen kuolema: ' + counts_change['Läheisen kuolema'], 'Väkivallan kohteeksi joutuminen' + counts_change['Väkivallan kohteeksi joutuminen'], 'Äkillinen vammautuminen/sairastuminen' + counts_change['Äkillinen vammautuminen/sairastuminen'], 'Taloudelliset vaikeudet: ' + counts_change['Taloudelliset vaikeudet'], 'Muu: ' + counts_change['Muu']);
-        console.log('Vauvaikäiseen liittyvä huoli: ' + counts_corcern['Vauvaikäiseen liittyvä huoli'], 'Leikki- tai kouluikäiseen liittyvä huoli: ' + counts_corcern['Leikki- tai kouluikäiseen liittyvä huoli'], 'Murrosikäiseen/teini-ikäiseen lapseen liittyvä huoli: ' + counts_corcern['Murrosikäiseen/teini-ikäiseen lapseen liittyvä huoli'], 'Muu: ' + counts_corcern['Muu']);
-        console.log('Perustarpeisiin liittyvä haaste: ' + counts_well['Perustarpeisiin liittyvä haaste'], 'Päihde- tai riippuvuusongelma: ' + counts_well['Päihde- tai riippuvuusongelma'], 'Seksuaalisuuteen liittyvä ongelma: ' + counts_well['Seksuaalisuuteen liittyvä ongelma'], 'Stressi: ' + counts_well['Stressi'], 'Uupumus: ' + counts_well['Uupumus'], 'Yksinäisyys: ' + counts_well['Yksinäisyys'], 'Mielenterveysongelma: ' + counts_well['Mielenterveysongelma'], 'Itsetunto-ongelma: ' + counts_well['Itsetunto-ongelma'], 'Muu: ' + counts_well['Muu']);
+          console.log('Avo-/avioero tai parisuhteen päättyminen: ' + counts_crisis['Avo-/avioero tai parisuhteen päättyminen'], 'Harkitsemassa eroa: ' + counts_crisis['Harkitsemassa eroa'], 'Avioeron/avoeron hakemisen käytännöt: ' + counts_crisis['Avioeron/avoeron hakemisen käytännöt'], 'Vanhemmuus eron jälkeen: ' + counts_crisis['Vanhemmuus eron jälkeen'], 'Lasten huoltajuuteen liittyvä haaste: ' + counts_crisis['Lasten huoltajuuteen liittyvä haaste'], 'Ex-puolisoon liittyvä haaste: ' + counts_crisis['Ex-puolisoon liittyvä haaste'], 'Uusperheeseen liittyvä haaste: ' + counts_crisis['Uusperheeseen liittyvä haaste'], 'Ystävyys- ja perhesuhteisiin liittyvä haaste: ' + counts_crisis['Ystävyys- ja perhesuhteisiin liittyvä haaste'], 'Parisuhteeseen liittyvä haaste: ' + counts_crisis['Parisuhteeseen liittyvä haaste'], 'Muu: ' + counts_crisis['Muu']);
+          console.log('Raskaus: ' + counts_change['Raskaus'], 'Lapsen syntymä: ' + counts_change['Lapsen syntymä'], 'Sairastuminen: ' + counts_change['Sairastuminen'], 'Työttömäksi jääminen: ' + counts_change['Työttömäksi jääminen'], 'Elääkkeelle jääminen: ' + counts_change['Eläkkeelle jääminen'], 'Työelämän tai koulutuksen ulkopuolelle jääminen: ' + counts_change['Työelämän tai koulutuksen ulkopuolelle jääminen'], 'Läheisen kuolema: ' + counts_change['Läheisen kuolema'], 'Väkivallan kohteeksi joutuminen' + counts_change['Väkivallan kohteeksi joutuminen'], 'Äkillinen vammautuminen/sairastuminen' + counts_change['Äkillinen vammautuminen/sairastuminen'], 'Taloudelliset vaikeudet: ' + counts_change['Taloudelliset vaikeudet'], 'Muu: ' + counts_change['Muu']);
+          console.log('Vauvaikäiseen liittyvä huoli: ' + counts_corcern['Vauvaikäiseen liittyvä huoli'], 'Leikki- tai kouluikäiseen liittyvä huoli: ' + counts_corcern['Leikki- tai kouluikäiseen liittyvä huoli'], 'Murrosikäiseen/teini-ikäiseen lapseen liittyvä huoli: ' + counts_corcern['Murrosikäiseen/teini-ikäiseen lapseen liittyvä huoli'], 'Muu: ' + counts_corcern['Muu']);
+          console.log('Perustarpeisiin liittyvä haaste: ' + counts_well['Perustarpeisiin liittyvä haaste'], 'Päihde- tai riippuvuusongelma: ' + counts_well['Päihde- tai riippuvuusongelma'], 'Seksuaalisuuteen liittyvä ongelma: ' + counts_well['Seksuaalisuuteen liittyvä ongelma'], 'Stressi: ' + counts_well['Stressi'], 'Uupumus: ' + counts_well['Uupumus'], 'Yksinäisyys: ' + counts_well['Yksinäisyys'], 'Mielenterveysongelma: ' + counts_well['Mielenterveysongelma'], 'Itsetunto-ongelma: ' + counts_well['Itsetunto-ongelma'], 'Muu: ' + counts_well['Muu']);
 
-        console.log('Vanhemman neuvo -vertaistukiryhmä: ', counts_cont['Vanhemman neuvo -vertaistukiryhmä'], 'Eroneuvoilta/erokahvila: ' + counts_cont['Eroneuvoilta/erokahvila'], 'Eroseminaari: ' + counts_cont['Eroseminaari'], 'Miesten eroryhmä: ' + counts_cont['Miesten eroryhmä'], 'Sovittu tapaaminen: ' + counts_cont['Sovittu tapaaminen'], 'Chat-palvelu: ' + counts_cont['Chat-palvelu'], 'Erotukihenkilö: ' + counts_cont['Erotukihenkilö'] + 'Lastenvalvoja: ' + counts_cont['Lastenvalvoja'], 'Turvakotiin ohjaus: ' + counts_cont['Turvakotiin ohjaus'], 'Perheasioiden sovittelu: ' + counts_cont['Perheasioiden sovittelu'], 'Ei jatkotoimenpiteitä: ' + counts_cont['Ei jatkotoimenpiteitä'], 'Muu: ' + counts_cont['Muu']);
-        console.log('y1: ' + counts_eva_y['1'], 'y2: ' + counts_eva_y['2'], 'y3: ' + counts_eva_y['3'], 'y4: ' + counts_eva_y['4'], 'y5: ' + counts_eva_y['5']);
-        console.log('a1: ' + counts_eva_a['1'], 'a2: ' + counts_eva_a['2'], 'a3: ' + counts_eva_a['3'], 'a4: ' + counts_eva_a['4'], 'a5: ' + counts_eva_a['5']);
+          console.log('Vanhemman neuvo -vertaistukiryhmä: ', counts_cont['Vanhemman neuvo -vertaistukiryhmä'], 'Eroneuvoilta/erokahvila: ' + counts_cont['Eroneuvoilta/erokahvila'], 'Eroseminaari: ' + counts_cont['Eroseminaari'], 'Miesten eroryhmä: ' + counts_cont['Miesten eroryhmä'], 'Sovittu tapaaminen: ' + counts_cont['Sovittu tapaaminen'], 'Chat-palvelu: ' + counts_cont['Chat-palvelu'], 'Erotukihenkilö: ' + counts_cont['Erotukihenkilö'] + 'Lastenvalvoja: ' + counts_cont['Lastenvalvoja'], 'Turvakotiin ohjaus: ' + counts_cont['Turvakotiin ohjaus'], 'Perheasioiden sovittelu: ' + counts_cont['Perheasioiden sovittelu'], 'Ei jatkotoimenpiteitä: ' + counts_cont['Ei jatkotoimenpiteitä'], 'Muu: ' + counts_cont['Muu']);
+          console.log('y1: ' + counts_eva_y['1'], 'y2: ' + counts_eva_y['2'], 'y3: ' + counts_eva_y['3'], 'y4: ' + counts_eva_y['4'], 'y5: ' + counts_eva_y['5']);
+          console.log('a1: ' + counts_eva_a['1'], 'a2: ' + counts_eva_a['2'], 'a3: ' + counts_eva_a['3'], 'a4: ' + counts_eva_a['4'], 'a5: ' + counts_eva_a['5']);*/
 
 
     });
@@ -1197,11 +1205,21 @@ function parseArr(arr) {
 function showInfo(rivi, otsikko) {
 
     if (rivi.length > 0) {
-        //console.log(rivi.length);
+        $('.record').append('<div class="data">' + '<span>' + otsikko + '</span>' + '<span>' + rivi + '</span>' + '</br>' + '</div>');
+    }
 
-        $('.record').append('<div class="data">'+'<span>' + otsikko + '</span>'+ '<span>' + rivi + '</span>'+'</br>' +'</div>');
-        //$('.record').append('<span>' + rivi + '</span>');
-        //$('.record').append('</br>');
+}
+
+function arrayToLowerCase(arr) {
+
+    if (arr.length !== 0) {
+        for (let i = 0; i < arr.length; i++) {
+            if (i === 0) {
+                arr[i] = arr[i];
+            } else {
+                arr[i] = arr[i].toLowerCase();
+            }
+        }
     }
 
 }
