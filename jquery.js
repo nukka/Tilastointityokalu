@@ -275,7 +275,7 @@ $(document).ready(function () {
 
         let evaluation_a = $("input[name='evaluation_a']:checked").val();
         let evaluation_y = $("input[name='evaluation_y']:checked").val();
-        let text = $('textarea#textarea_e').val();
+        let text = $('textarea#textarea_e').val().replace(/(\r\n|\n|\r)/gm, ' ');
 
         if (evaluation_a === undefined && evaluation_y === undefined && text.length === 0) {
             console.log("Tietoja ei tallennettu");
@@ -398,6 +398,7 @@ $(document).ready(function () {
 
         $.each(array, function (index) {
             let row = array[index].split(',');
+            console.log(row);
 
 
             $.each(row, function (index) {
@@ -605,6 +606,8 @@ $(document).ready(function () {
             arrayToLowerCase(tempConcern);
             arrayToLowerCase(tempRow2);
             arrayToLowerCase(tempCont);
+
+            //console.log(tempText);
 
 
             showInfo(tempAge, 'Ikä: ');
