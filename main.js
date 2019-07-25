@@ -36,7 +36,6 @@ function createWindow() {
 
 
     bginfoWindow = new BrowserWindow({
-        parent: mainWindow,
         width: 1000,
         height: 600,
         webPreferences: {
@@ -53,7 +52,6 @@ function createWindow() {
     }));
 
     reasonWindow = new BrowserWindow({
-        parent: mainWindow,
         width: 1000,
         height: 600,
         webPreferences: {
@@ -166,14 +164,14 @@ function createWindow() {
     statisticWindow.hide();
     recordWindow.hide();
 
-    mainWindow.webContents.openDevTools();
-    bginfoWindow.webContents.openDevTools();
-    reasonWindow.webContents.openDevTools();
-    helpWindow.webContents.openDevTools();
-    evaluationWindow.webContents.openDevTools();
-    successWindow.webContents.openDevTools();
-    statisticWindow.webContents.openDevTools();
-    recordWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
+    //bginfoWindow.webContents.openDevTools();
+    //reasonWindow.webContents.openDevTools();
+    //helpWindow.webContents.openDevTools();
+    //evaluationWindow.webContents.openDevTools();
+    //successWindow.webContents.openDevTools();
+    //statisticWindow.webContents.openDevTools();
+    //recordWindow.webContents.openDevTools();
 
 }
 
@@ -187,6 +185,7 @@ ipcMain.on('clicked_contact', (event, arg) => {
         helpWindow.reload();
         evaluationWindow.reload();
         bginfoWindow.show();
+        mainWindow.hide();
     }
 });
 
@@ -216,6 +215,7 @@ ipcMain.on('clicked_cancel', (event, arg) => {
     if (arg === 'ping') {
         console.log('Peruuta-nappi');
         bginfoWindow.hide();
+        mainWindow.show();
     }
 });
 
@@ -258,6 +258,7 @@ ipcMain.on('clicked_toMain', (event, arg) => {
         successWindow.hide();
         statisticWindow.hide();
         recordWindow.hide();
+        mainWindow.show();
     }
 });
 
@@ -364,7 +365,7 @@ app.on('ready', createWindow);
 app.on('window-all-closed', function () {
     // On macOS it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform !== 'darwin') app.quit()
+   if (process.platform !== 'darwin') app.quit()
 });
 
 app.on('activate', function () {
