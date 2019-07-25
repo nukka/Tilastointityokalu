@@ -761,7 +761,7 @@ $(document).ready(function () {
         let eva_a_count = [];
 
         age_count.push(counts_age[unique_ages[0]], counts_age[unique_ages[1]], counts_age[unique_ages[2]], counts_age[unique_ages[3]], counts_age[unique_ages[4]], counts_age[unique_ages[5]]);
-        help_count.push(counts_help[unique_helps[0]], counts_help[unique_helps[0]]);
+        help_count.push(counts_help[unique_helps[0]], counts_help[unique_helps[1]]);
         sex_count.push(counts_sex[unique_sexs[0]], counts_sex[unique_sexs[1]], counts_sex[unique_sexs[2]], counts_sex[unique_sexs[3]]);
         status_count.push(counts_status[unique_statuses[0]], counts_status[unique_statuses[1]], counts_status[unique_statuses[2]], counts_status[unique_statuses[3]], counts_status[unique_statuses[4]], counts_status[unique_statuses[5]], counts_status[unique_statuses[6]]);
         childage_count.push(counts_cAge[unique_cages[0]], counts_cAge[unique_cages[1]], counts_cAge[unique_cages[2]], counts_cAge[unique_cages[3]], counts_cAge[unique_cages[4]], counts_cAge[unique_cages[5]], counts_cAge[unique_cages[6]], counts_cAge[unique_cages[7]]);

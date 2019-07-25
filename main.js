@@ -17,8 +17,8 @@ let recordWindow;
 function createWindow() {
 
     mainWindow = new BrowserWindow({
-        width: 1000,
-        height: 600,
+        width: 1100,
+        height: 700,
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
@@ -36,8 +36,8 @@ function createWindow() {
 
 
     bginfoWindow = new BrowserWindow({
-        width: 1000,
-        height: 600,
+        width: 1100,
+        height: 700,
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
@@ -52,8 +52,8 @@ function createWindow() {
     }));
 
     reasonWindow = new BrowserWindow({
-        width: 1000,
-        height: 600,
+        width: 1100,
+        height: 700,
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
@@ -68,8 +68,8 @@ function createWindow() {
     }));
 
     helpWindow = new BrowserWindow({
-        width: 1000,
-        height: 600,
+        width: 1100,
+        height: 700,
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
@@ -87,8 +87,8 @@ function createWindow() {
 
 
     evaluationWindow = new BrowserWindow({
-        width: 1000,
-        height: 600,
+        width: 1100,
+        height: 700,
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
@@ -105,8 +105,8 @@ function createWindow() {
 
 
     successWindow = new BrowserWindow({
-        width: 1000,
-        height: 600,
+        width: 1100,
+        height: 700,
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
@@ -122,8 +122,8 @@ function createWindow() {
     }));
 
     statisticWindow = new BrowserWindow({
-        width: 1000,
-        height: 600,
+        width: 1100,
+        height: 700,
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
@@ -139,8 +139,8 @@ function createWindow() {
     }));
 
     recordWindow = new BrowserWindow({
-        width: 1000,
-        height: 600,
+        width: 1100,
+        height: 700,
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
@@ -192,6 +192,7 @@ ipcMain.on('clicked_contact', (event, arg) => {
 ipcMain.on('clicked_stat', (event, arg) => {
     if (arg === 'ping') {
         statisticWindow.show();
+        mainWindow.hide();
         console.log('Tilastot-nappi');
     }
 });
@@ -199,7 +200,7 @@ ipcMain.on('clicked_stat', (event, arg) => {
 ipcMain.on('clicked_rec', (event, arg) => {
     if (arg === 'ping') {
         recordWindow.show();
-        console.log('Tilastot-nappi');
+        mainWindow.hide();
     }
 });
 
