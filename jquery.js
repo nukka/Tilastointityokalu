@@ -827,7 +827,6 @@ $(document).ready(function () {
             $('.in_total').append('<span>Kirjauksia yhteensä: </span>' + (array.length - 1) + '<span> kpl</span>');
         }
 
-
         if (isEmptyArray(ages.length) === false) {
 
             $('.age').append('<h3>Ikä</h3>');
