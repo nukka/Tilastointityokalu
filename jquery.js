@@ -276,8 +276,10 @@ $(document).ready(function () {
         let evaluation_a = $("input[name='evaluation_a']:checked").val();
         let evaluation_y = $("input[name='evaluation_y']:checked").val();
         let text = $('textarea#textarea_e').val().replace(/(\r\n|\n|\r)/gm, ' ');
+        let textName = $('textarea#textarea_name').val().replace(/(\r\n|\n|\r)/gm, ' ');
 
-        if (evaluation_a === undefined && evaluation_y === undefined && text.length === 0) {
+
+        if (evaluation_a === undefined && evaluation_y === undefined && text.length === 0 && textName.length === 0) {
             console.log("Tietoja ei tallennettu");
 
         } else {
@@ -295,6 +297,11 @@ $(document).ready(function () {
             if (text.length !== 0) {
 
                 inputValues.push('Teksti:' + text);
+            }
+
+            if (textName.length !== 0) {
+
+                inputValues.push('Nimikirjaimet:' + textName);
             }
         }
 
@@ -359,6 +366,7 @@ $(document).ready(function () {
         let evas_y = [];
         let evas_a = [];
         let text = [];
+        let textName = [];
 
         let unique_ages = 0;
         let unique_helps = 0;
@@ -394,6 +402,7 @@ $(document).ready(function () {
         let tempEa = [];
         let tempText = [];
         let tempNoContact = [];
+        let tempTextName = [];
 
 
         $.each(array, function (index) {
@@ -575,6 +584,12 @@ $(document).ready(function () {
                                 tempText.push(' ' + string[1]);
                             }
 
+                            if (string[0] === 'Nimikirjaimet') {
+                                textName.push(string[1]);
+                                tempTextName.push(' ' + string[1]);
+
+                            }
+
 
                         }
 
@@ -605,8 +620,6 @@ $(document).ready(function () {
             arrayToLowerCase(tempRow2);
             arrayToLowerCase(tempCont);
 
-            //console.log(tempText);
-
 
             showInfo(tempAge, 'Ikä: ');
             showInfo(tempHelp, 'Tarvitsen apua: ');
@@ -624,6 +637,7 @@ $(document).ready(function () {
             showInfo(tempEy, 'Yhteydenottajan arvio: ');
             showInfo(tempEa, 'Asiantuntijan arvio: ');
             showInfo(tempText, 'Muuta huomioitavaa: ');
+            showInfo(tempTextName, 'Kirjaajan nimikirjaimet: ');
 
 
             if ((array.length - 2) > index) {
@@ -647,6 +661,7 @@ $(document).ready(function () {
             tempEy.length = 0;
             tempEa.length = 0;
             tempText.length = 0;
+            tempTextName.length = 0;
             tempNoContact.length = 0;
 
 
